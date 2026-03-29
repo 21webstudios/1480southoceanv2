@@ -206,8 +206,9 @@ a{color:inherit;text-decoration:none}
 /* Date search active state */
 .sf.active-date .sf-val{color:#222;font-weight:600}
 .date-search-active{background:rgba(29,158,117,0.08);border-color:#1D9E75 !important}
-.clear-dates{font-size:11px;color:#1D9E75;cursor:pointer;text-decoration:underline;margin-top:4px;display:none;text-align:center}
-.clear-dates.show{display:block}
+.clear-dates{font-size:13px;font-weight:500;padding:7px 18px;border-radius:24px;background:#fff;border:1px solid #222;color:#222;cursor:pointer;display:none;margin-top:8px;transition:all 0.15s}
+.clear-dates:hover{background:#f7f7f7}
+.clear-dates.show{display:inline-block}
 </style>
 </head>
 <body>
@@ -425,10 +426,11 @@ function loadUnitPhotos(u){
 }
 
 function loadHeroPhotos(){
-  // Load Hero-1, Hero-2 etc. one at a time, stop at first missing
+  // Load Hero-1 through Hero-9 only, one at a time, stop at first missing
   return new Promise(resolve => {
     const found = [];
     function tryNext(i){
+      if(i > 9){ resolve(found); return; }
       const src = 'images/Hero-' + i + '.jpg';
       const img = new Image();
       img.onload = () => { found.push(src); tryNext(i+1); };
@@ -445,11 +447,7 @@ function platBadge(p){
   if(p==='both')   return '<div class="pbadge bb">Airbnb · VRBO</div>';
   return '<div class="pbadge db">Direct</div>';
 }
-function bookLabel(p){
-  if(p==='direct') return 'Book direct';
-  if(p==='both')   return 'Book on Airbnb or VRBO';
-  return 'Book on '+(p==='airbnb'?'Airbnb':'VRBO');
-}
+function bookLabel(p){ return ''; }
 
 function cardHTML(u, idx){
   return `<div class="card${u.feat?' feat':''}" onclick="showDetail(${idx})">
@@ -592,8 +590,12 @@ function showDetail(idx){
         <div class="bsidebar">
           <div class="bcard">
             <div class="bc-lbl">How would you like to book?</div>
-            <button class="btn-direct" onclick="openModal()">✉️ &nbsp;Send a direct inquiry</button>
-            <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to the owner</div>
+            ${(u.n===215||u.n===304) ?
+              `<button class="btn-direct" style="background:#aaa;cursor:not-allowed;opacity:0.6" disabled>✉️ &nbsp;Send a direct inquiry</button>
+              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">This owner prefers bookings through VRBO — see link below</div>` :
+              `<button class="btn-direct" onclick="openModal()">✉️ &nbsp;Send a direct inquiry</button>
+              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to the owner</div>`
+            }
             <hr class="bdiv"/>
             <div class="bc-lbl">Or book through a platform:</div>
             ${platBtns || '<p style="font-size:12px;color:#717171">Contact owner directly for booking links.</p>'}
@@ -625,9 +627,14 @@ function showHome(){
 
 function openModal(){
   if(!curUnit) return;
-  document.getElementById('m-title').textContent = 'Inquire about Unit '+curUnit.n;
-  document.getElementById('m-sub').textContent = curUnit.title+' · Floor '+curUnit.fl+' · Hosted by '+curUnit.owner;
-  document.getElementById('m-enote').textContent = 'Goes directly to the owner at '+curUnit.em;
+  const u = curUnit;
+  const badges = [
+    u.feat ? '⭐ Featured' : '',
+    u.of   ? '🌊 Oceanfront' : ''
+  ].filter(Boolean).join(' · ');
+  document.getElementById('m-title').textContent = 'Inquire about Unit '+u.n;
+  document.getElementById('m-sub').textContent = u.title + (badges ? ' · ' + badges : '') + ' · Floor '+u.fl;
+  document.getElementById('m-enote').textContent = 'Your inquiry goes directly to the owner.';
   document.getElementById('m-form').style.display='block';
   document.getElementById('m-success').style.display='none';
   document.getElementById('modal').classList.add('open');
@@ -810,6 +817,7 @@ function renderCalendar(wrap, blocked, year, month){
   const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
   const today = new Date(); today.setHours(0,0,0,0);
+  const maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + 364);
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month+1, 0).getDate();
 
@@ -829,6 +837,8 @@ function renderCalendar(wrap, blocked, year, month){
     let cls = 'cal-day';
     if(date < today){
       cls += ' past';
+    } else if(date > maxDate){
+      cls += ' unavailable';
     } else if(blocked && blocked.has(dateStr)){
       cls += ' unavailable';
     } else {
@@ -884,6 +894,8 @@ async function handleDateSearch(){
   const start = new Date(ci+'T00:00:00');
   const end   = new Date(co+'T00:00:00');
   if(end <= start){ alert('Check-out must be after check-in.'); return; }
+  const maxSearchDate = new Date(); maxSearchDate.setDate(maxSearchDate.getDate() + 364);
+  if(start > maxSearchDate){ alert('Dates must be within one year from today.'); return; }
 
   // Build list of dates in range
   const dates = [];
