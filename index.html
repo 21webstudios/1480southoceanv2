@@ -582,7 +582,7 @@ function showDetail(idx){
             `<p>Send a direct inquiry for the best rates and availability with no platform fees.</p>`
           }</div>
           <div class="dsec"><h3>Availability</h3><div id="unit-calendar-wrap">${
-            (u.n===319 || u.n===322) ?
+            (u.n===215 || u.n===304 || u.n===319 || u.n===322) ?
             '<div class="cal-loading">Loading calendar...</div>' :
             '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will sync from Airbnb &amp; VRBO once activated</div>'
           }</div></div>
@@ -615,7 +615,7 @@ function showDetail(idx){
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
     // Load calendar for units that have iCal feeds
-    if(u.n===319 || u.n===322) loadUnitCalendar(u.n);
+    if(u.n===215 || u.n===304 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
   });
 }
 
@@ -766,6 +766,8 @@ function submitListForm(){
 
 // ── iCal URLs for units with live calendars ──
 const ICAL_URLS = {
+  215: 'http://www.vrbo.com/icalendar/f407fa5899b442148ee005c9235402e4.ics?nonTentative',
+  304: 'http://www.vrbo.com/icalendar/eb3ba5720b95479c91f3dbe22d849f54.ics?nonTentative',
   319: 'https://www.airbnb.com/calendar/ical/1489304305482963659.ics?t=3ea7ebbda60c4f2398f0bd97efa666c0&locale=en',
   322: 'https://www.airbnb.com/calendar/ical/592176990035326624.ics?t=7164eba6576e433abcfc8699d30442e3&locale=en'
 };
