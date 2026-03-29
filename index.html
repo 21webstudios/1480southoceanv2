@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI2ZmZmZmZiIvPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiMxYTUyNzYiIG9wYWNpdHk9IjAuMDgiLz4KICA8dGV4dCB4PSIxNiIgeT0iMjMiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIKICAgIGZvbnQtc2l6ZT0iMTQiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZm9udC13ZWlnaHQ9IjcwMCIKICAgIGZpbGw9IiMxYTUyNzYiPjE0ODA8L3RleHQ+CiAgPGxpbmUgeDE9IjQiIHkxPSIyNiIgeDI9IjI4IiB5Mj0iMjYiIHN0cm9rZT0iIzFEOUU3NSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4="/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>1480SouthOcean.com</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#fff;color:#222;font-size:14px;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.hdr{background:#fff;border-bottom:1px solid #ebebeb;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:92px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:0;cursor:pointer;flex-wrap:wrap;justify-content:center}
+.logo-name{font-size:20px;font-weight:700;color:#222;line-height:1}
+.logo-sep{color:#ddd;margin:0 10px;font-weight:300;font-size:18px}
+.logo-tagline{font-size:14px;font-weight:400;color:#717171;line-height:1}
+.logo-loc{font-size:13px;font-weight:300;color:#aaa;line-height:1}
+
+.search-wrap{display:flex;justify-content:center;padding:18px 24px 0}
+.search-pill{display:flex;align-items:center;border:1px solid #ddd;border-radius:40px;box-shadow:0 2px 8px rgba(0,0,0,0.08);max-width:680px;width:100%;background:#fff}
+.sf{flex:1;padding:14px 20px;display:flex;flex-direction:column;gap:1px;border-radius:40px;cursor:pointer;min-width:0}
+.sf:hover{background:#f7f7f7}
+.sf-label{font-size:11px;font-weight:700;color:#222}
+.sf-val{font-size:13px;color:#717171;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sdiv{width:1px;height:28px;background:#ddd;flex-shrink:0}
+.sbtn{margin:8px;flex-shrink:0;width:48px;height:48px;background:#1D9E75;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sbtn svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:2.5;stroke-linecap:round}
+
+.filters-wrap{display:flex;align-items:center;justify-content:center;padding:14px 24px;border-bottom:1px solid #ebebeb;gap:16px;flex-wrap:wrap}
+.chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.chip{font-size:13px;font-weight:500;padding:7px 18px;border:1px solid #ddd;border-radius:24px;color:#484848;background:#fff;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.chip:hover{border-color:#484848}
+.chip.on{background:#222;color:#fff;border-color:#222}
+.rcount{font-size:13px;color:#717171;font-weight:500;white-space:nowrap}
+
+.grid-wrap{padding:24px}
+.feat-label{font-size:11px;font-weight:700;letter-spacing:0.06em;color:#9a6f00;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.feat-label::after{content:'';flex:1;height:1px;background:#f0e0b0}
+.rest-label{font-size:11px;font-weight:700;letter-spacing:0.06em;color:#999;text-transform:uppercase;margin:24px 0 14px;display:flex;align-items:center;gap:8px}
+.rest-label::after{content:'';flex:1;height:1px;background:#eee}
+.grid{display:flex;flex-wrap:wrap;gap:24px 20px;justify-content:center}.grid .card{width:280px;flex:0 0 280px}
+
+.card{border-radius:14px;overflow:hidden;background:#fff;cursor:pointer;transition:transform 0.18s,box-shadow 0.18s;border:0.5px solid #e8e8e8;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.12)}
+.card.feat{border:2px solid #c9951a}
+.card-img{aspect-ratio:4/3;position:relative;display:flex;align-items:center;justify-content:center;font-size:56px;overflow:hidden}
+.card-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pbadge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;z-index:2}
+.ab{background:rgba(255,90,95,0.92);color:#fff}
+.vb{background:rgba(21,101,192,0.92);color:#fff}
+.bb{background:rgba(20,20,20,0.85);color:#fff}
+.db{background:rgba(255,255,255,0.92);color:#333;border:1px solid rgba(0,0,0,0.15)}
+.fbadge{position:absolute;top:36px;left:10px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:rgba(255,255,255,0.95);color:#9a6f00;border:1px solid rgba(201,149,26,0.5);z-index:2}
+.ofbadge{position:absolute;bottom:10px;left:10px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:rgba(29,158,117,0.88);color:#fff;z-index:2}
+.hrt{position:absolute;top:10px;right:10px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.4));background:none;border:none;cursor:pointer;z-index:2}
+.hrt svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2}
+.hrt.s svg{fill:#FF5A5F;stroke:#FF5A5F}
+.cbody{padding:12px 4px 6px}
+.cunit{font-size:11px;color:#717171;font-weight:500}
+.ctitle{font-size:14px;font-weight:600;color:#222;line-height:1.3;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cdesc{font-size:12px;color:#717171;line-height:1.4;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cfoot{margin-top:8px;font-size:12px;font-weight:500;color:#222;text-decoration:underline;text-underline-offset:2px}
+
+.no-results{text-align:center;padding:60px 24px;color:#717171;font-size:15px;display:none}
+
+.about-sec{background:#f7f7f7;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb;padding:48px 24px}
+.about-inner{max-width:680px;margin:0 auto;text-align:center}
+.about-inner h2{font-size:22px;font-weight:700;margin-bottom:14px}
+.about-inner p{font-size:15px;color:#484848;line-height:1.7;margin-bottom:10px}
+.sponsor-sec{padding:36px 24px;border-bottom:1px solid #ebebeb}
+.sp-label{font-size:11px;font-weight:700;letter-spacing:0.07em;color:#717171;text-align:center;margin-bottom:18px;text-transform:uppercase}
+.sp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:860px;margin:0 auto}
+.sp-tile{border:1px solid #ddd;border-radius:12px;padding:18px 12px;text-align:center;transition:box-shadow 0.15s,transform 0.15s;cursor:pointer}
+.sp-tile:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08);transform:translateY(-1px)}
+.sp-icon{font-size:26px;margin-bottom:6px}
+.sp-name{font-size:12px;font-weight:600;color:#222;margin-bottom:2px}
+.sp-cat{font-size:11px;color:#717171}
+.ftr{background:#f7f7f7;border-top:1px solid #ebebeb;padding:28px 24px;text-align:center}
+.ftr-logo{font-size:14px;font-weight:700;margin-bottom:8px}
+.ftr-logo span{color:#1D9E75}
+.ftr-links{display:flex;gap:24px;justify-content:center;margin-bottom:8px}
+.ftr-links button{font-size:13px;color:#484848;background:none;border:none;cursor:pointer}
+.ftr-links button:hover{text-decoration:underline}
+.ftr-note{font-size:11px;color:#bbb;max-width:420px;margin:0 auto;line-height:1.6}
+
+/* Detail page */
+.detail{display:none}
+.bcrumb{padding:13px 24px;font-size:12px;color:#717171;border-bottom:1px solid #ebebeb;display:flex;align-items:center;gap:5px}
+.bcrumb span{color:#1D9E75;cursor:pointer;font-weight:500}
+.bcrumb span:hover{text-decoration:underline}
+.dhdr{padding:22px 24px 14px;max-width:1100px;margin:0 auto}
+.dtitle{font-size:24px;font-weight:700;color:#222;line-height:1.25;margin-bottom:6px}
+.dsub{font-size:13px;color:#717171;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pgrid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:4px;max-width:1100px;margin:0 auto;padding:0 24px}
+.pc{overflow:hidden;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:48px;cursor:pointer;position:relative}
+.pc:first-child{grid-row:1/3;border-radius:14px 0 0 14px}
+.pc:nth-child(2){border-radius:0 14px 0 0}
+.pc:nth-child(3){}
+.pc:nth-child(4){}
+.pc:last-child{border-radius:0 0 14px 0}
+.pc img{width:100%;height:100%;object-fit:cover}
+.see-all-btn{position:absolute;bottom:12px;right:12px;background:rgba(255,255,255,0.95);border:1px solid #ddd;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:600;color:#222;cursor:pointer;z-index:2}
+.see-all-btn:hover{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.12)}
+.dlayout{display:grid;grid-template-columns:1fr 360px;gap:56px;padding:28px 24px 60px;max-width:1100px;margin:0 auto;align-items:start;min-height:600px}
+.dmeta{display:flex;gap:20px;flex-wrap:wrap;padding:16px 0;border-bottom:1px solid #ebebeb}
+.dmi{display:flex;align-items:center;gap:6px;font-size:13px;color:#484848}
+.dmi-i{font-size:16px}
+.dsec{padding:20px 0;border-bottom:1px solid #ebebeb}
+.dsec:last-child{border-bottom:none}
+.dsec h3{font-size:17px;font-weight:700;color:#222;margin-bottom:10px}
+.dsec p{font-size:14px;color:#484848;line-height:1.7}
+.calph{margin-top:14px;background:#f7f7f7;border:1px solid #ebebeb;border-radius:10px;padding:28px;text-align:center;font-size:13px;color:#717171}
+.bcard{border:1px solid #ddd;border-radius:14px;padding:22px;box-shadow:0 2px 16px rgba(0,0,0,0.08)}.bsidebar{position:sticky;top:90px;align-self:start}
+.bc-lbl{font-size:12px;color:#717171;font-weight:500;margin-bottom:10px;text-align:center}
+.btn-direct{display:block;width:100%;padding:14px;background:#1D9E75;color:#fff;font-size:15px;font-weight:600;border-radius:10px;text-align:center;border:none;cursor:pointer;margin-bottom:8px;transition:background 0.15s}
+.btn-direct:hover{background:#085041}
+.btn-plat{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:12px;background:#fff;color:#222;font-size:13px;font-weight:500;border:1px solid #ddd;border-radius:10px;margin-bottom:7px;cursor:pointer;transition:background 0.15s}
+.btn-plat:hover{background:#f7f7f7}
+.dot-ab{width:9px;height:9px;border-radius:50%;background:#FF5A5F;display:inline-block;flex-shrink:0}
+.dot-vb{width:9px;height:9px;border-radius:50%;background:#1565C0;display:inline-block;flex-shrink:0}
+.bdiv{border:none;border-top:1px solid #ebebeb;margin:14px 0}
+.bnote{font-size:11px;color:#717171;line-height:1.6;text-align:center}
+.tip{margin-top:14px;background:#E1F5EE;border-radius:10px;padding:14px 16px;font-size:13px;color:#085041;text-align:center}
+.tip strong{font-weight:700}
+.tip a{color:#1D9E75;font-weight:600;cursor:pointer;text-decoration:underline}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:24px}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:30px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;position:relative}
+.mc-close{position:absolute;top:14px;right:16px;font-size:22px;color:#717171;background:none;border:none;cursor:pointer;line-height:1}
+.mc-close:hover{color:#222}
+.modal-box h3{font-size:18px;font-weight:700;margin-bottom:3px}
+.modal-sub{font-size:12px;color:#717171;margin-bottom:18px}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:11px;font-weight:600;margin-bottom:4px}
+.fg input,.fg textarea{width:100%;padding:10px 13px;border:1px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit;color:#222;background:#fff}
+.fg input:focus,.fg textarea:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,0.12)}
+.fg textarea{resize:vertical;min-height:90px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-send{width:100%;padding:13px;background:#1D9E75;color:#fff;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;margin-top:6px}
+.btn-send:hover{background:#085041}
+.form-success{display:none;text-align:center;padding:24px 0}
+.form-success .ck{font-size:44px;margin-bottom:10px}
+.form-success p{font-size:15px;font-weight:700;color:#1D9E75}
+.form-success small{font-size:12px;color:#717171}
+
+@media(max-width:900px){.dlayout{grid-template-columns:1fr;gap:28px}.pgrid{grid-template-rows:180px 180px}.logo-loc{display:none}.logo-tagline{display:none}}
+@media(max-width:640px){.hdr{padding:0 16px;height:56px;flex-direction:column;justify-content:center;gap:2px}.search-wrap{padding:12px 16px 0}.filters-wrap{padding:10px 16px}.grid-wrap{padding:16px}.grid{gap:18px 14px}.sp-grid{grid-template-columns:repeat(2,1fr)}.pgrid{grid-template-columns:1fr;grid-template-rows:220px 110px 110px;padding:0 16px}.pc:first-child{grid-row:1;border-radius:14px 14px 0 0}.pc:nth-child(n+4){display:none}.dlayout{padding:16px 16px 40px}.dhdr{padding:16px 16px 10px}.dtitle{font-size:18px}}
+
+.hero{position:relative;width:100%;height:380px;overflow:hidden;background:#111}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;background-size:cover;background-position:center}
+.hero-slide.active{opacity:1}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.5) 60%,rgba(0,0,0,0.72) 100%);z-index:2}
+.hero-controls{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:0 0 28px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.search-wrap-inner{width:100%;max-width:680px;padding:0 24px}
+.search-wrap-inner .search-pill{background:rgba(255,255,255,0.97);box-shadow:0 4px 24px rgba(0,0,0,0.25)}
+.chips-overlay{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;padding:0 24px}
+.chips-overlay .chip{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.55);color:#fff;backdrop-filter:blur(6px)}
+.chips-overlay .chip:hover{background:rgba(255,255,255,0.3)}
+.chips-overlay .chip.on{background:rgba(255,255,255,0.95);color:#222;border-color:transparent}
+.chip-count{font-size:13px;font-weight:500;padding:7px 18px;border-radius:24px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.35);color:rgba(255,255,255,0.9);white-space:nowrap;backdrop-filter:blur(6px);cursor:default}
+@media(max-width:640px){.hero{height:240px}.search-wrap-inner{padding:0 12px}.chips-overlay{padding:0 12px;gap:5px}.chips-overlay .chip{font-size:11px;padding:5px 11px}}
+
+.lb{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;flex-direction:column}
+.lb.open{display:flex}
+.lb-img{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:4px}
+.lb-close{position:absolute;top:16px;right:20px;color:white;font-size:36px;cursor:pointer;line-height:1;opacity:0.8;background:none;border:none}
+.lb-close:hover{opacity:1}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);color:white;font-size:48px;cursor:pointer;padding:16px;opacity:0.7;user-select:none;background:none;border:none;line-height:1}
+.lb-prev:hover,.lb-next:hover{opacity:1}
+.lb-prev{left:8px}
+.lb-next{right:8px}
+.lb-counter{color:rgba(255,255,255,0.7);font-size:13px;margin-top:12px;letter-spacing:0.04em}
+.pc{cursor:pointer}
+
+.btn-list{background:none;border:1.5px solid #1D9E75;color:#1D9E75;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:background 0.15s,color 0.15s}
+.btn-list:hover{background:#1D9E75;color:#fff}
+.hdr-right{position:absolute;right:24px;display:flex;align-items:center}
+.ftr-list-link{color:#1D9E75;font-weight:500;cursor:pointer;text-decoration:underline;font-size:13px}
+</style>
+</head>
+<body>
+
+<div id="app">
+<header class="hdr">
+  <svg width="200" height="92" viewBox="0 0 280 110" style="cursor:pointer;flex-shrink:0;display:block;overflow:visible" onclick="showHome()">
+      <text x="140" y="48" text-anchor="middle"
+        font-family="Georgia,'Times New Roman',serif"
+        font-size="54" font-style="italic" font-weight="400"
+        fill="#1a5276" letter-spacing="2">1480</text>
+      <path d="M 30 63 C 55 53, 80 73, 105 63 C 130 53, 155 73, 180 63 C 205 53, 230 73, 255 63"
+        stroke="#1a6b7a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M 30 74 C 55 64, 80 84, 105 74 C 130 64, 155 84, 180 74 C 205 64, 230 84, 255 74"
+        stroke="#1D9E75" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M 30 84 C 55 76, 80 92, 105 84 C 130 76, 155 92, 180 84 C 205 76, 230 92, 255 84"
+        stroke="#5bbfcf" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="140" y="103" text-anchor="middle"
+        font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif"
+        font-size="10" font-weight="400" fill="#1a6b7a" letter-spacing="4">SOUTH OCEAN.COM</text>
+    </svg>
+  <div class="logo" onclick="showHome()">
+    <span class="logo-tagline">1480 South Ocean Blvd</span>
+    <span class="logo-sep">|</span>
+    <span class="logo-loc">Lauderdale-by-the-Sea, FL</span>
+  </div>
+  <div style="width:200px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end">
+    <button class="btn-list" onclick="openListModal()">List your unit</button>
+  </div>
+</header>
+
+<!-- HOME -->
+<div id="home">
+  <div class="hero" id="hero">
+    <div id="hero-slides"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-controls">
+      <div class="search-wrap-inner">
+        <div class="search-pill">
+          <div class="sf"><span class="sf-label">Location</span><span class="sf-val">Lauderdale-by-the-Sea, FL</span></div>
+          <div class="sdiv"></div>
+          <div class="sf"><span class="sf-label">Check-in</span><span class="sf-val">Add date</span></div>
+          <div class="sdiv"></div>
+          <div class="sf"><span class="sf-label">Check-out</span><span class="sf-val">Add date</span></div>
+          <button class="sbtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        </div>
+      </div>
+      <div class="chips-overlay">
+        <button class="chip on" onclick="flt(this,'all')">All units</button>
+        <button class="chip" onclick="flt(this,'featured')">&#11088; Featured</button>
+        <button class="chip" onclick="flt(this,'oceanfront')">&#127754; Oceanfront</button>
+        <button class="chip" onclick="flt(this,'4')">Floor 4</button>
+        <button class="chip" onclick="flt(this,'3')">Floor 3</button>
+        <button class="chip" onclick="flt(this,'2')">Floor 2</button>
+        <button class="chip" onclick="flt(this,'1')">Floor 1</button>
+        <span class="chip-count" id="rcount">26 units</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-wrap" style="display:none">
+    <div class="search-pill">
+      <div class="sf"><span class="sf-label">Location</span><span class="sf-val">Lauderdale-by-the-Sea, FL</span></div>
+      <div class="sdiv"></div>
+      <div class="sf"><span class="sf-label">Check-in</span><span class="sf-val">Add date</span></div>
+      <div class="sdiv"></div>
+      <div class="sf"><span class="sf-label">Check-out</span><span class="sf-val">Add date</span></div>
+      <button class="sbtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    </div>
+  </div>
+
+  <div class="filters-wrap" style="display:none">
+    <div class="chips">
+      <button class="chip on" onclick="flt(this,'all')">All units</button>
+      <button class="chip" onclick="flt(this,'featured')">⭐ Featured</button>
+      <button class="chip" onclick="flt(this,'oceanfront')">🌊 Oceanfront</button>
+      <button class="chip" onclick="flt(this,'4')">Floor 4</button>
+      <button class="chip" onclick="flt(this,'3')">Floor 3</button>
+      <button class="chip" onclick="flt(this,'2')">Floor 2</button>
+      <button class="chip" onclick="flt(this,'1')">Floor 1</button>
+    </div>
+  </div>
+
+  <div class="grid-wrap">
+    <div class="feat-label">⭐ Featured units</div>
+    <div class="grid" id="feat-grid"></div>
+    <div class="rest-label" id="rest-label">All units</div>
+    <div class="grid" id="rest-grid"></div>
+    <div class="no-results" id="no-results">No units match that filter.</div>
+  </div>
+
+  <div class="about-sec" id="about">
+    <div class="about-inner">
+      <h2>One building. Dozens of escapes.</h2>
+      <p>1480 South Ocean sits directly on the sand in Lauderdale-by-the-Sea — one of South Florida's most beloved small beach towns. Each unit is independently owned and uniquely decorated, but they all share the same thing: steps to the Atlantic, a sparkling pool, and a pace that keeps guests coming back year after year.</p>
+      <p>Can't get your full stay in one unit? Browse the calendar on each listing and piece together two or three units for your whole trip. Many of our guests do exactly that.</p>
+    </div>
+  </div>
+
+  <div class="sponsor-sec" id="sponsors">
+    <div class="sp-label">Local favorites in Lauderdale-by-the-Sea</div>
+    <div class="sp-grid">
+      <div class="sp-tile"><div class="sp-icon">🏠</div><div class="sp-name">Your Realtor Here</div><div class="sp-cat">Real Estate</div></div>
+      <div class="sp-tile"><div class="sp-icon">🍕</div><div class="sp-name">Your Restaurant Here</div><div class="sp-cat">Dining</div></div>
+      <div class="sp-tile"><div class="sp-icon">🍹</div><div class="sp-name">Your Bar Here</div><div class="sp-cat">Nightlife</div></div>
+      <div class="sp-tile"><div class="sp-icon">🚗</div><div class="sp-name">Car Service Here</div><div class="sp-cat">Transportation</div></div>
+    </div>
+  </div>
+
+  <footer class="ftr">
+    <div class="ftr-logo"><a href="#" onclick="showHome();return false;" style="color:inherit;text-decoration:underline;text-underline-offset:2px">1480SouthOcean.com</a> · Lauderdale-by-the-Sea, FL 33062</div>
+    <div class="ftr-note">Each unit at 1480 South Ocean is independently owned and managed. Unit owners are solely responsible for their listings, pricing, availability, and bookings. 1480SouthOcean.com and 21WebStudios are not responsible for any information, double bookings, cancellations, or booking errors of any kind. This site is not affiliated with International Studio Apartment Association, Inc., AirBnB or VRBO.</div>
+    <div class="ftr-note" style="margin-top:8px">Site designed and built by <a href="https://www.21WebStudios.com" target="_blank" rel="noopener" style="color:var(--teal,#1D9E75);font-weight:500">21WebStudios.com</a></div>
+  </footer>
+</div>
+
+<!-- DETAIL -->
+<div id="detail" class="detail"></div>
+
+<div class="lb" id="lb" onclick="if(event.target===this)closeLB()">
+  <button class="lb-close" onclick="closeLB()">×</button>
+  <button class="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <img class="lb-img" id="lb-img" src="" alt=""/>
+  <button class="lb-next" onclick="lbNav(1)">&#8250;</button>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+</div>
+
+
+<!-- LIST YOUR UNIT MODAL -->
+<div class="modal-overlay" id="list-modal" onclick="if(event.target===this)closeListModal()">
+  <div class="modal-box">
+    <button class="mc-close" onclick="closeListModal()">×</button>
+    <h3>List your unit</h3>
+    <p class="modal-sub">Join 1480SouthOcean.com — reach guests directly, no platform fees</p>
+    <div id="list-form">
+      <div class="frow">
+        <div class="fg"><label>First name</label><input type="text" id="lf-first" placeholder="Jane"/></div>
+        <div class="fg"><label>Last name</label><input type="text" id="lf-last" placeholder="Smith"/></div>
+      </div>
+      <div class="fg"><label>Email</label><input type="email" id="lf-email" placeholder="jane@email.com"/></div>
+      <div class="fg"><label>Phone</label><input type="tel" id="lf-phone" placeholder="(555) 000-0000"/></div>
+      <div class="fg"><label>Unit number</label><input type="text" id="lf-unit" placeholder="e.g. 215"/></div>
+      <div class="fg"><label>Message (optional)</label><textarea id="lf-msg" placeholder="Tell us about your unit..."></textarea></div>
+      <button class="btn-send" onclick="submitListForm()">Send inquiry</button>
+      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Goes directly to info@21webstudios.com</p>
+    </div>
+    <div class="form-success" id="list-success">
+      <div class="ck">✅</div>
+      <p>Inquiry sent!</p>
+      <small>We'll be in touch soon about listing your unit.</small>
+    </div>
+  </div>
+</div>
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="mc-close" onclick="closeModal()">×</button>
+    <h3 id="m-title"></h3>
+    <p class="modal-sub" id="m-sub"></p>
+    <div id="m-form">
+      <div class="frow">
+        <div class="fg"><label>First name</label><input type="text" id="m-first" placeholder="Jane"/></div>
+        <div class="fg"><label>Last name</label><input type="text" placeholder="Smith"/></div>
+      </div>
+      <div class="fg"><label>Email</label><input type="email" id="m-email" placeholder="jane@email.com"/></div>
+      <div class="fg"><label>Phone (optional)</label><input type="tel" placeholder="(555) 000-0000"/></div>
+      <div class="frow">
+        <div class="fg"><label>Check-in</label><input type="date"/></div>
+        <div class="fg"><label>Check-out</label><input type="date"/></div>
+      </div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell the owner about your stay — any questions, etc."></textarea></div>
+      <button class="btn-send" onclick="sendInq()">Send inquiry</button>
+      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px" id="m-enote"></p>
+    </div>
+    <div class="form-success" id="m-success">
+      <div class="ck">✅</div>
+      <p>Inquiry sent!</p>
+      <small>The owner will be in touch soon — no middleman.</small>
+    </div>
+  </div>
+</div>
+
+<script>
+// Unit data — sorted: featured first (415·322·319·304·215), then remaining high floor to low
+let UNITS = [];
+let curUnit = null;
+
+function platBadge(p){
+  if(p==='airbnb') return '<div class="pbadge ab">Airbnb</div>';
+  if(p==='vrbo')   return '<div class="pbadge vb">VRBO</div>';
+  if(p==='both')   return '<div class="pbadge bb">Airbnb · VRBO</div>';
+  return '<div class="pbadge db">Direct</div>';
+}
+function bookLabel(p){
+  if(p==='direct') return 'Book direct';
+  if(p==='both')   return 'Book on Airbnb or VRBO';
+  return 'Book on '+(p==='airbnb'?'Airbnb':'VRBO');
+}
+
+function cardHTML(u, idx){
+  return `<div class="card${u.feat?' feat':''}" onclick="showDetail(${idx})">
+    <div class="card-img" style="background:${u.bg}">
+      ${u.photos && u.photos[0] ? `<img src="images/${u.photos[0]}" alt="Unit ${u.n}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>` : `<span style="font-size:56px">${u.icon}</span>`}
+      ${platBadge(u.plat)}
+      ${u.feat?'<div class="fbadge">&#11088; Featured</div>':''}
+      ${u.of?'<div class="ofbadge">&#127754; Oceanfront</div>':''}
+      <button class="hrt" onclick="ht(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+    </div>
+    <div class="cbody">
+      <div class="cunit">Unit ${u.n} · Floor ${u.fl}${u.of?' · Oceanfront':''}</div>
+      <div class="ctitle">${u.title}</div>
+      <div class="cdesc">${u.desc}</div>
+      <div class="cfoot">${bookLabel(u.plat)}</div>
+    </div>
+  </div>`;
+}
+
+function buildGrids(filter){
+  const FEATURED_NUMS = [215,304,319,322,415];
+
+  function matches(u){
+    if(filter==='all')        return true;
+    if(filter==='oceanfront') return u.of;
+    if(filter==='featured')   return u.feat;
+    if(['1','2','3','4'].includes(filter)) return u.fl===+filter;
+    return true;
+  }
+
+  // Featured section: featured units matching the current filter, low to high
+  const fVis = UNITS.filter(u => FEATURED_NUMS.includes(u.n) && matches(u))
+                    .sort((a,b) => a.n - b.n);
+
+  // All units section: ALL units matching filter, largest to smallest
+  const rVis = [...UNITS].filter(matches).sort((a,b) => b.n - a.n);
+
+  const fg = document.getElementById('feat-grid');
+  const rg = document.getElementById('rest-grid');
+  const rl = document.getElementById('rest-label');
+  const nr = document.getElementById('no-results');
+
+  fg.innerHTML = fVis.map(u => cardHTML(u, UNITS.indexOf(u))).join('');
+  rg.innerHTML = rVis.map(u => cardHTML(u, UNITS.indexOf(u))).join('');
+  restoreHearts();
+
+  fg.parentElement.querySelector('.feat-label').style.display = fVis.length ? '' : 'none';
+  rl.style.display = rVis.length ? '' : 'none';
+  rl.textContent = 'All units';
+
+  const total = rVis.length;
+  document.getElementById('rcount').textContent = total + ' unit' + (total!==1?'s':'');
+  nr.style.display = (fVis.length + rVis.length)===0 ? 'block' : 'none';
+}
+
+function flt(el, f){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  buildGrids(f);
+}
+
+function ht(e, el){
+  e.stopPropagation();
+  el.classList.toggle('s');
+  const card = el.closest('.card');
+  const unitEl = card ? card.querySelector('.cunit') : null;
+  const unitNum = unitEl ? unitEl.textContent.match(/\d+/)?.[0] : null;
+  if(!unitNum) return;
+  const saved = JSON.parse(localStorage.getItem('savedUnits')||'[]');
+  if(el.classList.contains('s')){
+    if(!saved.includes(unitNum)) saved.push(unitNum);
+  } else {
+    const i = saved.indexOf(unitNum);
+    if(i>-1) saved.splice(i,1);
+  }
+  localStorage.setItem('savedUnits', JSON.stringify(saved));
+}
+
+function restoreHearts(){
+  const saved = JSON.parse(localStorage.getItem('savedUnits')||'[]');
+  if(!saved.length) return;
+  document.querySelectorAll('.card').forEach(card => {
+    const unitEl = card.querySelector('.cunit');
+    const unitNum = unitEl ? unitEl.textContent.match(/\d+/)?.[0] : null;
+    if(unitNum && saved.includes(unitNum)){
+      const hrt = card.querySelector('.hrt');
+      if(hrt) hrt.classList.add('s');
+    }
+  });
+}
+
+function showDetail(idx){
+  curUnit = UNITS[idx];
+  const u = curUnit;
+  const platBtns = [
+    u.ab ? `<a class="btn-plat" href="${u.ab}" target="_blank" rel="noopener"><span class="dot-ab"></span>View on Airbnb</a>` : '',
+    u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener"><span class="dot-vb"></span>View on VRBO</a>` : '',
+    u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;">View extended stay listing</a>` : ''
+  ].filter(Boolean).join('');
+
+  document.getElementById('detail').innerHTML = `
+    <div class="bcrumb"><span onclick="showHome()">All units</span> › Unit ${u.n} · Floor ${u.fl}</div>
+    <div class="dhdr">
+      <div class="dtitle">${u.title}</div>
+      <div class="dsub">
+        <span>Unit ${u.n}</span><span>·</span><span>Floor ${u.fl}</span>
+        ${u.feat?'<span>·</span><span style="color:#9a6f00;font-weight:600">⭐ Featured</span>':''}
+        ${u.of?'<span>·</span><span style="color:#1D9E75;font-weight:600">🌊 Oceanfront</span>':''}
+        <span>·</span><span>1480 South Ocean Blvd, Lauderdale-by-the-Sea, FL</span>
+      </div>
+    </div>
+    <div class="pgrid" id="detail-pgrid">
+      ${(()=>{
+        const ph = u.photos || [];
+        const emojis = ['🏖️','🛏️','🍳','🌅','🌊'];
+        const bgs = [u.bg,'#e0f0ea','#f0f0f0','#fef6e4','#e8eaf6'];
+        let cells = '';
+        for(let i=0;i<5;i++){
+          const isLast = i===4;
+          const img = ph[i] ? `<img src="images/${ph[i]}" style="width:100%;height:100%;object-fit:cover"/>` : `<span style="font-size:48px">${i===0?u.icon:emojis[i]}</span>`;
+          const btn = isLast ? `<button class="see-all-btn" onclick="event.stopPropagation();lbOpen(0)">See all ${ph.length} photos</button>` : '';
+          cells += `<div class="pc" style="background:${bgs[i]}" onclick="lbOpen(${i})">${img}${btn}</div>`;
+        }
+        return cells;
+      })()}
+    </div>
+    ${u.mp?'<div style="margin:20px auto 0;max-width:1100px;padding:0 24px"><h3 style="font-size:17px;font-weight:700;color:#222;margin-bottom:6px">Virtual 3D tour</h3><p style="font-size:13px;color:#717171;margin-bottom:12px">Explore every corner of the unit before you book.</p><div style="width:100%;height:440px;border-radius:14px;overflow:hidden;border:1px solid #ebebeb"><iframe src="'+u.mp+'" allowfullscreen allow="xr-spatial-tracking" style="width:100%;height:100%;border:none"></iframe></div></div>':''}
+    <div class="dlayout">
+      <div>
+
+        <div class="dsec"><h3>About this unit</h3><p>${u.desc}</p></div>
+        <div class="dsec"><h3>Pricing</h3>${
+  u.n===319 ? `<table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr>
+      <td style="padding:8px 0;font-weight:600;color:#222;white-space:nowrap">Nov 15 – May 14</td>
+      <td style="padding:8px 12px;color:#222;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.04em">Winter Pricing</td>
+      <td style="padding:8px 0;text-align:right;font-size:17px;font-weight:700;color:#222;white-space:nowrap">$275<span style="font-size:12px;font-weight:400;color:#717171"> / night</span></td>
+    </tr>
+    <tr style="border-top:1px solid #ebebeb">
+      <td style="padding:8px 0;font-weight:600;color:#222;white-space:nowrap">May 15 – Nov 14</td>
+      <td style="padding:8px 12px;color:#717171;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.04em">Off Season</td>
+      <td style="padding:8px 0;text-align:right;font-size:17px;font-weight:700;color:#222;white-space:nowrap">$175<span style="font-size:12px;font-weight:400;color:#717171"> / night</span></td>
+    </tr>
+  </table>` :
+  u.n===322 ? `<table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr>
+      <td style="padding:8px 0;font-weight:600;color:#222;white-space:nowrap">Nov 15 – May 14</td>
+      <td style="padding:8px 12px;color:#222;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.04em">Winter Pricing</td>
+      <td style="padding:8px 0;text-align:right;font-size:17px;font-weight:700;color:#222;white-space:nowrap">$325<span style="font-size:12px;font-weight:400;color:#717171"> / night</span></td>
+    </tr>
+    <tr style="border-top:1px solid #ebebeb">
+      <td style="padding:8px 0;font-weight:600;color:#222;white-space:nowrap">May 15 – Nov 14</td>
+      <td style="padding:8px 12px;color:#717171;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.04em">Off Season</td>
+      <td style="padding:8px 0;text-align:right;font-size:17px;font-weight:700;color:#222;white-space:nowrap">$225<span style="font-size:12px;font-weight:400;color:#717171"> / night</span></td>
+    </tr>
+  </table>` :
+  `<p>Send a direct inquiry for the best rates and availability with no platform fees.</p>`
+}</div>
+        <div class="dsec"><h3>Availability</h3><p style="font-size:13px;color:#717171">Live calendar coming soon — will sync automatically from listing platforms once activated.</p><div class="calph">📅 Calendar will sync from Airbnb &amp; VRBO once activated</div></div>
+      </div>
+      <div class="bsidebar">
+        <div class="bcard">
+          <div class="bc-lbl">How would you like to book?</div>
+          <button class="btn-direct" onclick="openModal()">✉️ &nbsp;Send a direct inquiry</button>
+          <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to the owner</div>
+          <hr class="bdiv"/>
+          <div class="bc-lbl">Or book through a platform:</div>
+          ${platBtns || '<p style="font-size:12px;color:#717171">Contact owner directly for booking links.</p>'}
+          <hr class="bdiv"/>
+          <p class="bnote">Booking direct means no service fees and a direct relationship with the owner. Many guests book a year in advance — reach out early!</p>
+        </div>
+        <div class="tip"><strong>Can't get your full stay here?</strong><br/>Browse other units and piece your trip together across two or three condos.<br/><a onclick="showHome()">See all 26 units →</a></div>
+      </div>
+    </div>
+    <footer class="ftr">
+      <div class="ftr-logo"><a href="#" onclick="showHome();return false;" style="color:inherit;text-decoration:underline;text-underline-offset:2px">1480SouthOcean.com</a> · Lauderdale-by-the-Sea, FL 33062</div>
+      <div class="ftr-note">This unit is independently owned and managed. The owner is solely responsible for pricing, availability, and bookings. 1480SouthOcean.com and 21WebStudios are not responsible for any information, double bookings, cancellations, or booking errors of any kind. This site is not affiliated with International Studio Apartment Association, Inc., AirBnB or VRBO.</div>
+      <div class="ftr-note" style="margin-top:8px">Site designed and built by <a href="https://www.21WebStudios.com" target="_blank" rel="noopener" style="color:#1D9E75;font-weight:500">21WebStudios.com</a></div>
+    </footer>`;
+
+  document.getElementById('home').style.display='none';
+  document.getElementById('detail').style.display='block';
+  
+  window.scrollTo(0,0);
+}
+
+function showHome(){
+  document.getElementById('detail').style.display='none';
+  document.getElementById('home').style.display='block';
+  
+  window.scrollTo(0,0);
+}
+
+function openModal(){
+  if(!curUnit) return;
+  document.getElementById('m-title').textContent = 'Inquire about Unit '+curUnit.n;
+  document.getElementById('m-sub').textContent = curUnit.title+' · Floor '+curUnit.fl+' · Hosted by '+curUnit.owner;
+  document.getElementById('m-enote').textContent = 'Goes directly to the owner at '+curUnit.em;
+  document.getElementById('m-form').style.display='block';
+  document.getElementById('m-success').style.display='none';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+function sendInq(){
+  if(!document.getElementById('m-first').value.trim()||!document.getElementById('m-email').value.trim()){
+    alert('Please fill in your name and email.'); return;
+  }
+  document.getElementById('m-form').style.display='none';
+  document.getElementById('m-success').style.display='block';
+  setTimeout(closeModal, 3000);
+}
+
+// Load data from units.json then initialise
+fetch('data/units.json')
+  .then(r => r.json())
+  .then(data => {
+    UNITS = data.units;
+    SLIDES = data.hero.map(img => ({ img: 'images/' + img }));
+    heroInit();
+    buildGrids('all');
+    restoreHearts();
+  })
+  .catch(err => {
+    console.error('Could not load units.json', err);
+  });
+
+// ── Lightbox ──
+let lbPhotos = [], lbIdx = 0;
+
+function openLB(photos, n){
+  lbPhotos = photos;
+  lbIdx = n;
+  document.getElementById('lb-img').src = photos[n];
+  document.getElementById('lb-counter').textContent = (n+1) + ' of ' + photos.length;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB(){
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbOpen(n){
+  const u = curUnit;
+  const photos = (u.photos || []).map(f => 'images/' + f);
+  if(photos.length) openLB(photos, Math.min(n, photos.length-1));
+}
+function lbNav(dir){
+  lbIdx = (lbIdx + dir + lbPhotos.length) % lbPhotos.length;
+  document.getElementById('lb-img').src = lbPhotos[lbIdx];
+  document.getElementById('lb-counter').textContent = (lbIdx+1) + ' of ' + lbPhotos.length;
+}
+document.addEventListener('keydown', e => {
+  if(!document.getElementById('lb').classList.contains('open')) return;
+  if(e.key==='ArrowLeft') lbNav(-1);
+  if(e.key==='ArrowRight') lbNav(1);
+  if(e.key==='Escape') closeLB();
+});
+
+restoreHearts();
+
+// ── Hero Slideshow ──
+let SLIDES = [];
+
+let heroIdx = 0, heroTimer = null;
+
+function heroInit(){
+  const wrap = document.getElementById('hero-slides');
+
+  wrap.innerHTML = '';
+
+  SLIDES.forEach((s,i) => {
+    const div = document.createElement('div');
+    div.className = 'hero-slide' + (i===0?' active':'');
+    div.style.backgroundImage = 'url('+s.img+')';
+    wrap.appendChild(div);
+
+  });
+  heroUpdate(0);
+  heroTimer = setInterval(() => heroGo((heroIdx+1)%SLIDES.length), 5000);
+}
+
+function heroGo(n){
+  clearInterval(heroTimer);
+  heroUpdate(n);
+  heroTimer = setInterval(() => heroGo((heroIdx+1)%SLIDES.length), 5000);
+}
+
+function heroUpdate(n){
+  heroIdx = n;
+  document.querySelectorAll('.hero-slide').forEach((el,i) => el.classList.toggle('active',i===n));
+
+  
+  
+}
+
+heroInit();
+
+function openListModal(){
+  document.getElementById('list-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeListModal(){
+  document.getElementById('list-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function submitListForm(){
+  const first = document.getElementById('lf-first').value.trim();
+  const email = document.getElementById('lf-email').value.trim();
+  const unit  = document.getElementById('lf-unit').value.trim();
+  if(!first||!email||!unit){ alert('Please fill in your name, email and unit number.'); return; }
+
+  const payload = {
+    access_key: 'YOUR_WEB3FORMS_KEY',
+    subject: 'New unit listing inquiry — Unit ' + unit,
+    from_name: first + ' ' + (document.getElementById('lf-last').value.trim()||''),
+    email: email,
+    phone: document.getElementById('lf-phone').value.trim(),
+    unit: unit,
+    message: document.getElementById('lf-msg').value.trim(),
+    to: 'info@21webstudios.com'
+  };
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => {
+    if(data.success){
+      document.getElementById('list-form').style.display='none';
+      document.getElementById('list-success').style.display='block';
+      setTimeout(closeListModal, 3000);
+    } else {
+      alert('Something went wrong. Please email info@21webstudios.com directly.');
+    }
+  })
+  .catch(()=>{ alert('Something went wrong. Please email info@21webstudios.com directly.'); });
+}
+
+</script>
+</body>
+</html>
