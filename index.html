@@ -159,7 +159,7 @@ a{color:inherit;text-decoration:none}
 .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;background-size:cover;background-position:center}
 .hero-slide.active{opacity:1}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.5) 60%,rgba(0,0,0,0.72) 100%);z-index:2}
-.hero-controls{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:0 0 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero-controls{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);z-index:3;padding:0;display:flex;flex-direction:column;align-items:center;gap:10px}
 .search-wrap-inner{width:100%;max-width:680px;padding:0 24px}
 .search-wrap-inner .search-pill{background:rgba(255,255,255,0.97);box-shadow:0 4px 24px rgba(0,0,0,0.25)}
 .chips-overlay{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;padding:0 24px}
@@ -185,6 +185,29 @@ a{color:inherit;text-decoration:none}
 .btn-list:hover{background:#1D9E75;color:#fff}
 .hdr-right{position:absolute;right:24px;display:flex;align-items:center}
 .ftr-list-link{color:#1D9E75;font-weight:500;cursor:pointer;text-decoration:underline;font-size:13px}
+
+/* Calendar */
+.cal-wrap{margin-top:16px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-nav button{background:none;border:1px solid #ddd;border-radius:6px;padding:4px 10px;font-size:14px;cursor:pointer;color:#484848}
+.cal-nav button:hover{background:#f7f7f7}
+.cal-month{font-size:15px;font-weight:600;color:#222}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dow{text-align:center;font-size:10px;font-weight:600;color:#999;padding:4px 0;text-transform:uppercase}
+.cal-day{text-align:center;padding:6px 2px;border-radius:6px;font-size:12px;cursor:default;min-height:28px;display:flex;align-items:center;justify-content:center}
+.cal-day.empty{}
+.cal-day.available{background:#E1F5EE;color:#085041;font-weight:500}
+.cal-day.unavailable{background:#fee2e2;color:#991b1b;font-weight:500}
+.cal-day.past{color:#ccc}
+.cal-legend{display:flex;gap:16px;margin-top:10px;font-size:11px;color:#717171}
+.cal-legend-dot{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:4px;vertical-align:middle}
+.cal-loading{text-align:center;padding:20px;font-size:13px;color:#717171}
+
+/* Date search active state */
+.sf.active-date .sf-val{color:#222;font-weight:600}
+.date-search-active{background:rgba(29,158,117,0.08);border-color:#1D9E75 !important}
+.clear-dates{font-size:11px;color:#1D9E75;cursor:pointer;text-decoration:underline;margin-top:4px;display:none;text-align:center}
+.clear-dates.show{display:block}
 </style>
 </head>
 <body>
@@ -223,14 +246,23 @@ a{color:inherit;text-decoration:none}
     <div class="hero-overlay"></div>
     <div class="hero-controls">
       <div class="search-wrap-inner">
-        <div class="search-pill">
+        <div class="search-pill" id="hero-search-pill">
           <div class="sf"><span class="sf-label">Location</span><span class="sf-val">Lauderdale-by-the-Sea, FL</span></div>
           <div class="sdiv"></div>
-          <div class="sf"><span class="sf-label">Check-in</span><span class="sf-val">Add date</span></div>
+          <div class="sf" onclick="document.getElementById('hero-checkin').showPicker?.() || document.getElementById('hero-checkin').focus()">
+            <span class="sf-label">Check-in</span>
+            <span class="sf-val" id="hero-checkin-lbl">Add date</span>
+            <input type="date" id="hero-checkin" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px" onchange="handleDateChange()"/>
+          </div>
           <div class="sdiv"></div>
-          <div class="sf"><span class="sf-label">Check-out</span><span class="sf-val">Add date</span></div>
-          <button class="sbtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+          <div class="sf" onclick="document.getElementById('hero-checkout').showPicker?.() || document.getElementById('hero-checkout').focus()">
+            <span class="sf-label">Check-out</span>
+            <span class="sf-val" id="hero-checkout-lbl">Add date</span>
+            <input type="date" id="hero-checkout" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px" onchange="handleDateChange()"/>
+          </div>
+          <button class="sbtn" onclick="handleDateSearch()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
         </div>
+        <div class="clear-dates" id="clear-dates-btn" onclick="clearDateSearch()">✕ Clear dates</div>
       </div>
       <div class="chips-overlay">
         <button class="chip on" onclick="flt(this,'all')">All units</button>
@@ -372,73 +404,38 @@ a{color:inherit;text-decoration:none}
 let UNITS = [];
 let curUnit = null;
 
-// ── Auto photo loader — tries images sequentially until one fails ──
-function loadSequentialPhotos(prefix, maxTry){
-  const promises = [];
-  for(let i = 1; i <= maxTry; i++){
-    const src = 'images/' + prefix + i + '.jpg';
-    promises.push(new Promise(resolve => {
-      const img = new Image();
-      img.onload = () => resolve(src);
-      img.onerror = () => resolve(null);
-      img.src = src;
-    }));
-  }
-  return Promise.all(promises).then(results => {
-    // Return only found images, stopping at first gap
-    const found = [];
-    for(const r of results){
-      if(r) found.push(r);
-      else break;
-    }
-    return found;
-  });
-}
 
 function loadUnitPhotos(u){
-  // Load thumb first, then Gallery1, Gallery2, etc. up to 100
   const thumbSrc = u.photos && u.photos[0] ? 'images/' + u.photos[0] : null;
-  const promises = [];
-  for(let i = 1; i <= 100; i++){
-    const src = 'images/' + u.n + '-Gallery' + i + '.jpg';
-    promises.push(new Promise(resolve => {
-      const img = new Image();
-      img.onload = () => resolve(src);
-      img.onerror = () => resolve(null);
-      img.src = src;
-    }));
-  }
-  return Promise.all(promises).then(results => {
+  // Load Gallery1, Gallery2 etc. one at a time, stop at first missing
+  return new Promise(resolve => {
     const found = [];
-    for(const r of results){
-      if(r) found.push(r);
-      else break;
+    function tryNext(i){
+      const src = 'images/' + u.n + '-Gallery' + i + '.jpg';
+      const img = new Image();
+      img.onload = () => { found.push(src); tryNext(i+1); };
+      img.onerror = () => {
+        if(thumbSrc) resolve([thumbSrc, ...found]);
+        else resolve(found.length ? found : []);
+      };
+      img.src = src;
     }
-    // Thumb first, then gallery photos
-    if(thumbSrc) return [thumbSrc, ...found];
-    return found.length ? found : [];
+    tryNext(1);
   });
 }
 
 function loadHeroPhotos(){
-  // Try Hero-1.jpg, Hero-2.jpg etc. up to 50
-  const promises = [];
-  for(let i = 1; i <= 50; i++){
-    const src = 'images/Hero-' + i + '.jpg';
-    promises.push(new Promise(resolve => {
-      const img = new Image();
-      img.onload = () => resolve(src);
-      img.onerror = () => resolve(null);
-      img.src = src;
-    }));
-  }
-  return Promise.all(promises).then(results => {
+  // Load Hero-1, Hero-2 etc. one at a time, stop at first missing
+  return new Promise(resolve => {
     const found = [];
-    for(const r of results){
-      if(r) found.push(r);
-      else break;
+    function tryNext(i){
+      const src = 'images/Hero-' + i + '.jpg';
+      const img = new Image();
+      img.onload = () => { found.push(src); tryNext(i+1); };
+      img.onerror = () => resolve(found);
+      img.src = src;
     }
-    return found;
+    tryNext(1);
   });
 }
 
@@ -586,7 +583,11 @@ function showDetail(idx){
             </table>` :
             `<p>Send a direct inquiry for the best rates and availability with no platform fees.</p>`
           }</div>
-          <div class="dsec"><h3>Availability</h3><p style="font-size:13px;color:#717171">Live calendar coming soon — will sync automatically from listing platforms once activated.</p><div class="calph">📅 Calendar will sync from Airbnb &amp; VRBO once activated</div></div>
+          <div class="dsec"><h3>Availability</h3><div id="unit-calendar-wrap">${
+            (u.n===319 || u.n===322) ?
+            '<div class="cal-loading">Loading calendar...</div>' :
+            '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will sync from Airbnb &amp; VRBO once activated</div>'
+          }</div></div>
         </div>
         <div class="bsidebar">
           <div class="bcard">
@@ -611,6 +612,8 @@ function showDetail(idx){
     document.getElementById('home').style.display='none';
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
+    // Load calendar for units that have iCal feeds
+    if(u.n===319 || u.n===322) loadUnitCalendar(u.n);
   });
 }
 
@@ -752,6 +755,183 @@ function submitListForm(){
     }
   })
   .catch(()=>{ alert('Something went wrong. Please email info@21webstudios.com directly.'); });
+}
+
+// ── iCal URLs for units with live calendars ──
+const ICAL_URLS = {
+  319: 'https://www.airbnb.com/calendar/ical/1489304305482963659.ics?t=3ea7ebbda60c4f2398f0bd97efa666c0&locale=en',
+  322: 'https://www.airbnb.com/calendar/ical/592176990035326624.ics?t=7164eba6576e433abcfc8699d30442e3&locale=en'
+};
+
+// Cache parsed calendars
+const CAL_CACHE = {};
+
+// ── Parse iCal text into set of blocked date strings (YYYY-MM-DD) ──
+function parseICal(text){
+  const blocked = new Set();
+  const events = text.split('BEGIN:VEVENT');
+  for(let i=1;i<events.length;i++){
+    const ev = events[i];
+    const dtstart = ev.match(/DTSTART[^:]*:(\d{8})/)?.[1];
+    const dtend   = ev.match(/DTEND[^:]*:(\d{8})/)?.[1];
+    if(!dtstart || !dtend) continue;
+    const start = new Date(dtstart.slice(0,4)+'-'+dtstart.slice(4,6)+'-'+dtstart.slice(6,8));
+    const end   = new Date(dtend.slice(0,4)+'-'+dtend.slice(4,6)+'-'+dtend.slice(6,8));
+    const cur = new Date(start);
+    while(cur < end){
+      blocked.add(cur.toISOString().slice(0,10));
+      cur.setDate(cur.getDate()+1);
+    }
+  }
+  return blocked;
+}
+
+// ── Fetch and parse calendar for a unit ──
+async function fetchCalendar(unitNum){
+  if(CAL_CACHE[unitNum]) return CAL_CACHE[unitNum];
+  const icalUrl = ICAL_URLS[unitNum];
+  if(!icalUrl) return null;
+  try {
+    const proxyUrl = '/ical-proxy?url=' + encodeURIComponent(icalUrl);
+    const res = await fetch(proxyUrl);
+    if(!res.ok) throw new Error('fetch failed');
+    const text = await res.text();
+    const blocked = parseICal(text);
+    CAL_CACHE[unitNum] = blocked;
+    return blocked;
+  } catch(e){
+    console.error('Calendar fetch failed for unit', unitNum, e);
+    return null;
+  }
+}
+
+// ── Render calendar widget ──
+function renderCalendar(wrap, blocked, year, month){
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const today = new Date(); today.setHours(0,0,0,0);
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+
+  let html = `<div class="cal-wrap">
+    <div class="cal-nav">
+      <button onclick="calNav(-1)">‹</button>
+      <span class="cal-month">${MONTHS[month]} ${year}</span>
+      <button onclick="calNav(1)">›</button>
+    </div>
+    <div class="cal-grid">
+      ${DAYS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}
+      ${Array(firstDay).fill('<div class="cal-day empty"></div>').join('')}`;
+
+  for(let d=1;d<=daysInMonth;d++){
+    const date = new Date(year, month, d);
+    const dateStr = date.toISOString().slice(0,10);
+    let cls = 'cal-day';
+    if(date < today){
+      cls += ' past';
+    } else if(blocked && blocked.has(dateStr)){
+      cls += ' unavailable';
+    } else {
+      cls += ' available';
+    }
+    html += `<div class="${cls}">${d}</div>`;
+  }
+
+  html += `</div>
+    <div class="cal-legend">
+      <span><span class="cal-legend-dot" style="background:#E1F5EE;border:1px solid #a7f3d0"></span>Available</span>
+      <span><span class="cal-legend-dot" style="background:#fee2e2;border:1px solid #fca5a5"></span>Unavailable</span>
+    </div>
+  </div>`;
+
+  wrap.innerHTML = html;
+  wrap._year = year;
+  wrap._month = month;
+  wrap._blocked = blocked;
+}
+
+window.calNav = function(dir){
+  const wrap = document.getElementById('unit-calendar-wrap');
+  if(!wrap) return;
+  let m = wrap._month + dir;
+  let y = wrap._year;
+  if(m > 11){ m=0; y++; }
+  if(m < 0){ m=11; y--; }
+  renderCalendar(wrap, wrap._blocked, y, m);
+};
+
+async function loadUnitCalendar(unitNum){
+  const wrap = document.getElementById('unit-calendar-wrap');
+  if(!wrap) return;
+  const blocked = await fetchCalendar(unitNum);
+  const now = new Date();
+  renderCalendar(wrap, blocked, now.getFullYear(), now.getMonth());
+}
+
+// ── Date search ──
+function handleDateChange(){
+  const ci = document.getElementById('hero-checkin').value;
+  const co = document.getElementById('hero-checkout').value;
+  const fmt = v => { if(!v) return 'Add date'; const d=new Date(v+'T00:00:00'); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
+  document.getElementById('hero-checkin-lbl').textContent = fmt(ci);
+  document.getElementById('hero-checkout-lbl').textContent = fmt(co);
+}
+
+async function handleDateSearch(){
+  const ci = document.getElementById('hero-checkin').value;
+  const co = document.getElementById('hero-checkout').value;
+  if(!ci || !co){ buildGrids('all'); return; }
+  const start = new Date(ci+'T00:00:00');
+  const end   = new Date(co+'T00:00:00');
+  if(end <= start){ alert('Check-out must be after check-in.'); return; }
+
+  // Build list of dates in range
+  const dates = [];
+  const cur = new Date(start);
+  while(cur < end){ dates.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
+
+  // Fetch calendars for units that have them
+  const calPromises = Object.keys(ICAL_URLS).map(n => fetchCalendar(+n));
+  await Promise.all(calPromises);
+
+  // Filter units
+  function isAvailable(u){
+    const ical = ICAL_URLS[u.n];
+    if(!ical) return false; // no calendar = unavailable
+    const blocked = CAL_CACHE[u.n];
+    if(!blocked) return false;
+    return dates.every(d => !blocked.has(d));
+  }
+
+  const FEATURED_NUMS = [215,304,319,322,415];
+  const fVis = UNITS.filter(u => FEATURED_NUMS.includes(u.n) && isAvailable(u)).sort((a,b)=>a.n-b.n);
+  const rVis = UNITS.filter(isAvailable).sort((a,b)=>b.n-a.n);
+
+  const fg = document.getElementById('feat-grid');
+  const rg = document.getElementById('rest-grid');
+  const rl = document.getElementById('rest-label');
+  const nr = document.getElementById('no-results');
+
+  fg.innerHTML = fVis.map(u => cardHTML(u, UNITS.indexOf(u))).join('');
+  rg.innerHTML = rVis.map(u => cardHTML(u, UNITS.indexOf(u))).join('');
+  restoreHearts();
+
+  fg.parentElement.querySelector('.feat-label').style.display = fVis.length ? '' : 'none';
+  rl.style.display = rVis.length ? '' : 'none';
+  const total = rVis.length;
+  document.getElementById('rcount').textContent = total + ' unit' + (total!==1?'s':'') + ' available';
+  nr.style.display = (fVis.length + rVis.length)===0 ? 'block' : 'none';
+  document.getElementById('no-results').textContent = 'No units available for those dates.';
+  document.getElementById('clear-dates-btn').classList.add('show');
+}
+
+function clearDateSearch(){
+  document.getElementById('hero-checkin').value = '';
+  document.getElementById('hero-checkout').value = '';
+  document.getElementById('hero-checkin-lbl').textContent = 'Add date';
+  document.getElementById('hero-checkout-lbl').textContent = 'Add date';
+  document.getElementById('clear-dates-btn').classList.remove('show');
+  buildGrids('all');
 }
 </script>
 </body>
