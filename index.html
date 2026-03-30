@@ -5,6 +5,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI2ZmZmZmZiIvPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiMxYTUyNzYiIG9wYWNpdHk9IjAuMDgiLz4KICA8dGV4dCB4PSIxNiIgeT0iMjMiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIKICAgIGZvbnQtc2l6ZT0iMTQiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZm9udC13ZWlnaHQ9IjcwMCIKICAgIGZpbGw9IiMxYTUyNzYiPjE0ODA8L3RleHQ+CiAgPGxpbmUgeDE9IjQiIHkxPSIyNiIgeDI9IjI4IiB5Mj0iMjYiIHN0cm9rZT0iIzFEOUU3NSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4="/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>1480SouthOcean.com</title>
+<script src="https://web3forms.com/client/script.js" async defer></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#fff;color:#222;font-size:14px;-webkit-font-smoothing:antialiased}
@@ -361,6 +362,7 @@ a{color:inherit;text-decoration:none}
       <div class="fg"><label>Phone</label><input type="tel" id="lf-phone" placeholder="(555) 000-0000"/></div>
       <div class="fg"><label>Unit number</label><input type="text" id="lf-unit" placeholder="e.g. 215"/></div>
       <div class="fg"><label>Message (optional)</label><textarea id="lf-msg" placeholder="Tell us about your unit..."></textarea></div>
+      <input type="checkbox" name="botcheck" style="display:none"/>
       <button class="btn-send" onclick="submitListForm()">Send inquiry</button>
       <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Goes directly to info@21webstudios.com</p>
     </div>
@@ -390,6 +392,7 @@ a{color:inherit;text-decoration:none}
         <div class="fg"><label>Check-out</label><input type="date"/></div>
       </div>
       <div class="fg"><label>Message</label><textarea placeholder="Tell the owner about your stay — any questions, etc."></textarea></div>
+      <input type="checkbox" name="botcheck" style="display:none"/>
       <button class="btn-send" onclick="sendInq()">Send inquiry</button>
       <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px" id="m-enote"></p>
     </div>
@@ -579,6 +582,7 @@ function showDetail(idx){
               <tr><td style="padding:8px 0;font-weight:600;color:#222;white-space:nowrap">Nov 15 – May 14</td><td style="padding:8px 12px;color:#222;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.04em">Winter Pricing</td><td style="padding:8px 0;text-align:right;font-size:17px;font-weight:700;color:#222;white-space:nowrap">$325<span style="font-size:12px;font-weight:400;color:#717171"> / night</span></td></tr>
               <tr style="border-top:1px solid #ebebeb"><td style="padding:8px 0;font-weight:600;color:#222;white-space:nowrap">May 15 – Nov 14</td><td style="padding:8px 12px;color:#717171;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.04em">Off Season</td><td style="padding:8px 0;text-align:right;font-size:17px;font-weight:700;color:#222;white-space:nowrap">$225<span style="font-size:12px;font-weight:400;color:#717171"> / night</span></td></tr>
             </table>` :
+            (u.n===215||u.n===304) ? `<p>Pricing and availability can be found on this owner's VRBO listing — use the VRBO button on this page to view.</p>` :
             `<p>Send a direct inquiry for the best rates and availability with no platform fees.</p>`
           }</div>
           <div class="dsec"><h3>Availability</h3><div id="unit-calendar-wrap">${
@@ -592,9 +596,12 @@ function showDetail(idx){
             <div class="bc-lbl">How would you like to book?</div>
             ${(u.n===215||u.n===304) ?
               `<button class="btn-direct" style="background:#aaa;cursor:not-allowed;opacity:0.6" disabled>✉️ &nbsp;Send a direct inquiry</button>
-              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">This owner prefers bookings through VRBO — see link below</div>` :
+              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">This owner prefers bookings through VRBO — use the VRBO button on this page to view.</div>` :
+              (u.n===319||u.n===322) ?
               `<button class="btn-direct" onclick="openModal()">✉️ &nbsp;Send a direct inquiry</button>
-              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to the owner</div>`
+              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to the owner</div>` :
+              `<button class="btn-direct" style="background:#aaa;cursor:not-allowed;opacity:0.6" disabled>✉️ &nbsp;Send a direct inquiry</button>
+              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">This owner hasn't set up direct booking yet — use Airbnb or VRBO to inquire</div>`
             }
             <hr class="bdiv"/>
             <div class="bc-lbl">Or book through a platform:</div>
@@ -644,9 +651,51 @@ function sendInq(){
   if(!document.getElementById('m-first').value.trim()||!document.getElementById('m-email').value.trim()){
     alert('Please fill in your name and email.'); return;
   }
-  document.getElementById('m-form').style.display='none';
-  document.getElementById('m-success').style.display='block';
-  setTimeout(closeModal, 3000);
+  if(!curUnit) return;
+  const u = curUnit;
+
+  // Unit owner emails for active units
+  const OWNER_EMAILS = { 319: 'beachfrontstudiorentals@gmail.com', 322: 'beachfrontstudiorentals@gmail.com' };
+  const ownerEmail = OWNER_EMAILS[u.n] || null;
+
+  const payload = {
+    access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
+    subject: 'Direct inquiry — Unit ' + u.n + ' · ' + u.title,
+    from_name: document.getElementById('m-first').value.trim(),
+    email: document.getElementById('m-email').value.trim(),
+    to: 'info@21webstudios.com',
+    cc: ownerEmail || '',
+    unit: u.n,
+    floor: u.fl,
+    checkin: document.querySelector('#m-form input[type=date]:first-of-type')?.value || '',
+    checkout: document.querySelector('#m-form input[type=date]:last-of-type')?.value || '',
+    message: document.querySelector('#m-form textarea')?.value || '',
+    botcheck: false
+  };
+
+  const btn = document.querySelector('#m-form .btn-send');
+  if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => {
+    if(data.success){
+      document.getElementById('m-form').style.display='none';
+      document.getElementById('m-success').style.display='block';
+      setTimeout(closeModal, 3000);
+    } else {
+      alert('Something went wrong. Please email info@21webstudios.com directly.');
+      if(btn){ btn.disabled = false; btn.textContent = 'Send inquiry'; }
+    }
+  })
+  .catch(()=>{
+    alert('Something went wrong. Please email info@21webstudios.com directly.');
+    if(btn){ btn.disabled = false; btn.textContent = 'Send inquiry'; }
+  });
 }
 
 // Load units.json
@@ -737,15 +786,18 @@ function submitListForm(){
   const unit  = document.getElementById('lf-unit').value.trim();
   if(!first||!email||!unit){ alert('Please fill in your name, email and unit number.'); return; }
   const payload = {
-    access_key: 'YOUR_WEB3FORMS_KEY',
+    access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
     subject: 'New unit listing inquiry — Unit ' + unit,
     from_name: first + ' ' + (document.getElementById('lf-last').value.trim()||''),
     email: email,
     phone: document.getElementById('lf-phone').value.trim(),
     unit: unit,
     message: document.getElementById('lf-msg').value.trim(),
-    to: 'info@21webstudios.com'
+    to: 'info@21webstudios.com',
+    botcheck: false
   };
+  const btn = document.querySelector('#list-form .btn-send');
+  if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
   fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {'Content-Type':'application/json','Accept':'application/json'},
@@ -759,9 +811,13 @@ function submitListForm(){
       setTimeout(closeListModal, 3000);
     } else {
       alert('Something went wrong. Please email info@21webstudios.com directly.');
+      if(btn){ btn.disabled = false; btn.textContent = 'Send inquiry'; }
     }
   })
-  .catch(()=>{ alert('Something went wrong. Please email info@21webstudios.com directly.'); });
+  .catch(()=>{
+    alert('Something went wrong. Please email info@21webstudios.com directly.');
+    if(btn){ btn.disabled = false; btn.textContent = 'Send inquiry'; }
+  });
 }
 
 // ── iCal URLs for units with live calendars ──
