@@ -1087,4 +1087,12 @@ async function handleDateSearch(){
 function clearDateSearch(){
   document.getElementById('hero-checkin').value = '';
   document.getElementById('hero-checkout').value = '';
-  document.getElementById('hero-c
+  document.getElementById('hero-checkin-lbl').textContent = 'Add date';
+  document.getElementById('hero-checkout-lbl').textContent = 'Add date';
+  document.getElementById('clear-dates-btn').classList.remove('show');
+  document.getElementById('hero-search-pill').classList.remove('date-search-active');
+  buildGrids('all');
+}
+</script>
+</body>
+</html>
