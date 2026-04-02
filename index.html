@@ -421,7 +421,6 @@ let curUnit = null;
 
 function loadUnitPhotos(u){
   const thumbSrc = u.photos && u.photos[0] ? 'images/' + u.photos[0] : null;
-  // Load Gallery1, Gallery2 etc. one at a time, stop at first missing
   return new Promise(resolve => {
     const found = [];
     function tryNext(i){
@@ -439,7 +438,6 @@ function loadUnitPhotos(u){
 }
 
 function loadHeroPhotos(){
-  // Load Hero-1 through Hero-9 only, one at a time, stop at first missing
   return new Promise(resolve => {
     const found = [];
     function tryNext(i){
@@ -506,9 +504,13 @@ function buildGrids(filter){
   nr.style.display = (fVis.length + rVis.length)===0 ? 'block' : 'none';
 }
 
+// ── GA4: Filter chip click ──
 function flt(el, f){
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
   el.classList.add('on');
+  gtag('event', 'filter_chip_click', {
+    filter_name: f
+  });
   buildGrids(f);
 }
 
@@ -542,16 +544,25 @@ function restoreHearts(){
   });
 }
 
+// ── GA4: Unit detail page view ──
 function showDetail(idx){
   curUnit = UNITS[idx];
   const u = curUnit;
+
+  gtag('event', 'unit_detail_view', {
+    unit_number: u.n,
+    unit_title: u.title,
+    unit_floor: u.fl,
+    unit_oceanfront: u.of ? 'yes' : 'no',
+    unit_featured: u.feat ? 'yes' : 'no'
+  });
+
   const platBtns = [
-    u.ab ? `<a class="btn-plat" href="${u.ab}" target="_blank" rel="noopener"><span class="dot-ab"></span>View on Airbnb</a>` : '',
-    u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener"><span class="dot-vb"></span>View on VRBO</a>` : '',
-    u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;">View extended stay listing</a>` : ''
+    u.ab ? `<a class="btn-plat" href="${u.ab}" target="_blank" rel="noopener" onclick="trackPlatformClick('airbnb', ${u.n})"><span class="dot-ab"></span>View on Airbnb</a>` : '',
+    u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener" onclick="trackPlatformClick('vrbo', ${u.n})"><span class="dot-vb"></span>View on VRBO</a>` : '',
+    u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;" onclick="trackPlatformClick('extended_stay', ${u.n})">View extended stay listing</a>` : ''
   ].filter(Boolean).join('');
 
-  // Load photos first, then render detail page
   loadUnitPhotos(u).then(photos => {
     window._currentPhotos = photos;
     document.getElementById('detail').innerHTML = `
@@ -608,7 +619,7 @@ function showDetail(idx){
               `<button class="btn-direct" style="background:#aaa;cursor:not-allowed;opacity:0.6" disabled>✉️ &nbsp;Send a direct inquiry</button>
               <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">This owner prefers bookings through VRBO — use the VRBO button on this page to view.</div>` :
               (u.n===319||u.n===322) ?
-              `<button class="btn-direct" onclick="openModal()">✉️ &nbsp;Send a direct inquiry</button>
+              `<button class="btn-direct" onclick="trackDirectInquiryClick(${u.n}); openModal()">✉️ &nbsp;Send a direct inquiry</button>
               <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to the owner</div>` :
               `<button class="btn-direct" style="background:#aaa;cursor:not-allowed;opacity:0.6" disabled>✉️ &nbsp;Send a direct inquiry</button>
               <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">This owner hasn't set up direct booking yet — use Airbnb or VRBO to inquire</div>`
@@ -631,8 +642,22 @@ function showDetail(idx){
     document.getElementById('home').style.display='none';
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
-    // Load calendar for units that have iCal feeds
     if(u.n===215 || u.n===304 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
+  });
+}
+
+// ── GA4: Airbnb / VRBO / platform button click ──
+function trackPlatformClick(platform, unitNum){
+  gtag('event', 'platform_click', {
+    platform: platform,
+    unit_number: unitNum
+  });
+}
+
+// ── GA4: Direct inquiry button click (intent — before form is submitted) ──
+function trackDirectInquiryClick(unitNum){
+  gtag('event', 'direct_inquiry_click', {
+    unit_number: unitNum
   });
 }
 
@@ -657,6 +682,7 @@ function openModal(){
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+
 function sendInq(){
   if(!document.getElementById('m-first').value.trim()||!document.getElementById('m-email').value.trim()){
     alert('Please fill in your name and email.'); return;
@@ -664,7 +690,6 @@ function sendInq(){
   if(!curUnit) return;
   const u = curUnit;
 
-  // Unit owner emails for active units
   const OWNER_EMAILS = { 319: 'beachfrontstudiorentals@gmail.com', 322: 'beachfrontstudiorentals@gmail.com' };
   const ownerEmail = OWNER_EMAILS[u.n] || null;
 
@@ -694,6 +719,12 @@ function sendInq(){
   .then(r => r.json())
   .then(data => {
     if(data.success){
+      // ── GA4: Direct inquiry form successfully submitted ──
+      gtag('event', 'form_submission', {
+        form_type: 'direct_inquiry',
+        unit_number: u.n,
+        unit_title: u.title
+      });
       document.getElementById('m-form').style.display='none';
       document.getElementById('m-success').style.display='block';
       setTimeout(closeModal, 3000);
@@ -713,7 +744,6 @@ fetch('data/units.json')
   .then(r => r.json())
   .then(data => {
     UNITS = data.units;
-    // Load hero photos automatically — no JSON needed
     loadHeroPhotos().then(heroPhotos => {
       if(heroPhotos.length){
         heroInit(heroPhotos);
@@ -734,6 +764,11 @@ function openLB(photos, n){
   document.getElementById('lb-counter').textContent = (n+1) + ' of ' + photos.length;
   document.getElementById('lb').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // ── GA4: Photo gallery opened ──
+  gtag('event', 'photo_gallery_open', {
+    unit_number: curUnit ? curUnit.n : 'unknown',
+    total_photos: photos.length
+  });
 }
 function closeLB(){
   document.getElementById('lb').classList.remove('open');
@@ -816,6 +851,11 @@ function submitListForm(){
   .then(r => r.json())
   .then(data => {
     if(data.success){
+      // ── GA4: List your unit form successfully submitted ──
+      gtag('event', 'form_submission', {
+        form_type: 'list_your_unit',
+        unit_number: unit
+      });
       document.getElementById('list-form').style.display='none';
       document.getElementById('list-success').style.display='block';
       setTimeout(closeListModal, 3000);
@@ -838,10 +878,8 @@ const ICAL_URLS = {
   322: 'https://www.airbnb.com/calendar/ical/592176990035326624.ics?t=7164eba6576e433abcfc8699d30442e3&locale=en'
 };
 
-// Cache parsed calendars
 const CAL_CACHE = {};
 
-// ── Parse iCal text into set of blocked date strings (YYYY-MM-DD) ──
 function parseICal(text){
   const blocked = new Set();
   const events = text.split('BEGIN:VEVENT');
@@ -861,7 +899,6 @@ function parseICal(text){
   return blocked;
 }
 
-// ── Fetch and parse calendar for a unit ──
 async function fetchCalendar(unitNum){
   if(CAL_CACHE[unitNum]) return CAL_CACHE[unitNum];
   const icalUrl = ICAL_URLS[unitNum];
@@ -880,7 +917,6 @@ async function fetchCalendar(unitNum){
   }
 }
 
-// ── Render calendar widget ──
 function renderCalendar(wrap, blocked, year, month){
   const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -946,7 +982,7 @@ async function loadUnitCalendar(unitNum){
   renderCalendar(wrap, blocked, now.getFullYear(), now.getMonth());
 }
 
-// ── Date search ──
+// ── GA4: Date search ──
 function handleDateChange(){
   const ci = document.getElementById('hero-checkin').value;
   const co = document.getElementById('hero-checkout').value;
@@ -965,19 +1001,23 @@ async function handleDateSearch(){
   const maxSearchDate = new Date(); maxSearchDate.setDate(maxSearchDate.getDate() + 364);
   if(start > maxSearchDate){ alert('Dates must be within one year from today.'); return; }
 
-  // Build list of dates in range
+  // ── GA4: Date search executed ──
+  gtag('event', 'date_search', {
+    checkin_date: ci,
+    checkout_date: co,
+    nights: Math.round((end - start) / (1000 * 60 * 60 * 24))
+  });
+
   const dates = [];
   const cur = new Date(start);
   while(cur < end){ dates.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
 
-  // Fetch calendars for units that have them
   const calPromises = Object.keys(ICAL_URLS).map(n => fetchCalendar(+n));
   await Promise.all(calPromises);
 
-  // Filter units
   function isAvailable(u){
     const ical = ICAL_URLS[u.n];
-    if(!ical) return false; // no calendar = unavailable
+    if(!ical) return false;
     const blocked = CAL_CACHE[u.n];
     if(!blocked) return false;
     return dates.every(d => !blocked.has(d));
