@@ -16,6 +16,7 @@
 </script>
 
 <script src="https://web3forms.com/client/script.js" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#fff;color:#222;font-size:14px;-webkit-font-smoothing:antialiased}
@@ -340,8 +341,8 @@ a{color:inherit;text-decoration:none}
 
   <footer class="ftr">
     <div class="ftr-logo"><a href="#" onclick="showHome();return false;" style="color:inherit;text-decoration:underline;text-underline-offset:2px">1480SouthOcean.com</a> · Lauderdale-by-the-Sea, FL 33062</div>
-    <div class="ftr-note">Each unit at 1480 South Ocean is independently owned and managed. Unit owners are solely responsible for their listings, pricing, availability, and bookings. 1480SouthOcean.com and 21WebStudios are not responsible for any information, double bookings, cancellations, or booking errors of any kind. This site is not affiliated with International Studio Apartment Association, Inc., AirBnB or VRBO.</div>
-    <div class="ftr-note" style="margin-top:8px">Site designed and built by <a href="https://www.21WebStudios.com" target="_blank" rel="noopener" style="color:var(--teal,#1D9E75);font-weight:500">21WebStudios.com</a></div>
+    <div class="ftr-note">Each unit at 1480 South Ocean is independently owned and managed. 1480SouthOcean.com is a listing platform only — we are not a booking agent and do not collect payments. Unit owners are solely responsible for their listings, pricing, availability, and bookings. Always confirm availability directly with the owner before making travel arrangements. This site is not affiliated with Airbnb, VRBO, or the International Studio Apartment Association, Inc.</div>
+    <div class="ftr-note" style="margin-top:8px">Site designed and built by <a href="https://www.21WebStudios.com" target="_blank" rel="noopener" style="color:var(--teal,#1D9E75);font-weight:500">21WebStudios.com</a> · <button onclick="openPrivacyModal()" style="background:none;border:none;color:#1D9E75;font-size:11px;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit">Privacy Policy</button></div>
   </footer>
 </div>
 
@@ -373,8 +374,10 @@ a{color:inherit;text-decoration:none}
       <div class="fg"><label>Unit number</label><input type="text" id="lf-unit" placeholder="e.g. 215"/></div>
       <div class="fg"><label>Message (optional)</label><textarea id="lf-msg" placeholder="Tell us about your unit..."></textarea></div>
       <input type="checkbox" name="botcheck" style="display:none"/>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAACznUsqAgNMkr0-m" data-size="flexible" style="margin-bottom:8px"></div>
       <button class="btn-send" onclick="submitListForm()">Send inquiry</button>
-      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Goes directly to info@21webstudios.com</p>
+      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Goes directly to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f1989f979eb1c3c086949382858495989e82df929e9c">[email&#160;protected]</a></p>
+      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:6px">By submitting this form you agree to our <button onclick="openPrivacyModal()" style="background:none;border:none;color:#1D9E75;font-size:11px;cursor:pointer;padding:0;text-decoration:underline">Privacy Policy</button>.</p>
     </div>
     <div class="form-success" id="list-success">
       <div class="ck">✅</div>
@@ -403,8 +406,10 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="fg"><label>Message</label><textarea placeholder="Tell the owner about your stay — any questions, etc."></textarea></div>
       <input type="checkbox" name="botcheck" style="display:none"/>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAACznUsqAgNMkr0-m" data-size="flexible" style="margin-bottom:8px"></div>
       <button class="btn-send" onclick="sendInq()">Send inquiry</button>
       <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px" id="m-enote"></p>
+      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:6px">By submitting this form you agree to our <button onclick="openPrivacyModal()" style="background:none;border:none;color:#1D9E75;font-size:11px;cursor:pointer;padding:0;text-decoration:underline">Privacy Policy</button>.</p>
     </div>
     <div class="form-success" id="m-success">
       <div class="ck">✅</div>
@@ -414,7 +419,28 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<script>
+<!-- PRIVACY POLICY MODAL -->
+<div class="modal-overlay" id="privacy-modal" onclick="if(event.target===this)closePrivacyModal()">
+  <div class="modal-box">
+    <button class="mc-close" onclick="closePrivacyModal()">×</button>
+    <h3>Your Privacy</h3>
+    <p class="modal-sub">Last updated: April 2026</p>
+    <div style="font-size:13px;color:#484848;line-height:1.7">
+      <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">What we collect</p>
+      <p>When you submit an inquiry, we collect your name, email, and phone number. We also use Google Analytics to understand how visitors use this site — this collects anonymous browsing data including your general location and device type.</p>
+      <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">How we use it</p>
+      <p>Inquiry information is forwarded directly to the unit owner and to 1480SouthOcean.com for coordination purposes. We do not sell or share your information with third parties for marketing.</p>
+      <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Google Analytics</p>
+      <p>This site uses Google Analytics, which may set cookies on your device. You can opt out at any time using Google's opt-out browser add-on.</p>
+      <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Your rights</p>
+      <p>If you are in the EU or California, you have the right to request access to, correction of, or deletion of your personal data. To exercise these rights, email <a href="mailto:info@21webstudios.com" style="color:#1D9E75">info@21webstudios.com</a>.</p>
+      <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Data retention</p>
+      <p>We retain inquiry data for a reasonable period consistent with legitimate business purposes. Once an owner receives your inquiry, they are responsible for their own data handling practices.</p>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 let UNITS = [];
 let curUnit = null;
 
@@ -635,8 +661,8 @@ function showDetail(idx){
       </div>
       <footer class="ftr">
         <div class="ftr-logo"><a href="#" onclick="showHome();return false;" style="color:inherit;text-decoration:underline;text-underline-offset:2px">1480SouthOcean.com</a> · Lauderdale-by-the-Sea, FL 33062</div>
-        <div class="ftr-note">This unit is independently owned and managed. The owner is solely responsible for pricing, availability, and bookings. 1480SouthOcean.com and 21WebStudios are not responsible for any information, double bookings, cancellations, or booking errors of any kind. This site is not affiliated with International Studio Apartment Association, Inc., AirBnB or VRBO.</div>
-        <div class="ftr-note" style="margin-top:8px">Site designed and built by <a href="https://www.21WebStudios.com" target="_blank" rel="noopener" style="color:#1D9E75;font-weight:500">21WebStudios.com</a></div>
+        <div class="ftr-note">Each unit at 1480 South Ocean is independently owned and managed. 1480SouthOcean.com is a listing platform only — we are not a booking agent and do not collect payments. Unit owners are solely responsible for their listings, pricing, availability, and bookings. Always confirm availability directly with the owner before making travel arrangements. This site is not affiliated with Airbnb, VRBO, or the International Studio Apartment Association, Inc.</div>
+        <div class="ftr-note" style="margin-top:8px">Site designed and built by <a href="https://www.21WebStudios.com" target="_blank" rel="noopener" style="color:#1D9E75;font-weight:500">21WebStudios.com</a> · <button onclick="openPrivacyModal()" style="background:none;border:none;color:#1D9E75;font-size:11px;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit">Privacy Policy</button></div>
       </footer>`;
 
     document.getElementById('home').style.display='none';
@@ -690,6 +716,8 @@ function sendInq(){
   if(!curUnit) return;
   const u = curUnit;
 
+  const turnstileToken = document.querySelector('#m-form [name="cf-turnstile-response"]')?.value || '';
+
   const OWNER_EMAILS = { 319: 'beachfrontstudiorentals@gmail.com', 322: 'beachfrontstudiorentals@gmail.com' };
   const ownerEmail = OWNER_EMAILS[u.n] || null;
 
@@ -705,7 +733,8 @@ function sendInq(){
     checkin: document.querySelector('#m-form input[type=date]:first-of-type')?.value || '',
     checkout: document.querySelector('#m-form input[type=date]:last-of-type')?.value || '',
     message: document.querySelector('#m-form textarea')?.value || '',
-    botcheck: false
+    botcheck: false,
+    'cf-turnstile-response': turnstileToken
   };
 
   const btn = document.querySelector('#m-form .btn-send');
@@ -825,11 +854,20 @@ function closeListModal(){
   document.getElementById('list-modal').classList.remove('open');
   document.body.style.overflow='';
 }
+function openPrivacyModal(){
+  document.getElementById('privacy-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePrivacyModal(){
+  document.getElementById('privacy-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
 function submitListForm(){
   const first = document.getElementById('lf-first').value.trim();
   const email = document.getElementById('lf-email').value.trim();
   const unit  = document.getElementById('lf-unit').value.trim();
   if(!first||!email||!unit){ alert('Please fill in your name, email and unit number.'); return; }
+  const turnstileToken = document.querySelector('#list-form [name="cf-turnstile-response"]')?.value || '';
   const payload = {
     access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
     subject: 'New unit listing inquiry — Unit ' + unit,
@@ -839,7 +877,8 @@ function submitListForm(){
     unit: unit,
     message: document.getElementById('lf-msg').value.trim(),
     to: 'info@21webstudios.com',
-    botcheck: false
+    botcheck: false,
+    'cf-turnstile-response': turnstileToken
   };
   const btn = document.querySelector('#list-form .btn-send');
   if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
@@ -1048,11 +1087,4 @@ async function handleDateSearch(){
 function clearDateSearch(){
   document.getElementById('hero-checkin').value = '';
   document.getElementById('hero-checkout').value = '';
-  document.getElementById('hero-checkin-lbl').textContent = 'Add date';
-  document.getElementById('hero-checkout-lbl').textContent = 'Add date';
-  document.getElementById('clear-dates-btn').classList.remove('show');
-  buildGrids('all');
-}
-</script>
-</body>
-</html>
+  document.getElementById('hero-c
