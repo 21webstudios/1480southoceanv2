@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI2ZmZmZmZiIvPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiMxYTUyNzYiIG9wYWNpdHk9IjAuMDgiLz4KICA8dGV4dCB4PSIxNiIgeT0iMjMiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIKICAgIGZvbnQtc2l6ZT0iMTQiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZm9udC13ZWlnaHQ9IjcwMCIKICAgIGZpbGw9IiMxYTUyNzYiPjE0ODA8L3RleHQ+CiAgPGxpbmUgeDE9IjQiIHkxPSIyNiIgeDI9IjI4IiB5Mj0iMjYiIHN0cm9rZT0iIzFEOUU3NSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4="/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Why 1480 South Ocean — The Full Story</title>
+<meta name="description" content="How 1480southocean.com works, why we built it, and what it means for your unit."/>
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#fff;color:#222;font-size:14px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+/* ── HEADER ── */
+.hdr{background:#fff;border-bottom:1px solid #ebebeb;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:92px;position:sticky;top:0;z-index:100}
+.hdr-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none}
+.hdr-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0;pointer-events:none}
+.logo-tagline{font-size:14px;font-weight:400;color:#717171;line-height:1}
+.logo-sep{color:#ddd;margin:0 10px;font-weight:300;font-size:18px}
+.logo-loc{font-size:13px;font-weight:300;color:#aaa;line-height:1}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn-back{background:none;border:1.5px solid #1D9E75;color:#1D9E75;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;transition:background 0.15s,color 0.15s;text-decoration:none;display:inline-block}
+.btn-back:hover{background:#1D9E75;color:#fff}
+.btn-contact{background:#1D9E75;border:1.5px solid #1D9E75;color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;transition:background 0.15s;text-decoration:none;display:inline-block}
+.btn-contact:hover{background:#085041;border-color:#085041}
+
+/* ── BREADCRUMB ── */
+.bcrumb{padding:13px 24px;font-size:12px;color:#717171;border-bottom:1px solid #ebebeb;display:flex;align-items:center;gap:5px}
+.bcrumb a{color:#1D9E75;font-weight:500}
+.bcrumb a:hover{text-decoration:underline}
+
+/* ── HERO ── */
+.hero{background:#1a5276;padding:56px 24px 48px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,107,122,0.5) 0%,transparent 60%)}
+.hero-inner{max-width:680px;margin:0 auto;position:relative;z-index:1}
+.hero-kicker{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:16px}
+.hero h1{font-size:clamp(24px,4vw,38px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:14px}
+.hero h1 span{color:#1D9E75}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7}
+
+/* ── SECTIONS ── */
+.section{padding:40px 24px;border-bottom:1px solid #ebebeb}
+.section-inner{max-width:720px;margin:0 auto}
+.section-inner.wide{max-width:960px}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#9a6f00;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:#f0e0b0}
+.sec-h{font-size:22px;font-weight:700;color:#222;margin-bottom:12px;line-height:1.3}
+.sec-sub{font-size:15px;color:#484848;line-height:1.7;margin-bottom:20px}
+
+/* ── INTRO BLOCK ── */
+.intro-block{background:#f7f7f7;border:1px solid #ebebeb;border-radius:14px;padding:28px}
+.intro-block p{font-size:15px;color:#484848;line-height:1.8;margin-bottom:14px}
+.intro-block p:last-child{margin-bottom:0}
+.intro-block p strong{color:#222;font-weight:600}
+
+/* ── TWO COL ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.info-card{border:1px solid #ebebeb;border-radius:14px;padding:22px}
+.info-card.problem{border-top:3px solid #fee2e2}
+.info-card.solution{border-top:3px solid #E1F5EE}
+.ic-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+.ic-label.red{color:#991b1b}
+.ic-label.green{color:#085041}
+.ic-h{font-size:16px;font-weight:700;color:#222;margin-bottom:8px;line-height:1.3}
+.ic-body{font-size:13px;color:#717171;line-height:1.7}
+
+/* ── FEATURE GRID ── */
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}
+.feat-tile{border:1px solid #ebebeb;border-radius:12px;padding:20px}
+.ft-num{font-size:28px;font-weight:700;color:#E1F5EE;line-height:1;margin-bottom:8px}
+.ft-h{font-size:14px;font-weight:700;color:#222;margin-bottom:5px}
+.ft-body{font-size:12px;color:#717171;line-height:1.6}
+
+/* ── DAISY CHAIN ── */
+.chain-diagram{display:flex;align-items:stretch;border:1px solid #ebebeb;border-radius:12px;overflow:hidden;margin:20px 0 12px}
+.chain-stop{flex:1;padding:16px 14px;text-align:center;border-right:1px solid #ebebeb;background:#fff}
+.chain-stop:last-child{border-right:none}
+.chain-stop.active{background:#E1F5EE}
+.cs-unit{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#717171;margin-bottom:4px}
+.cs-dates{font-size:12px;font-weight:600;color:#085041;margin-bottom:2px}
+.cs-nights{font-size:11px;color:#717171}
+.chain-scenario{background:#f7f7f7;border:1px solid #ebebeb;border-radius:10px;padding:16px 20px;margin-top:10px}
+.cs-tag{font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#9a6f00;margin-bottom:6px}
+.cs-text{font-size:13px;color:#484848;line-height:1.65}
+.cs-text strong{color:#085041;font-weight:600}
+
+/* ── ICAL STEPS ── */
+.ical-steps{border:1px solid #ebebeb;border-radius:12px;overflow:hidden;margin-top:16px}
+.ical-step{display:grid;grid-template-columns:44px 1fr;border-bottom:1px solid #ebebeb}
+.ical-step:last-child{border-bottom:none}
+.step-num{background:#1D9E75;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;min-height:72px}
+.step-body{padding:16px 18px}
+.step-body h4{font-size:13px;font-weight:700;color:#222;margin-bottom:4px}
+.step-body p{font-size:12px;color:#717171;line-height:1.7}
+.step-body p strong{color:#222;font-weight:600}
+.ical-security{background:#E1F5EE;border:1px solid #a7f3d0;border-radius:10px;padding:16px 18px;margin-top:14px;display:flex;gap:12px;align-items:flex-start}
+.sec-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.sec-text h4{font-size:13px;font-weight:700;color:#085041;margin-bottom:4px}
+.sec-text p{font-size:12px;color:#085041;line-height:1.65;opacity:0.85}
+
+/* ── PRICING ── */
+.pricing-wrap{background:#f7f7f7;border:1px solid #ebebeb;border-radius:14px;padding:28px;margin-top:20px;max-width:520px}
+.trial-badge{display:inline-block;background:#E1F5EE;color:#085041;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid #a7f3d0;margin-bottom:18px;letter-spacing:0.04em}
+.price-display{display:flex;align-items:baseline;gap:6px;margin-bottom:4px}
+.price-big{font-size:48px;font-weight:700;color:#222;line-height:1}
+.price-period{font-size:14px;color:#717171}
+.price-was{font-size:13px;color:#bbb;text-decoration:line-through;margin-bottom:20px}
+.price-features{list-style:none;margin-bottom:22px;border-top:1px solid #ebebeb;padding-top:16px}
+.price-features li{font-size:13px;color:#484848;padding:7px 0;border-bottom:1px solid #ebebeb;display:flex;align-items:center;gap:8px;line-height:1.4}
+.price-features li:last-child{border-bottom:none}
+.pf-check{width:18px;height:18px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:#fff}
+.btn-green{display:block;width:100%;padding:14px;background:#1D9E75;color:#fff;font-size:14px;font-weight:700;border-radius:10px;text-align:center;border:none;cursor:pointer;transition:background 0.15s;text-decoration:none}
+.btn-green:hover{background:#085041}
+
+/* ── WHO AM I ── */
+.who-block{display:flex;gap:20px;align-items:flex-start;background:#f7f7f7;border:1px solid #ebebeb;border-radius:14px;padding:24px}
+.who-avatar{width:56px;height:56px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.who-name{font-size:15px;font-weight:700;color:#222;margin-bottom:2px}
+.who-title{font-size:12px;color:#717171;margin-bottom:12px}
+.who-content p{font-size:13px;color:#484848;line-height:1.75;margin-bottom:10px}
+.who-content p:last-child{margin-bottom:0}
+
+/* ── FAQ ── */
+.faq-list{border:1px solid #ebebeb;border-radius:12px;overflow:hidden;margin-top:16px}
+.faq-item{border-bottom:1px solid #ebebeb}
+.faq-item:last-child{border-bottom:none}
+.faq-q{width:100%;padding:16px 18px;background:none;border:none;text-align:left;font-family:inherit;font-size:14px;font-weight:600;color:#222;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background 0.15s}
+.faq-q:hover{background:#f7f7f7}
+.fq-icon{color:#1D9E75;font-size:20px;flex-shrink:0;transition:transform 0.2s;font-weight:300;line-height:1}
+.faq-item.open .fq-icon{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 18px 16px;font-size:13px;color:#717171;line-height:1.7}
+.faq-item.open .faq-a{display:block}
+.faq-a a{color:#1D9E75;text-decoration:underline}
+
+/* ── CONTACT FORM ── */
+.contact-wrap{background:#f7f7f7;border:1px solid #ebebeb;border-radius:14px;padding:28px;margin-top:20px;max-width:560px}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:11px;font-weight:700;color:#222;margin-bottom:5px;letter-spacing:0.03em}
+.fg input,.fg textarea{width:100%;padding:10px 13px;border:1px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit;color:#222;background:#fff;transition:border-color 0.15s,box-shadow 0.15s}
+.fg input:focus,.fg textarea:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,0.12)}
+.fg textarea{resize:vertical;min-height:110px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-note{font-size:11px;color:#bbb;text-align:center;margin-top:10px;line-height:1.6}
+.form-note a{color:#1D9E75}
+.form-success{display:none;text-align:center;padding:28px 0}
+.form-success .ck{font-size:44px;margin-bottom:10px}
+.form-success p{font-size:15px;font-weight:700;color:#1D9E75}
+.form-success small{font-size:12px;color:#717171}
+
+/* ── FOOTER CTA ── */
+.footer-cta{background:#1a5276;padding:48px 24px;text-align:center}
+.footer-cta h2{font-size:24px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.3}
+.footer-cta p{font-size:14px;color:rgba(255,255,255,0.65);max-width:480px;margin:0 auto 24px;line-height:1.7}
+.btn-white{display:inline-block;padding:14px 32px;background:#fff;color:#1a5276;font-size:14px;font-weight:700;border-radius:10px;text-decoration:none;transition:all 0.15s}
+.btn-white:hover{background:#f7f7f7;transform:translateY(-1px)}
+.footer-addr{margin-top:24px;font-size:11px;color:rgba(255,255,255,0.35);line-height:2.2}
+.footer-addr a{color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.15s}
+.footer-addr a:hover{color:rgba(255,255,255,0.85)}
+
+/* ── SITE FOOTER ── */
+.ftr{background:#f7f7f7;border-top:1px solid #ebebeb;padding:28px 24px;text-align:center}
+.ftr-logo{font-size:14px;font-weight:700;margin-bottom:8px}
+.ftr-note{font-size:11px;color:#bbb;max-width:500px;margin:0 auto;line-height:1.6}
+.ftr-note a{color:#1D9E75;font-weight:500}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:900px){.hdr-center{display:none}}
+@media(max-width:640px){
+  .hdr{padding:0 16px;height:56px}
+  .hdr svg{width:80px;height:56px}
+  .hero{padding:40px 16px 36px}
+  .section{padding:32px 16px}
+  .two-col,.feat-grid,.frow{grid-template-columns:1fr}
+  .chain-diagram{flex-direction:column}
+  .chain-stop{border-right:none;border-bottom:1px solid #ebebeb}
+  .chain-stop:last-child{border-bottom:none}
+  .footer-cta{padding:40px 16px}
+  .who-block{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a href="https://1480southocean.com" class="hdr-logo">
+    <svg width="200" height="92" viewBox="0 0 280 110" style="flex-shrink:0;display:block;overflow:visible">
+      <text x="140" y="48" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="54" font-style="italic" font-weight="400" fill="#1a5276" letter-spacing="2">1480</text>
+      <path d="M 30 63 C 55 53, 80 73, 105 63 C 130 53, 155 73, 180 63 C 205 53, 230 73, 255 63" stroke="#1a6b7a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M 30 74 C 55 64, 80 84, 105 74 C 130 64, 155 84, 180 74 C 205 64, 230 84, 255 74" stroke="#1D9E75" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M 30 84 C 55 76, 80 92, 105 84 C 130 76, 155 92, 180 84 C 205 76, 230 92, 255 84" stroke="#5bbfcf" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="140" y="103" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="400" fill="#1a6b7a" letter-spacing="4">SOUTH OCEAN.COM</text>
+    </svg>
+  </a>
+  <div class="hdr-center">
+    <span class="logo-tagline">1480 South Ocean Blvd</span>
+    <span class="logo-sep">|</span>
+    <span class="logo-loc">Lauderdale-by-the-Sea, FL</span>
+  </div>
+  <div class="hdr-right">
+    <a href="#contact" class="btn-contact">Contact</a>
+    <a href="https://1480southocean.com" class="btn-back">← Directory</a>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="bcrumb">
+  <a href="https://1480southocean.com">1480SouthOcean.com</a>
+  <span>›</span>
+  <span style="color:#222">Why we built this</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">For unit owners at The International</div>
+    <h1>We're not building websites.<br><span>We're building a platform.</span></h1>
+    <p class="hero-sub">What 1480southocean.com actually does, how it works, and why it's worth $150 a year — written by the person who built it.</p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="section reveal">
+  <div class="section-inner">
+    <div class="sec-label">A note from the builder</div>
+    <div class="intro-block">
+      <p>My name is Henson Marcin. I'm 17, a junior in high school. When I'm not playing basketball or spending time with my friends, I build websites.</p>
+      <p>My parents, Randy and Kristin, own units 319 and 322 in your building — so I've spent a lot of time at The International. Growing up, I kept hearing the same conversation over and over: guests who loved the building couldn't find a unit that matched their full trip. Airbnb and VRBO would tell them nothing was available, and they'd book somewhere else entirely.</p>
+      <p><strong>That seemed like a solvable problem.</strong> So I built 1480southocean.com to solve it — a building-wide directory where every unit is listed, every calendar is synced, and guests can piece together multi-unit stays that the big platforms completely miss.</p>
+    </div>
+  </div>
+</div>
+
+<!-- THE PROBLEM -->
+<div class="section reveal" style="background:#f7f7f7">
+  <div class="section-inner wide">
+    <div class="sec-label">The problem</div>
+    <h2 class="sec-h">Airbnb and VRBO show guests nothing when no single unit covers their trip.</h2>
+    <div class="two-col">
+      <div class="info-card problem">
+        <div class="ic-label red">What happens today</div>
+        <div class="ic-h">Guest searches for 22 nights. No single unit is open. Result: zero.</div>
+        <p class="ic-body">Airbnb and VRBO return no results when a guest's full stay can't be covered by one listing. The building disappears from their search — even though multiple units are available for portions of those dates.</p>
+      </div>
+      <div class="info-card solution">
+        <div class="ic-label green">What 1480southocean.com does</div>
+        <div class="ic-h">Same search. We show them three units that cover the full trip together.</div>
+        <p class="ic-body">Our site looks across every unit, finds the available windows, and shows guests how to combine them into one continuous stay. Bookings that would have gone to another building now stay in yours.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THE PLATFORM -->
+<div class="section reveal">
+  <div class="section-inner wide">
+    <div class="sec-label">What's built</div>
+    <h2 class="sec-h">Four things working together.</h2>
+    <div class="feat-grid">
+      <div class="feat-tile">
+        <div class="ft-num">01</div>
+        <div class="ft-h">Building-wide directory</div>
+        <p class="ft-body">Every short-term rental unit at The International is listed with photos, descriptions, and live links to Airbnb and VRBO. Long-term rentals and for-sale units are being added as they become available.</p>
+      </div>
+      <div class="feat-tile">
+        <div class="ft-num">02</div>
+        <div class="ft-h">Live availability calendars</div>
+        <p class="ft-body">Your real-time calendar, pulled from your iCal feed and displayed on the site. Guests see your open dates without having to click through to Airbnb or VRBO first.</p>
+      </div>
+      <div class="feat-tile">
+        <div class="ft-num">03</div>
+        <div class="ft-h">Multi-unit stay matching</div>
+        <p class="ft-body">When no single unit covers a guest's dates, we build the path across multiple units automatically. This is the feature no platform offers — and it catches bookings that would otherwise disappear entirely.</p>
+      </div>
+      <div class="feat-tile">
+        <div class="ft-num">04</div>
+        <div class="ft-h">Direct guest contact — no fees</div>
+        <p class="ft-body">When a guest sends an inquiry, it is emailed directly to you and only you. Your contact information stays private until you choose to reply. No platform percentage. No middleman.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAISY CHAIN -->
+<div class="section reveal" style="background:#f7f7f7">
+  <div class="section-inner">
+    <div class="sec-label">How multi-unit stays work</div>
+    <h2 class="sec-h">The daisy chain — the feature that changes everything.</h2>
+    <p class="sec-sub">This is what makes 1480southocean.com genuinely different. When a guest needs dates no single unit can cover, we show them exactly how to build the trip across multiple units.</p>
+    <div class="chain-diagram">
+      <div class="chain-stop active">
+        <div class="cs-unit">Unit 321</div>
+        <div class="cs-dates">Jan 1 → Jan 8</div>
+        <div class="cs-nights">7 nights ✓</div>
+      </div>
+      <div class="chain-stop">
+        <div class="cs-unit">Unit 308</div>
+        <div class="cs-dates">Jan 8 → Jan 15</div>
+        <div class="cs-nights">7 nights ✓</div>
+      </div>
+      <div class="chain-stop active">
+        <div class="cs-unit">Unit 415</div>
+        <div class="cs-dates">Jan 15 → Jan 22</div>
+        <div class="cs-nights">7 nights ✓</div>
+      </div>
+    </div>
+    <div class="chain-scenario">
+      <div class="cs-tag">Scenario A — Guest needs January 1–22</div>
+      <p class="cs-text">No single unit is open for all 22 days. Without this site, Airbnb returns zero results and the guest books another building. <strong>With the site, they see a 3-unit path that covers their full stay</strong> — and three owners get bookings they never would have seen.</p>
+    </div>
+    <div class="chain-scenario" style="margin-top:10px">
+      <div class="cs-tag">Scenario B — The following year</div>
+      <p class="cs-text">That guest had a great stay. They're coming back. Now they know your unit specifically — and they <strong>book you directly for their entire trip next time</strong>. The daisy chain turned a split booking into a loyal repeat guest.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ICAL -->
+<div class="section reveal">
+  <div class="section-inner">
+    <div class="sec-label">The iCal link</div>
+    <h2 class="sec-h">What I need from you — and why it's safe.</h2>
+    <p class="sec-sub">An iCal link is the only thing required to get your availability calendar live. Here's exactly what it is and how to find it in about 60 seconds.</p>
+    <div class="ical-steps">
+      <div class="ical-step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>What is an iCal link?</h4>
+          <p>A read-only feed of your booking calendar — the same availability information already publicly visible on your Airbnb or VRBO listing. It tells the outside world which dates are booked and which are open. Nothing else.</p>
+        </div>
+      </div>
+      <div class="ical-step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>How to find it on Airbnb</h4>
+          <p>Go to your listing → <strong>Calendar</strong> → <strong>Connect another calendar</strong> → <strong>Connect to another website</strong> → <strong>Copy the Airbnb calendar link</strong> → Text or email me the link.</p>
+        </div>
+      </div>
+      <div class="ical-step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>How to find it on VRBO</h4>
+          <p>Go to your listing → <strong>Calendar</strong> → <strong>Settings icon</strong> (top right, just above the word "Saturday") → <strong>Availability</strong> → <strong>Connect calendars</strong> → <strong>Export calendar</strong> → <strong>Copy URL</strong> → Text or email me the link.</p>
+        </div>
+      </div>
+      <div class="ical-step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>What I do with it</h4>
+          <p>My API reads the feed and updates your availability calendar on the site. It shows guests one thing: available or unavailable. No guest data, no booking details, no financial information passes through — ever.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ical-security">
+      <div class="sec-icon">🔒</div>
+      <div class="sec-text">
+        <h4>Your data is safe</h4>
+        <p>The iCal feed is one-way and read-only. My API cannot access guest names, contact details, booking amounts, or any private information. It reads exactly what any guest browsing your public Airbnb calendar already sees — open dates and booked dates. Nothing more.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="section reveal" style="background:#f7f7f7">
+  <div class="section-inner">
+    <div class="sec-label">Simple pricing</div>
+    <h2 class="sec-h">That's less than one night's rate.</h2>
+    <p class="sec-sub">Your listing is already live, and free for another 30 days from the moment your calendar goes live. After that, here's what it costs to stay on the platform.</p>
+    <div class="pricing-wrap">
+      <div class="trial-badge">✓ 30-Day Free Trial — No Card Required</div>
+      <div class="price-display">
+        <div class="price-big">$150</div>
+        <div class="price-period">/ first year</div>
+      </div>
+      <div class="price-was">Regular rate: $300/year</div>
+      <ul class="price-features">
+        <li><div class="pf-check">✓</div>Live availability calendar synced from your iCal</li>
+        <li><div class="pf-check">✓</div>Listed in the building-wide directory</li>
+        <li><div class="pf-check">✓</div>Included in multi-unit stay matching</li>
+        <li><div class="pf-check">✓</div>Guest inquiries emailed directly to you — no platform fees</li>
+        <li><div class="pf-check">✓</div>Photos and description updates included (see FAQ)</li>
+        <li><div class="pf-check">✓</div>No contract. Cancel anytime. Unit removed upon request.</li>
+        <li><div class="pf-check">✓</div>No refunds. No auto-renewals without your confirmation.</li>
+      </ul>
+      <a href="#contact" class="btn-green">Send My iCal Link — Let's Get Started</a>
+      <p class="form-note" style="margin-top:10px;font-size:11px;color:#bbb;text-align:center;line-height:1.6">No card required to start. Your 30-day trial begins the day your calendar goes live.</p>
+    </div>
+  </div>
+</div>
+
+<!-- WHO AM I -->
+<div class="section reveal">
+  <div class="section-inner">
+    <div class="sec-label">Who built this</div>
+    <h2 class="sec-h" style="margin-bottom:16px">A word from me directly.</h2>
+    <div class="who-block">
+      <div class="who-avatar">🏀</div>
+      <div class="who-content">
+        <div class="who-name">Henson Marcin</div>
+        <div class="who-title">Founder, 21 Web Studios &nbsp;·&nbsp; Son of Randy &amp; Kristin Marcin, Units 319 &amp; 322</div>
+        <p>I'm 17. I built this because I saw a real problem and thought I could solve it — not as a school project, not because someone told me to. I've spent enough time at The International to actually care about how it works for the owners here.</p>
+        <p>I'm charging $150 because I genuinely believe this site will get you more bookings than it costs. I'm confident enough in that to give you 30 days to see it for yourself before paying anything.</p>
+        <p>My dad Randy is available if you'd ever prefer to talk to him directly. But to be clear, this is my project, and I stand behind it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section reveal" style="background:#f7f7f7">
+  <div class="section-inner">
+    <div class="sec-label">Common questions</div>
+    <h2 class="sec-h">Things you're probably wondering.</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What happens if I don't pay after 30 days?<span class="fq-icon">+</span></button>
+        <div class="faq-a">Your listing stays up for the full 30-day trial. After that, if I don't hear from you, I'll send one follow-up. If there's still no response, your unit is removed from the directory. No hard feelings, no debt, no drama.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What if a guest contacts me but I'm already booked?<span class="fq-icon">+</span></button>
+        <div class="faq-a">You respond directly and let them know. Since the iCal keeps your availability updated automatically, this should be rare — but it can happen with last-minute bookings. You're never obligated to accept any booking that comes through the site.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Does this compete with my Airbnb or VRBO listing?<span class="fq-icon">+</span></button>
+        <div class="faq-a">No — the site links directly to your Airbnb and VRBO listings. We're driving traffic toward your existing listings, not replacing them. The direct contact feature is an additional option that saves both you and the guest the platform service fee.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I update my photos or description?<span class="fq-icon">+</span></button>
+        <div class="faq-a">Yes. Email me any time and I'll update your listing. Photos, description, contact info, pricing notes — anything. Changes that are batched monthly are included in your membership at no extra charge. Immediate changes may require a nominal fee.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What if I want to cancel?<span class="fq-icon">+</span></button>
+        <div class="faq-a">No contract. Cancel anytime. Your unit is removed upon request. There are no refunds on the annual fee, and there are no auto-renewals without your confirmation.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is there a separate personal website option?<span class="fq-icon">+</span></button>
+        <div class="faq-a">Yes — I also build standalone personal websites for individual units with their own domain name. It's a separate service. I'm happy to talk to you at any time about that kind of project. A good example of my work can be seen at <a href="https://www.beachfrontstudiorentals.com" target="_blank">BeachfrontStudioRentals.com</a>.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT FORM -->
+<div class="section" id="contact">
+  <div class="section-inner">
+    <div class="sec-label">Get started</div>
+    <h2 class="sec-h">Send me your iCal link.</h2>
+    <p class="sec-sub">Fill out the form below and I'll have your availability calendar live within 24 hours. Your 30-day trial starts the day it goes live — no card required.</p>
+    <div class="contact-wrap">
+      <div id="contact-form">
+        <div class="frow">
+          <div class="fg">
+            <label>First name</label>
+            <input type="text" id="cf-first" placeholder="Jane"/>
+          </div>
+          <div class="fg">
+            <label>Last name</label>
+            <input type="text" id="cf-last" placeholder="Smith"/>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Email address</label>
+          <input type="email" id="cf-email" placeholder="jane@email.com"/>
+        </div>
+        <div class="fg">
+          <label>Unit number</label>
+          <input type="text" id="cf-unit" placeholder="e.g. 215"/>
+        </div>
+        <div class="fg">
+          <label>iCal link &amp; notes</label>
+          <textarea id="cf-msg" placeholder="Paste your iCal link here — and add any questions or notes you have for me."></textarea>
+        </div>
+        <input type="checkbox" name="botcheck" style="display:none"/>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAACznUsqAgNMkr0-m" data-size="flexible" style="margin-bottom:10px"></div>
+        <button class="btn-green" onclick="submitContactForm()">Send My iCal Link →</button>
+        <p class="form-note">Goes directly to <a href="mailto:info@21webstudios.com">info@21webstudios.com</a> · We'll be in touch within 24 hours.</p>
+      </div>
+      <div class="form-success" id="contact-success">
+        <div class="ck">✅</div>
+        <p>Got it — thank you!</p>
+        <small>I'll have your calendar live within 24 hours and be in touch with next steps.</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <h2>Questions? Just ask.</h2>
+  <p>Fill out the form above or reach out directly. Your competition... I mean your neighbors... are already getting set up. 😉</p>
+  <a href="#contact" class="btn-white">Get Started →</a>
+  <div class="footer-addr">
+    21 Web Studios &nbsp;·&nbsp; <a href="https://www.21webstudios.com" target="_blank">21webstudios.com</a> &nbsp;·&nbsp; <a href="mailto:info@21webstudios.com">info@21webstudios.com</a><br>
+    <a href="https://1480southocean.com" target="_blank">1480southocean.com</a> &nbsp;·&nbsp; Lauderdale-by-the-Sea, Florida
+  </div>
+</div>
+
+<!-- SITE FOOTER -->
+<footer class="ftr">
+  <div class="ftr-logo"><a href="https://1480southocean.com" style="color:inherit">1480SouthOcean.com</a> · Lauderdale-by-the-Sea, FL 33062</div>
+  <div class="ftr-note">Each unit at 1480 South Ocean is independently owned and managed. 1480SouthOcean.com is a listing platform only — we are not a booking agent and do not collect payments. Site designed and built by <a href="https://www.21webstudios.com" target="_blank">21WebStudios.com</a></div>
+</footer>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+function submitContactForm(){
+  const first = document.getElementById('cf-first').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const unit  = document.getElementById('cf-unit').value.trim();
+  if(!first || !email || !unit){
+    alert('Please fill in your name, email address, and unit number.');
+    return;
+  }
+  const turnstileToken = document.querySelector('#contact-form [name="cf-turnstile-response"]')?.value || '';
+  const payload = {
+    access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
+    subject: 'iCal link submission — Unit ' + unit,
+    from_name: first + ' ' + (document.getElementById('cf-last').value.trim() || ''),
+    email: email,
+    to: 'info@21webstudios.com',
+    unit: unit,
+    message: document.getElementById('cf-msg').value.trim(),
+    botcheck: false,
+    'cf-turnstile-response': turnstileToken
+  };
+  const btn = document.querySelector('#contact-form .btn-green');
+  if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => {
+    if(data.success){
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('contact-success').style.display = 'block';
+    } else {
+      alert('Something went wrong. Please email info@21webstudios.com directly.');
+      if(btn){ btn.disabled = false; btn.textContent = 'Send My iCal Link →'; }
+    }
+  })
+  .catch(() => {
+    alert('Something went wrong. Please email info@21webstudios.com directly.');
+    if(btn){ btn.disabled = false; btn.textContent = 'Send My iCal Link →'; }
+  });
+}
+
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+},{threshold:0.08});
+reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>
