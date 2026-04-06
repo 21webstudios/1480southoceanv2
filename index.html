@@ -164,6 +164,7 @@ a{color:inherit;text-decoration:none}
   .hdr svg{width:80px;height:56px;flex-shrink:0}
   .logo{display:none}
   .btn-list{font-size:11px;padding:5px 10px}
+  .btn-multi-stay{display:none!important}
   .search-wrap{padding:12px 16px 0}.filters-wrap{padding:10px 16px}.grid-wrap{padding:16px}.grid{gap:18px 14px}.sp-grid{grid-template-columns:repeat(2,1fr)}.pgrid{grid-template-columns:1fr;grid-template-rows:220px 110px 110px;padding:0 16px}.pc:first-child{grid-row:1;border-radius:14px 14px 0 0}.pc:nth-child(n+4){display:none}.dlayout{padding:16px 16px 40px}.dhdr{padding:16px 16px 10px}.dtitle{font-size:18px}
 }
 
@@ -195,7 +196,14 @@ a{color:inherit;text-decoration:none}
 
 .btn-list{background:none;border:1.5px solid #1D9E75;color:#1D9E75;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:background 0.15s,color 0.15s}
 .btn-list:hover{background:#1D9E75;color:#fff}
-.hdr-right{position:absolute;right:24px;display:flex;align-items:center}
+
+/* ── Multi-Unit Stay button ── */
+.btn-multi-stay{background:#1D9E75;border:1.5px solid #1D9E75;color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:background 0.15s,border-color 0.15s}
+.btn-multi-stay:hover{background:#085041;border-color:#085041}
+
+/* Header right zone — fixed width so center address stays centered */
+.hdr-right{width:360px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;gap:10px}
+
 .ftr-list-link{color:#1D9E75;font-weight:500;cursor:pointer;text-decoration:underline;font-size:13px}
 
 /* Calendar */
@@ -221,6 +229,53 @@ a{color:inherit;text-decoration:none}
 .clear-dates{font-size:13px;font-weight:500;padding:7px 18px;border-radius:24px;background:#fff;border:1px solid #222;color:#222;cursor:pointer;display:none;margin-top:8px;transition:all 0.15s}
 .clear-dates:hover{background:#f7f7f7}
 .clear-dates.show{display:inline-block}
+
+/* ── Multi-Unit Stay Modal ── */
+.ms-modal-box{background:#fff;border-radius:16px;padding:30px;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;position:relative}
+.ms-date-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.ms-date-row label{display:block;font-size:11px;font-weight:600;margin-bottom:4px}
+.ms-date-row input{width:100%;padding:10px 13px;border:1px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit;color:#222;background:#fff}
+.ms-date-row input:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,0.12)}
+.ms-btn-search{width:100%;padding:13px;background:#1D9E75;color:#fff;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:background 0.15s}
+.ms-btn-search:hover{background:#085041}
+.ms-btn-search:disabled{background:#aaa;cursor:not-allowed}
+.ms-results{margin-top:22px}
+.ms-result-section-label{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#717171;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ms-result-section-label::after{content:'';flex:1;height:1px;background:#eee}
+
+/* Single unit result row */
+.ms-unit-row{border:1px solid #ddd;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;cursor:pointer;transition:box-shadow 0.15s,border-color 0.15s}
+.ms-unit-row:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);border-color:#1D9E75}
+.ms-unit-thumb{width:56px;height:56px;border-radius:8px;background:#f0f0f0;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px}
+.ms-unit-thumb img{width:100%;height:100%;object-fit:cover}
+.ms-unit-info{flex:1;min-width:0}
+.ms-unit-num{font-size:11px;color:#717171;font-weight:500}
+.ms-unit-title{font-size:14px;font-weight:600;color:#222;line-height:1.3;margin-top:1px}
+.ms-unit-nights{font-size:12px;color:#1D9E75;font-weight:600;margin-top:3px}
+.ms-row-arrow{color:#bbb;font-size:18px;flex-shrink:0}
+
+/* Daisy-chain card */
+.ms-chain-card{border:1.5px solid #1D9E75;border-radius:14px;overflow:hidden;margin-bottom:14px}
+.ms-chain-head{background:#E1F5EE;padding:12px 18px}
+.ms-chain-head-title{font-size:13px;font-weight:700;color:#085041}
+.ms-chain-head-sub{font-size:11px;color:#1D9E75;margin-top:2px}
+.ms-chain-stops{padding:4px 18px}
+.ms-chain-stop{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.ms-chain-stop:last-child{border-bottom:none}
+.ms-stop-thumb{width:44px;height:44px;border-radius:7px;background:#f0f0f0;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
+.ms-stop-thumb img{width:100%;height:100%;object-fit:cover}
+.ms-stop-info{flex:1;min-width:0}
+.ms-stop-unit{font-size:10px;color:#717171;font-weight:500}
+.ms-stop-title{font-size:13px;font-weight:600;color:#222;line-height:1.3}
+.ms-stop-dates{font-size:11px;color:#1D9E75;font-weight:600;margin-top:2px}
+.ms-chain-footer{padding:12px 18px;background:#f9f9f9;border-top:1px solid #ebebeb;font-size:12px;color:#717171;line-height:1.5}
+
+/* Notice / no results */
+.ms-notice{background:#FEF9EC;border:1px solid #f0e0b0;border-radius:8px;padding:10px 14px;font-size:12px;color:#7a5800;line-height:1.5;margin-bottom:14px}
+.ms-no-results{text-align:center;padding:28px 16px;color:#717171}
+.ms-no-results-icon{font-size:32px;margin-bottom:8px}
+.ms-no-results-title{font-size:15px;font-weight:700;color:#222;margin-bottom:5px}
+.ms-no-results-sub{font-size:13px;line-height:1.6}
 </style>
 </head>
 <body>
@@ -228,26 +283,19 @@ a{color:inherit;text-decoration:none}
 <div id="app">
 <header class="hdr">
   <svg width="200" height="92" viewBox="0 0 280 110" style="cursor:pointer;flex-shrink:0;display:block;overflow:visible" onclick="showHome()">
-      <text x="140" y="48" text-anchor="middle"
-        font-family="Georgia,'Times New Roman',serif"
-        font-size="54" font-style="italic" font-weight="400"
-        fill="#1a5276" letter-spacing="2">1480</text>
-      <path d="M 30 63 C 55 53, 80 73, 105 63 C 130 53, 155 73, 180 63 C 205 53, 230 73, 255 63"
-        stroke="#1a6b7a" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M 30 74 C 55 64, 80 84, 105 74 C 130 64, 155 84, 180 74 C 205 64, 230 84, 255 74"
-        stroke="#1D9E75" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M 30 84 C 55 76, 80 92, 105 84 C 130 76, 155 92, 180 84 C 205 76, 230 92, 255 84"
-        stroke="#5bbfcf" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <text x="140" y="103" text-anchor="middle"
-        font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif"
-        font-size="10" font-weight="400" fill="#1a6b7a" letter-spacing="4">SOUTH OCEAN.COM</text>
-    </svg>
+    <text x="140" y="48" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="54" font-style="italic" font-weight="400" fill="#1a5276" letter-spacing="2">1480</text>
+    <path d="M 30 63 C 55 53, 80 73, 105 63 C 130 53, 155 73, 180 63 C 205 53, 230 73, 255 63" stroke="#1a6b7a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 30 74 C 55 64, 80 84, 105 74 C 130 64, 155 84, 180 74 C 205 64, 230 84, 255 74" stroke="#1D9E75" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 30 84 C 55 76, 80 92, 105 84 C 130 76, 155 92, 180 84 C 205 76, 230 92, 255 84" stroke="#5bbfcf" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <text x="140" y="103" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="400" fill="#1a6b7a" letter-spacing="4">SOUTH OCEAN.COM</text>
+  </svg>
   <div class="logo" onclick="showHome()">
     <span class="logo-tagline">1480 South Ocean Blvd</span>
     <span class="logo-sep">|</span>
     <span class="logo-loc">Lauderdale-by-the-Sea, FL</span>
   </div>
-  <div style="width:200px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end">
+  <div class="hdr-right">
+    <button class="btn-multi-stay" onclick="openMultiStayModal()">Build a Multi-Unit Stay</button>
     <button class="btn-list" onclick="openListModal()">List your unit</button>
   </div>
 </header>
@@ -387,7 +435,7 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- INQUIRY MODAL -->
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <button class="mc-close" onclick="closeModal()">×</button>
@@ -440,10 +488,30 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
+<!-- MULTI-UNIT STAY MODAL -->
+<div class="modal-overlay" id="multi-stay-modal" onclick="if(event.target===this)closeMultiStayModal()">
+  <div class="ms-modal-box">
+    <button class="mc-close" onclick="closeMultiStayModal()">×</button>
+    <h3>Build a Multi-Unit Stay</h3>
+    <p class="modal-sub">Enter your dates — we'll find units that cover your whole trip, or chain multiple units together seamlessly.</p>
+    <div class="ms-date-row">
+      <div>
+        <label>Check-in</label>
+        <input type="date" id="ms-checkin"/>
+      </div>
+      <div>
+        <label>Check-out</label>
+        <input type="date" id="ms-checkout"/>
+      </div>
+    </div>
+    <button class="ms-btn-search" id="ms-search-btn" onclick="runMultiStaySearch()">Search available units</button>
+    <div class="ms-results" id="ms-results" style="display:none"></div>
+  </div>
+</div>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 let UNITS = [];
 let curUnit = null;
-
 
 function loadUnitPhotos(u){
   const thumbSrc = u.photos && u.photos[0] ? 'images/' + u.photos[0] : null;
@@ -530,13 +598,10 @@ function buildGrids(filter){
   nr.style.display = (fVis.length + rVis.length)===0 ? 'block' : 'none';
 }
 
-// ── GA4: Filter chip click ──
 function flt(el, f){
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
   el.classList.add('on');
-  gtag('event', 'filter_chip_click', {
-    filter_name: f
-  });
+  gtag('event', 'filter_chip_click', { filter_name: f });
   buildGrids(f);
 }
 
@@ -570,25 +635,18 @@ function restoreHearts(){
   });
 }
 
-// ── GA4: Unit detail page view ──
 function showDetail(idx){
   curUnit = UNITS[idx];
   const u = curUnit;
-
   gtag('event', 'unit_detail_view', {
-    unit_number: u.n,
-    unit_title: u.title,
-    unit_floor: u.fl,
-    unit_oceanfront: u.of ? 'yes' : 'no',
-    unit_featured: u.feat ? 'yes' : 'no'
+    unit_number: u.n, unit_title: u.title, unit_floor: u.fl,
+    unit_oceanfront: u.of ? 'yes' : 'no', unit_featured: u.feat ? 'yes' : 'no'
   });
-
   const platBtns = [
     u.ab ? `<a class="btn-plat" href="${u.ab}" target="_blank" rel="noopener" onclick="trackPlatformClick('airbnb', ${u.n})"><span class="dot-ab"></span>View on Airbnb</a>` : '',
     u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener" onclick="trackPlatformClick('vrbo', ${u.n})"><span class="dot-vb"></span>View on VRBO</a>` : '',
     u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;" onclick="trackPlatformClick('extended_stay', ${u.n})">View extended stay listing</a>` : ''
   ].filter(Boolean).join('');
-
   loadUnitPhotos(u).then(photos => {
     window._currentPhotos = photos;
     document.getElementById('detail').innerHTML = `
@@ -664,7 +722,6 @@ function showDetail(idx){
         <div class="ftr-note">Each unit at 1480 South Ocean is independently owned and managed. 1480SouthOcean.com is a listing platform only — we are not a booking agent and do not collect payments. Unit owners are solely responsible for their listings, pricing, availability, and bookings. Always confirm availability directly with the owner before making travel arrangements. This site is not affiliated with Airbnb, VRBO, or the International Studio Apartment Association, Inc.</div>
         <div class="ftr-note" style="margin-top:8px">Site designed and built by <a href="https://www.21WebStudios.com" target="_blank" rel="noopener" style="color:#1D9E75;font-weight:500">21WebStudios.com</a> &middot; <span id="detail-privacy-link" style="color:#1D9E75;font-size:11px;cursor:pointer;text-decoration:underline" onclick="openPrivacyModal()">Privacy Policy</span></div>
       </footer>`;
-
     document.getElementById('home').style.display='none';
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
@@ -672,19 +729,11 @@ function showDetail(idx){
   });
 }
 
-// ── GA4: Airbnb / VRBO / platform button click ──
 function trackPlatformClick(platform, unitNum){
-  gtag('event', 'platform_click', {
-    platform: platform,
-    unit_number: unitNum
-  });
+  gtag('event', 'platform_click', { platform: platform, unit_number: unitNum });
 }
-
-// ── GA4: Direct inquiry button click (intent — before form is submitted) ──
 function trackDirectInquiryClick(unitNum){
-  gtag('event', 'direct_inquiry_click', {
-    unit_number: unitNum
-  });
+  gtag('event', 'direct_inquiry_click', { unit_number: unitNum });
 }
 
 function showHome(){
@@ -696,10 +745,7 @@ function showHome(){
 function openModal(){
   if(!curUnit) return;
   const u = curUnit;
-  const badges = [
-    u.feat ? '⭐ Featured' : '',
-    u.of   ? '🌊 Oceanfront' : ''
-  ].filter(Boolean).join(' · ');
+  const badges = [u.feat ? '⭐ Featured' : '', u.of ? '🌊 Oceanfront' : ''].filter(Boolean).join(' · ');
   document.getElementById('m-title').textContent = 'Inquire about Unit '+u.n;
   document.getElementById('m-sub').textContent = u.title + (badges ? ' · ' + badges : '') + ' · Floor '+u.fl;
   document.getElementById('m-enote').textContent = 'Your inquiry goes directly to the owner.';
@@ -715,12 +761,9 @@ function sendInq(){
   }
   if(!curUnit) return;
   const u = curUnit;
-
   const turnstileToken = document.querySelector('#m-form [name="cf-turnstile-response"]')?.value || '';
-
   const OWNER_EMAILS = { 319: 'beachfrontstudiorentals@gmail.com', 322: 'beachfrontstudiorentals@gmail.com' };
   const ownerEmail = OWNER_EMAILS[u.n] || null;
-
   const payload = {
     access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
     subject: 'Direct inquiry — Unit ' + u.n + ' · ' + u.title,
@@ -728,18 +771,15 @@ function sendInq(){
     email: document.getElementById('m-email').value.trim(),
     to: 'info@21webstudios.com',
     cc: ownerEmail || '',
-    unit: u.n,
-    floor: u.fl,
+    unit: u.n, floor: u.fl,
     checkin: document.querySelector('#m-form input[type=date]:first-of-type')?.value || '',
     checkout: document.querySelector('#m-form input[type=date]:last-of-type')?.value || '',
     message: document.querySelector('#m-form textarea')?.value || '',
     botcheck: false,
     'cf-turnstile-response': turnstileToken
   };
-
   const btn = document.querySelector('#m-form .btn-send');
   if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
-
   fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {'Content-Type':'application/json','Accept':'application/json'},
@@ -748,12 +788,7 @@ function sendInq(){
   .then(r => r.json())
   .then(data => {
     if(data.success){
-      // ── GA4: Direct inquiry form successfully submitted ──
-      gtag('event', 'form_submission', {
-        form_type: 'direct_inquiry',
-        unit_number: u.n,
-        unit_title: u.title
-      });
+      gtag('event', 'form_submission', { form_type: 'direct_inquiry', unit_number: u.n, unit_title: u.title });
       document.getElementById('m-form').style.display='none';
       document.getElementById('m-success').style.display='block';
       setTimeout(closeModal, 3000);
@@ -768,16 +803,11 @@ function sendInq(){
   });
 }
 
-// Load units.json
 fetch('data/units.json')
   .then(r => r.json())
   .then(data => {
     UNITS = data.units;
-    loadHeroPhotos().then(heroPhotos => {
-      if(heroPhotos.length){
-        heroInit(heroPhotos);
-      }
-    });
+    loadHeroPhotos().then(heroPhotos => { if(heroPhotos.length) heroInit(heroPhotos); });
     buildGrids('all');
     restoreHearts();
   })
@@ -787,26 +817,15 @@ fetch('data/units.json')
 let lbPhotos = [], lbIdx = 0;
 
 function openLB(photos, n){
-  lbPhotos = photos;
-  lbIdx = n;
+  lbPhotos = photos; lbIdx = n;
   document.getElementById('lb-img').src = photos[n];
   document.getElementById('lb-counter').textContent = (n+1) + ' of ' + photos.length;
   document.getElementById('lb').classList.add('open');
   document.body.style.overflow = 'hidden';
-  // ── GA4: Photo gallery opened ──
-  gtag('event', 'photo_gallery_open', {
-    unit_number: curUnit ? curUnit.n : 'unknown',
-    total_photos: photos.length
-  });
+  gtag('event', 'photo_gallery_open', { unit_number: curUnit ? curUnit.n : 'unknown', total_photos: photos.length });
 }
-function closeLB(){
-  document.getElementById('lb').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function lbOpen(n){
-  const photos = window._currentPhotos || [];
-  if(photos.length) openLB(photos, Math.min(n, photos.length-1));
-}
+function closeLB(){ document.getElementById('lb').classList.remove('open'); document.body.style.overflow = ''; }
+function lbOpen(n){ const photos = window._currentPhotos || []; if(photos.length) openLB(photos, Math.min(n, photos.length-1)); }
 function lbNav(dir){
   lbIdx = (lbIdx + dir + lbPhotos.length) % lbPhotos.length;
   document.getElementById('lb-img').src = lbPhotos[lbIdx];
@@ -836,32 +855,14 @@ function heroInit(slides){
   heroUpdate(0, slides.length);
   heroTimer = setInterval(() => heroGo((heroIdx+1) % slides.length, slides.length), 5000);
 }
-function heroGo(n, total){
-  clearInterval(heroTimer);
-  heroUpdate(n, total);
-  heroTimer = setInterval(() => heroGo((heroIdx+1) % total, total), 5000);
-}
-function heroUpdate(n, total){
-  heroIdx = n;
-  document.querySelectorAll('.hero-slide').forEach((el,i) => el.classList.toggle('active', i===n));
-}
+function heroGo(n, total){ clearInterval(heroTimer); heroUpdate(n, total); heroTimer = setInterval(() => heroGo((heroIdx+1) % total, total), 5000); }
+function heroUpdate(n, total){ heroIdx = n; document.querySelectorAll('.hero-slide').forEach((el,i) => el.classList.toggle('active', i===n)); }
 
-function openListModal(){
-  document.getElementById('list-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeListModal(){
-  document.getElementById('list-modal').classList.remove('open');
-  document.body.style.overflow='';
-}
-function openPrivacyModal(){
-  document.getElementById('privacy-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closePrivacyModal(){
-  document.getElementById('privacy-modal').classList.remove('open');
-  document.body.style.overflow='';
-}
+function openListModal(){ document.getElementById('list-modal').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeListModal(){ document.getElementById('list-modal').classList.remove('open'); document.body.style.overflow=''; }
+function openPrivacyModal(){ document.getElementById('privacy-modal').classList.add('open'); document.body.style.overflow='hidden'; }
+function closePrivacyModal(){ document.getElementById('privacy-modal').classList.remove('open'); document.body.style.overflow=''; }
+
 function submitListForm(){
   const first = document.getElementById('lf-first').value.trim();
   const email = document.getElementById('lf-email').value.trim();
@@ -872,12 +873,9 @@ function submitListForm(){
     access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
     subject: 'New unit listing inquiry — Unit ' + unit,
     from_name: first + ' ' + (document.getElementById('lf-last').value.trim()||''),
-    email: email,
-    phone: document.getElementById('lf-phone').value.trim(),
-    unit: unit,
-    message: document.getElementById('lf-msg').value.trim(),
-    to: 'info@21webstudios.com',
-    botcheck: false,
+    email: email, phone: document.getElementById('lf-phone').value.trim(),
+    unit: unit, message: document.getElementById('lf-msg').value.trim(),
+    to: 'info@21webstudios.com', botcheck: false,
     'cf-turnstile-response': turnstileToken
   };
   const btn = document.querySelector('#list-form .btn-send');
@@ -890,11 +888,7 @@ function submitListForm(){
   .then(r => r.json())
   .then(data => {
     if(data.success){
-      // ── GA4: List your unit form successfully submitted ──
-      gtag('event', 'form_submission', {
-        form_type: 'list_your_unit',
-        unit_number: unit
-      });
+      gtag('event', 'form_submission', { form_type: 'list_your_unit', unit_number: unit });
       document.getElementById('list-form').style.display='none';
       document.getElementById('list-success').style.display='block';
       setTimeout(closeListModal, 3000);
@@ -909,7 +903,7 @@ function submitListForm(){
   });
 }
 
-// ── iCal URLs for units with live calendars ──
+// ── iCal URLs ──
 const ICAL_URLS = {
   215: 'http://www.vrbo.com/icalendar/f407fa5899b442148ee005c9235402e4.ics?nonTentative',
   304: 'http://www.vrbo.com/icalendar/eb3ba5720b95479c91f3dbe22d849f54.ics?nonTentative',
@@ -930,10 +924,7 @@ function parseICal(text){
     const start = new Date(dtstart.slice(0,4)+'-'+dtstart.slice(4,6)+'-'+dtstart.slice(6,8));
     const end   = new Date(dtend.slice(0,4)+'-'+dtend.slice(4,6)+'-'+dtend.slice(6,8));
     const cur = new Date(start);
-    while(cur < end){
-      blocked.add(cur.toISOString().slice(0,10));
-      cur.setDate(cur.getDate()+1);
-    }
+    while(cur < end){ blocked.add(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
   }
   return blocked;
 }
@@ -943,17 +934,12 @@ async function fetchCalendar(unitNum){
   const icalUrl = ICAL_URLS[unitNum];
   if(!icalUrl) return null;
   try {
-    const proxyUrl = '/ical-proxy?url=' + encodeURIComponent(icalUrl);
-    const res = await fetch(proxyUrl);
+    const res = await fetch('/ical-proxy?url=' + encodeURIComponent(icalUrl));
     if(!res.ok) throw new Error('fetch failed');
-    const text = await res.text();
-    const blocked = parseICal(text);
+    const blocked = parseICal(await res.text());
     CAL_CACHE[unitNum] = blocked;
     return blocked;
-  } catch(e){
-    console.error('Calendar fetch failed for unit', unitNum, e);
-    return null;
-  }
+  } catch(e){ console.error('Calendar fetch failed for unit', unitNum, e); return null; }
 }
 
 function renderCalendar(wrap, blocked, year, month){
@@ -963,53 +949,27 @@ function renderCalendar(wrap, blocked, year, month){
   const maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + 364);
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month+1, 0).getDate();
-
-  let html = `<div class="cal-wrap">
-    <div class="cal-nav">
-      <button onclick="calNav(-1)">‹</button>
-      <span class="cal-month">${MONTHS[month]} ${year}</span>
-      <button onclick="calNav(1)">›</button>
-    </div>
-    <div class="cal-grid">
-      ${DAYS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}
-      ${Array(firstDay).fill('<div class="cal-day empty"></div>').join('')}`;
-
+  let html = `<div class="cal-wrap"><div class="cal-nav"><button onclick="calNav(-1)">‹</button><span class="cal-month">${MONTHS[month]} ${year}</span><button onclick="calNav(1)">›</button></div><div class="cal-grid">${DAYS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}${Array(firstDay).fill('<div class="cal-day empty"></div>').join('')}`;
   for(let d=1;d<=daysInMonth;d++){
     const date = new Date(year, month, d);
     const dateStr = date.toISOString().slice(0,10);
     let cls = 'cal-day';
-    if(date < today){
-      cls += ' past';
-    } else if(date > maxDate){
-      cls += ' unavailable';
-    } else if(blocked && blocked.has(dateStr)){
-      cls += ' unavailable';
-    } else {
-      cls += ' available';
-    }
+    if(date < today) cls += ' past';
+    else if(date > maxDate) cls += ' unavailable';
+    else if(blocked && blocked.has(dateStr)) cls += ' unavailable';
+    else cls += ' available';
     html += `<div class="${cls}">${d}</div>`;
   }
-
-  html += `</div>
-    <div class="cal-legend">
-      <span><span class="cal-legend-dot" style="background:#E1F5EE;border:1px solid #a7f3d0"></span>Available</span>
-      <span><span class="cal-legend-dot" style="background:#fee2e2;border:1px solid #fca5a5"></span>Unavailable</span>
-    </div>
-  </div>`;
-
+  html += `</div><div class="cal-legend"><span><span class="cal-legend-dot" style="background:#E1F5EE;border:1px solid #a7f3d0"></span>Available</span><span><span class="cal-legend-dot" style="background:#fee2e2;border:1px solid #fca5a5"></span>Unavailable</span></div></div>`;
   wrap.innerHTML = html;
-  wrap._year = year;
-  wrap._month = month;
-  wrap._blocked = blocked;
+  wrap._year = year; wrap._month = month; wrap._blocked = blocked;
 }
 
 window.calNav = function(dir){
   const wrap = document.getElementById('unit-calendar-wrap');
   if(!wrap) return;
-  let m = wrap._month + dir;
-  let y = wrap._year;
-  if(m > 11){ m=0; y++; }
-  if(m < 0){ m=11; y--; }
+  let m = wrap._month + dir, y = wrap._year;
+  if(m > 11){ m=0; y++; } if(m < 0){ m=11; y--; }
   renderCalendar(wrap, wrap._blocked, y, m);
 };
 
@@ -1021,7 +981,6 @@ async function loadUnitCalendar(unitNum){
   renderCalendar(wrap, blocked, now.getFullYear(), now.getMonth());
 }
 
-// ── GA4: Date search ──
 function handleDateChange(){
   const ci = document.getElementById('hero-checkin').value;
   const co = document.getElementById('hero-checkout').value;
@@ -1034,47 +993,31 @@ async function handleDateSearch(){
   const ci = document.getElementById('hero-checkin').value;
   const co = document.getElementById('hero-checkout').value;
   if(!ci || !co){ buildGrids('all'); return; }
-  const start = new Date(ci+'T00:00:00');
-  const end   = new Date(co+'T00:00:00');
+  const start = new Date(ci+'T00:00:00'), end = new Date(co+'T00:00:00');
   if(end <= start){ alert('Check-out must be after check-in.'); return; }
   const maxSearchDate = new Date(); maxSearchDate.setDate(maxSearchDate.getDate() + 364);
   if(start > maxSearchDate){ alert('Dates must be within one year from today.'); return; }
-
-  // ── GA4: Date search executed ──
-  gtag('event', 'date_search', {
-    checkin_date: ci,
-    checkout_date: co,
-    nights: Math.round((end - start) / (1000 * 60 * 60 * 24))
-  });
-
+  gtag('event', 'date_search', { checkin_date: ci, checkout_date: co, nights: Math.round((end - start) / (1000*60*60*24)) });
   const dates = [];
   const cur = new Date(start);
   while(cur < end){ dates.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
-
-  const calPromises = Object.keys(ICAL_URLS).map(n => fetchCalendar(+n));
-  await Promise.all(calPromises);
-
+  await Promise.all(Object.keys(ICAL_URLS).map(n => fetchCalendar(+n)));
   function isAvailable(u){
-    const ical = ICAL_URLS[u.n];
-    if(!ical) return false;
+    if(!ICAL_URLS[u.n]) return false;
     const blocked = CAL_CACHE[u.n];
     if(!blocked) return false;
     return dates.every(d => !blocked.has(d));
   }
-
   const FEATURED_NUMS = [215,304,319,322,415];
   const fVis = UNITS.filter(u => FEATURED_NUMS.includes(u.n) && isAvailable(u)).sort((a,b)=>a.n-b.n);
   const rVis = UNITS.filter(isAvailable).sort((a,b)=>b.n-a.n);
-
   const fg = document.getElementById('feat-grid');
   const rg = document.getElementById('rest-grid');
   const rl = document.getElementById('rest-label');
   const nr = document.getElementById('no-results');
-
   fg.innerHTML = fVis.map(u => cardHTML(u, UNITS.indexOf(u))).join('');
   rg.innerHTML = rVis.map(u => cardHTML(u, UNITS.indexOf(u))).join('');
   restoreHearts();
-
   fg.parentElement.querySelector('.feat-label').style.display = fVis.length ? '' : 'none';
   rl.style.display = rVis.length ? '' : 'none';
   const total = rVis.length;
@@ -1092,6 +1035,150 @@ function clearDateSearch(){
   document.getElementById('clear-dates-btn').classList.remove('show');
   document.getElementById('hero-search-pill').classList.remove('date-search-active');
   buildGrids('all');
+}
+
+// ── Multi-Unit Stay Modal ──
+function openMultiStayModal(){
+  document.getElementById('ms-results').style.display = 'none';
+  document.getElementById('ms-results').innerHTML = '';
+  document.getElementById('ms-checkin').value = '';
+  document.getElementById('ms-checkout').value = '';
+  document.getElementById('multi-stay-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMultiStayModal(){
+  document.getElementById('multi-stay-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function fmtDate(str){ const d = new Date(str+'T00:00:00'); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+
+function dateRange(startStr, endStr){
+  const dates = [], cur = new Date(startStr+'T00:00:00'), end = new Date(endStr+'T00:00:00');
+  while(cur < end){ dates.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
+  return dates;
+}
+
+function addDays(str, n){ const d = new Date(str+'T00:00:00'); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
+
+function getAvailableWindow(blocked, startStr, endStr){
+  const cur = new Date(startStr+'T00:00:00'), end = new Date(endStr+'T00:00:00');
+  let last = null;
+  while(cur < end){
+    const d = cur.toISOString().slice(0,10);
+    if(blocked && blocked.has(d)) break;
+    last = d;
+    cur.setDate(cur.getDate()+1);
+  }
+  return last;
+}
+
+function msThumb(u){
+  if(u.photos && u.photos[0]) return `<div class="ms-unit-thumb"><img src="images/${u.photos[0]}" alt="Unit ${u.n}"/></div>`;
+  return `<div class="ms-unit-thumb">${u.icon || '🏠'}</div>`;
+}
+
+function msStopThumb(u){
+  if(u.photos && u.photos[0]) return `<div class="ms-stop-thumb"><img src="images/${u.photos[0]}" alt="Unit ${u.n}"/></div>`;
+  return `<div class="ms-stop-thumb">${u.icon || '🏠'}</div>`;
+}
+
+async function runMultiStaySearch(){
+  const ci = document.getElementById('ms-checkin').value;
+  const co = document.getElementById('ms-checkout').value;
+  const resultsEl = document.getElementById('ms-results');
+  const btn = document.getElementById('ms-search-btn');
+  if(!ci || !co){ alert('Please enter both check-in and check-out dates.'); return; }
+  const start = new Date(ci+'T00:00:00'), end = new Date(co+'T00:00:00');
+  if(end <= start){ alert('Check-out must be after check-in.'); return; }
+  const nights = Math.round((end - start) / (1000*60*60*24));
+  btn.disabled = true; btn.textContent = 'Searching…';
+  resultsEl.style.display = 'none'; resultsEl.innerHTML = '';
+  await Promise.all(Object.keys(ICAL_URLS).map(n => fetchCalendar(+n)));
+  btn.disabled = false; btn.textContent = 'Search available units';
+  const calUnits = UNITS.filter(u => ICAL_URLS[u.n] && CAL_CACHE[u.n]);
+  const totalWithCal = calUnits.length, totalUnits = UNITS.length;
+  const allDates = dateRange(ci, co);
+  const singleMatches = calUnits.filter(u => allDates.every(d => !CAL_CACHE[u.n].has(d)));
+  const chains2 = [];
+  for(const unitA of calUnits){
+    const lastNightA = getAvailableWindow(CAL_CACHE[unitA.n], ci, co);
+    if(!lastNightA) continue;
+    const handoffDate = addDays(lastNightA, 1);
+    if(handoffDate === co) continue;
+    for(const unitB of calUnits){
+      if(unitB.n === unitA.n) continue;
+      const remainingDates = dateRange(handoffDate, co);
+      if(remainingDates.every(d => !CAL_CACHE[unitB.n].has(d))){
+        chains2.push({ stops: [{ unit: unitA, checkin: ci, checkout: handoffDate }, { unit: unitB, checkin: handoffDate, checkout: co }] });
+      }
+    }
+  }
+  const chains3 = [];
+  if(singleMatches.length === 0 && chains2.length === 0){
+    for(const unitA of calUnits){
+      const lastNightA = getAvailableWindow(CAL_CACHE[unitA.n], ci, co);
+      if(!lastNightA) continue;
+      const handoffAB = addDays(lastNightA, 1);
+      if(handoffAB >= co) continue;
+      for(const unitB of calUnits){
+        if(unitB.n === unitA.n) continue;
+        const lastNightB = getAvailableWindow(CAL_CACHE[unitB.n], handoffAB, co);
+        if(!lastNightB) continue;
+        const handoffBC = addDays(lastNightB, 1);
+        if(handoffBC >= co) continue;
+        for(const unitC of calUnits){
+          if(unitC.n === unitA.n || unitC.n === unitB.n) continue;
+          if(dateRange(handoffBC, co).every(d => !CAL_CACHE[unitC.n].has(d))){
+            chains3.push({ stops: [{ unit: unitA, checkin: ci, checkout: handoffAB }, { unit: unitB, checkin: handoffAB, checkout: handoffBC }, { unit: unitC, checkin: handoffBC, checkout: co }] });
+          }
+        }
+      }
+    }
+  }
+  resultsEl.style.display = 'block';
+  let html = '';
+  if(totalWithCal < totalUnits){
+    html += `<div class="ms-notice">⚡ Live availability shown for ${totalWithCal} of ${totalUnits} units. More units are being added — check back soon.</div>`;
+  }
+  if(singleMatches.length > 0){
+    html += `<div class="ms-result-section-label">Single unit — covers your full ${nights}-night stay</div>`;
+    for(const u of singleMatches){
+      html += `<div class="ms-unit-row" onclick="closeMultiStayModal();showDetail(${UNITS.indexOf(u)})">${msThumb(u)}<div class="ms-unit-info"><div class="ms-unit-num">Unit ${u.n} · Floor ${u.fl}${u.of?' · Oceanfront':''}</div><div class="ms-unit-title">${u.title}</div><div class="ms-unit-nights">${fmtDate(ci)} → ${fmtDate(co)} · ${nights} nights · fully available</div></div><div class="ms-row-arrow">›</div></div>`;
+    }
+  }
+  if(chains2.length > 0){
+    const label = singleMatches.length > 0 ? 'Or split across two units' : `No single unit covers ${nights} nights — here are combinations that work`;
+    html += `<div class="ms-result-section-label" style="margin-top:${singleMatches.length?'20px':'0'}">${label}</div>`;
+    const seen = new Set();
+    for(const chain of chains2){
+      const key = chain.stops.map(s=>s.unit.n).join('-');
+      if(seen.has(key)) continue; seen.add(key);
+      html += renderChainCard(chain, nights);
+    }
+  }
+  if(chains3.length > 0){
+    html += `<div class="ms-result-section-label" style="margin-top:${(singleMatches.length||chains2.length)?'20px':'0'}">Three-unit combination</div>`;
+    const seen = new Set();
+    for(const chain of chains3){
+      const key = chain.stops.map(s=>s.unit.n).join('-');
+      if(seen.has(key)) continue; seen.add(key);
+      html += renderChainCard(chain, nights);
+    }
+  }
+  if(singleMatches.length === 0 && chains2.length === 0 && chains3.length === 0){
+    html += `<div class="ms-no-results"><div class="ms-no-results-icon">🗓️</div><div class="ms-no-results-title">No combinations found</div><div class="ms-no-results-sub">We couldn't piece together a ${nights}-night stay for those dates. Try different dates, or contact us and we'll help you find a solution.</div></div>`;
+  }
+  resultsEl.innerHTML = html;
+}
+
+function renderChainCard(chain, totalNights){
+  const stopsHTML = chain.stops.map(stop => {
+    const u = stop.unit;
+    const n = Math.round((new Date(stop.checkout+'T00:00:00') - new Date(stop.checkin+'T00:00:00')) / (1000*60*60*24));
+    return `<div class="ms-chain-stop" onclick="closeMultiStayModal();showDetail(${UNITS.indexOf(u)})">${msStopThumb(u)}<div class="ms-stop-info"><div class="ms-stop-unit">Unit ${u.n} · Floor ${u.fl}${u.of?' · Oceanfront':''}</div><div class="ms-stop-title">${u.title}</div><div class="ms-stop-dates">${fmtDate(stop.checkin)} → ${fmtDate(stop.checkout)} · ${n} night${n!==1?'s':''}</div></div><div class="ms-row-arrow" style="color:#bbb;font-size:16px">›</div></div>`;
+  }).join('');
+  return `<div class="ms-chain-card"><div class="ms-chain-head"><div class="ms-chain-head-title">🔗 ${chain.stops.length}-unit combination · ${totalNights} nights total</div><div class="ms-chain-head-sub">Click any unit below to view its full listing</div></div><div class="ms-chain-stops">${stopsHTML}</div><div class="ms-chain-footer">Same building, same beach — just move your bags down the hall on changeover day.</div></div>`;
 }
 </script>
 </body>
