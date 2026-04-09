@@ -481,7 +481,7 @@ a{color:inherit;text-decoration:none}
       <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Google Analytics</p>
       <p>This site uses Google Analytics, which may set cookies on your device. You can opt out at any time using Google's opt-out browser add-on.</p>
       <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Your rights</p>
-      <p>If you are in the EU or California, you have the right to request access to, correction of, or deletion of your personal data. To exercise these rights, email <a href="mailto:info@21webstudios.com" style="color:#1D9E75">info@21webstudios.com</a>.</p>
+      <p>If you are in the EU or California, you have the right to request access to, correction of, or deletion of your personal data. To exercise these rights, email <a href="/cdn-cgi/l/email-protection#731a1d151c334142041611000706171a1c005d101c1e" style="color:#1D9E75"><span class="__cf_email__" data-cfemail="b0d9ded6dff08281c7d5d2c3c4c5d4d9dfc39ed3dfdd">[email&#160;protected]</span></a>.</p>
       <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Data retention</p>
       <p>We retain inquiry data for a reasonable period consistent with legitimate business purposes. Once an owner receives your inquiry, they are responsible for their own data handling practices.</p>
     </div>
@@ -509,7 +509,7 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 let UNITS = [];
 let curUnit = null;
 
@@ -780,7 +780,7 @@ function sendInq(){
     from_name: document.getElementById('m-first').value.trim(),
     email: document.getElementById('m-email').value.trim(),
     to: toEmail,
-    cc: ccEmail,
+    ...(ccEmail ? { cc: ccEmail } : {}),
     unit: u.n, floor: u.fl,
     checkin: document.querySelector('#m-form input[type=date]:first-of-type')?.value || '',
     checkout: document.querySelector('#m-form input[type=date]:last-of-type')?.value || '',
@@ -1188,8 +1188,4 @@ function renderChainCard(chain, totalNights){
     const n = Math.round((new Date(stop.checkout+'T00:00:00') - new Date(stop.checkin+'T00:00:00')) / (1000*60*60*24));
     return `<div class="ms-chain-stop" onclick="closeMultiStayModal();showDetail(${UNITS.indexOf(u)})">${msStopThumb(u)}<div class="ms-stop-info"><div class="ms-stop-unit">Unit ${u.n} · Floor ${u.fl}${u.of?' · Oceanfront':''}</div><div class="ms-stop-title">${u.title}</div><div class="ms-stop-dates">${fmtDate(stop.checkin)} → ${fmtDate(stop.checkout)} · ${n} night${n!==1?'s':''}</div></div><div class="ms-row-arrow" style="color:#bbb;font-size:16px">›</div></div>`;
   }).join('');
-  return `<div class="ms-chain-card"><div class="ms-chain-head"><div class="ms-chain-head-title">🔗 ${chain.stops.length}-unit combination · ${totalNights} nights total</div><div class="ms-chain-head-sub">Click any unit below to view its full listing</div></div><div class="ms-chain-stops">${stopsHTML}</div><div class="ms-chain-footer">Same building, same beach — just move your bags down the hall on changeover day.</div></div>`;
-}
-</script>
-</body>
-</html>
+  return `<div class="ms-chain-card"><div class="ms-chain-head"><div class="ms-chain-head-title">🔗 ${chain.stops.length}-unit combination · ${totalNights} nights total</div><div class="ms-chain-head-sub">Click any 
