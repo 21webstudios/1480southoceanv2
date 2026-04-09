@@ -647,6 +647,7 @@ function showDetail(idx){
     u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener" onclick="trackPlatformClick('vrbo', ${u.n})"><span class="dot-vb"></span>View on VRBO</a>` : '',
     u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;" onclick="trackPlatformClick('extended_stay', ${u.n})">View extended stay listing</a>` : ''
   ].filter(Boolean).join('');
+  const showPlatBtns = (u.n===215||u.n===304||u.n===319||u.n===322) ? platBtns : '';
   loadUnitPhotos(u).then(photos => {
     window._currentPhotos = photos;
     document.getElementById('detail').innerHTML = `
@@ -705,13 +706,10 @@ function showDetail(idx){
               (u.n===319||u.n===322) ?
               `<button class="btn-direct" onclick="trackDirectInquiryClick(${u.n}); openModal()">✉️ &nbsp;Send a direct inquiry</button>
               <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to the owner</div>` :
-              `<button class="btn-direct" style="background:#aaa;cursor:not-allowed;opacity:0.6" disabled>✉️ &nbsp;Send a direct inquiry</button>
-              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">This owner hasn't set up direct booking yet — use Airbnb or VRBO to inquire</div>`
+              `<button class="btn-direct" onclick="trackDirectInquiryClick(${u.n}); openModal()">✉️ &nbsp;Send a direct inquiry</button>
+              <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to our team</div>`
             }
-            <hr class="bdiv"/>
-            <div class="bc-lbl">Or book through a platform:</div>
-            ${platBtns || '<p style="font-size:12px;color:#717171">Contact owner directly for booking links.</p>'}
-            <hr class="bdiv"/>
+            ${showPlatBtns ? `<hr class="bdiv"/><div class="bc-lbl">Or book through a platform:</div>${showPlatBtns}<hr class="bdiv"/>` : '<hr class="bdiv"/>'}
             <p class="bnote">Booking direct means no service fees and a direct relationship with the owner. Many guests book a year in advance — reach out early!</p>
           </div>
           <div class="tip"><strong>Can't get your full stay here?</strong><br/>Browse other units and piece your trip together across two or three condos.<br/><a onclick="showHome()">See all ${UNITS.length} units →</a></div>
@@ -725,6 +723,7 @@ function showDetail(idx){
     document.getElementById('home').style.display='none';
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
+    history.pushState({ page: 'detail', idx }, '', '');
     if(u.n===215 || u.n===304 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
   });
 }
@@ -740,7 +739,16 @@ function showHome(){
   document.getElementById('detail').style.display='none';
   document.getElementById('home').style.display='block';
   window.scrollTo(0,0);
+  history.replaceState({ page: 'home' }, '', '');
 }
+
+window.addEventListener('popstate', function(e){
+  if(!e.state || e.state.page === 'home'){
+    document.getElementById('detail').style.display='none';
+    document.getElementById('home').style.display='block';
+    window.scrollTo(0,0);
+  }
+});
 
 function openModal(){
   if(!curUnit) return;
@@ -748,7 +756,7 @@ function openModal(){
   const badges = [u.feat ? '⭐ Featured' : '', u.of ? '🌊 Oceanfront' : ''].filter(Boolean).join(' · ');
   document.getElementById('m-title').textContent = 'Inquire about Unit '+u.n;
   document.getElementById('m-sub').textContent = u.title + (badges ? ' · ' + badges : '') + ' · Floor '+u.fl;
-  document.getElementById('m-enote').textContent = 'Your inquiry goes directly to the owner.';
+  document.getElementById('m-enote').textContent = (u.n===319||u.n===322) ? 'Your inquiry goes directly to the owner.' : "We'll pass your inquiry along — you'll hear back shortly.";
   document.getElementById('m-form').style.display='block';
   document.getElementById('m-success').style.display='none';
   document.getElementById('modal').classList.add('open');
@@ -763,14 +771,16 @@ function sendInq(){
   const u = curUnit;
   const turnstileToken = document.querySelector('#m-form [name="cf-turnstile-response"]')?.value || '';
   const OWNER_EMAILS = { 319: 'beachfrontstudiorentals@gmail.com', 322: 'beachfrontstudiorentals@gmail.com' };
-  const ownerEmail = OWNER_EMAILS[u.n] || null;
+  const isOwnerRouted = u.n === 319 || u.n === 322;
+  const toEmail = isOwnerRouted ? OWNER_EMAILS[u.n] : 'info@21webstudios.com';
+  const ccEmail = isOwnerRouted ? 'info@21webstudios.com' : '';
   const payload = {
     access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
     subject: 'Direct inquiry — Unit ' + u.n + ' · ' + u.title,
     from_name: document.getElementById('m-first').value.trim(),
     email: document.getElementById('m-email').value.trim(),
-    to: 'info@21webstudios.com',
-    cc: ownerEmail || '',
+    to: toEmail,
+    cc: ccEmail,
     unit: u.n, floor: u.fl,
     checkin: document.querySelector('#m-form input[type=date]:first-of-type')?.value || '',
     checkout: document.querySelector('#m-form input[type=date]:last-of-type')?.value || '',
