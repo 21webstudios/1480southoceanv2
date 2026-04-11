@@ -197,16 +197,13 @@ a{color:inherit;text-decoration:none}
 .btn-list{background:none;border:1.5px solid #1D9E75;color:#1D9E75;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:background 0.15s,color 0.15s}
 .btn-list:hover{background:#1D9E75;color:#fff}
 
-/* ── Multi-Unit Stay button ── */
 .btn-multi-stay{background:#1D9E75;border:1.5px solid #1D9E75;color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:background 0.15s,border-color 0.15s}
 .btn-multi-stay:hover{background:#085041;border-color:#085041}
 
-/* Header right zone — fixed width so center address stays centered */
 .hdr-right{width:360px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;gap:10px}
 
 .ftr-list-link{color:#1D9E75;font-weight:500;cursor:pointer;text-decoration:underline;font-size:13px}
 
-/* Calendar */
 .cal-wrap{margin-top:16px}
 .cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .cal-nav button{background:none;border:1px solid #ddd;border-radius:6px;padding:4px 10px;font-size:14px;cursor:pointer;color:#484848}
@@ -223,14 +220,12 @@ a{color:inherit;text-decoration:none}
 .cal-legend-dot{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:4px;vertical-align:middle}
 .cal-loading{text-align:center;padding:20px;font-size:13px;color:#717171}
 
-/* Date search active state */
 .sf.active-date .sf-val{color:#222;font-weight:600}
 .date-search-active{background:rgba(29,158,117,0.08);border-color:#1D9E75 !important}
 .clear-dates{font-size:13px;font-weight:500;padding:7px 18px;border-radius:24px;background:#fff;border:1px solid #222;color:#222;cursor:pointer;display:none;margin-top:8px;transition:all 0.15s}
 .clear-dates:hover{background:#f7f7f7}
 .clear-dates.show{display:inline-block}
 
-/* ── Multi-Unit Stay Modal ── */
 .ms-modal-box{background:#fff;border-radius:16px;padding:30px;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;position:relative}
 .ms-date-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .ms-date-row label{display:block;font-size:11px;font-weight:600;margin-bottom:4px}
@@ -242,8 +237,6 @@ a{color:inherit;text-decoration:none}
 .ms-results{margin-top:22px}
 .ms-result-section-label{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#717171;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .ms-result-section-label::after{content:'';flex:1;height:1px;background:#eee}
-
-/* Single unit result row */
 .ms-unit-row{border:1px solid #ddd;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;cursor:pointer;transition:box-shadow 0.15s,border-color 0.15s}
 .ms-unit-row:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);border-color:#1D9E75}
 .ms-unit-thumb{width:56px;height:56px;border-radius:8px;background:#f0f0f0;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px}
@@ -253,8 +246,6 @@ a{color:inherit;text-decoration:none}
 .ms-unit-title{font-size:14px;font-weight:600;color:#222;line-height:1.3;margin-top:1px}
 .ms-unit-nights{font-size:12px;color:#1D9E75;font-weight:600;margin-top:3px}
 .ms-row-arrow{color:#bbb;font-size:18px;flex-shrink:0}
-
-/* Daisy-chain card */
 .ms-chain-card{border:1.5px solid #1D9E75;border-radius:14px;overflow:hidden;margin-bottom:14px}
 .ms-chain-head{background:#E1F5EE;padding:12px 18px}
 .ms-chain-head-title{font-size:13px;font-weight:700;color:#085041}
@@ -269,8 +260,6 @@ a{color:inherit;text-decoration:none}
 .ms-stop-title{font-size:13px;font-weight:600;color:#222;line-height:1.3}
 .ms-stop-dates{font-size:11px;color:#1D9E75;font-weight:600;margin-top:2px}
 .ms-chain-footer{padding:12px 18px;background:#f9f9f9;border-top:1px solid #ebebeb;font-size:12px;color:#717171;line-height:1.5}
-
-/* Notice / no results */
 .ms-notice{background:#FEF9EC;border:1px solid #f0e0b0;border-radius:8px;padding:10px 14px;font-size:12px;color:#7a5800;line-height:1.5;margin-bottom:14px}
 .ms-no-results{text-align:center;padding:28px 16px;color:#717171}
 .ms-no-results-icon{font-size:32px;margin-bottom:8px}
@@ -333,7 +322,7 @@ a{color:inherit;text-decoration:none}
         <button class="chip" onclick="flt(this,'3')">Floor 3</button>
         <button class="chip" onclick="flt(this,'2')">Floor 2</button>
         <button class="chip" onclick="flt(this,'1')">Floor 1</button>
-        <span class="chip-count" id="rcount">26 units</span>
+        <span class="chip-count" id="rcount">27 units</span>
       </div>
     </div>
   </div>
@@ -692,7 +681,7 @@ function showDetail(idx){
             `<p>Send a direct inquiry for the best rates and availability with no platform fees.</p>`
           }</div>
           <div class="dsec"><h3>Availability</h3><div id="unit-calendar-wrap">${
-            (u.n===215 || u.n===304 || u.n===319 || u.n===322) ?
+            (u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) ?
             '<div class="cal-loading">Loading calendar...</div>' :
             '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will sync from Airbnb &amp; VRBO once activated</div>'
           }</div></div>
@@ -703,7 +692,7 @@ function showDetail(idx){
             ${(u.n===215||u.n===304) ?
               `<button class="btn-direct" style="background:#aaa;cursor:not-allowed;opacity:0.6" disabled>✉️ &nbsp;Send a direct inquiry</button>
               <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">This owner prefers bookings through VRBO — use the VRBO button on this page to view.</div>` :
-              (u.n===319||u.n===322) ?
+              (u.n===311||u.n===319||u.n===322) ?
               `<button class="btn-direct" onclick="trackDirectInquiryClick(${u.n}); openModal()">✉️ &nbsp;Send a direct inquiry</button>
               <div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">No platform fees — goes straight to the owner</div>` :
               `<button class="btn-direct" onclick="trackDirectInquiryClick(${u.n}); openModal()">✉️ &nbsp;Send a direct inquiry</button>
@@ -724,7 +713,7 @@ function showDetail(idx){
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
     history.pushState({ page: 'detail', idx }, '', '');
-    if(u.n===215 || u.n===304 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
+    if(u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
   });
 }
 
@@ -756,7 +745,7 @@ function openModal(){
   const badges = [u.feat ? '⭐ Featured' : '', u.of ? '🌊 Oceanfront' : ''].filter(Boolean).join(' · ');
   document.getElementById('m-title').textContent = 'Inquire about Unit '+u.n;
   document.getElementById('m-sub').textContent = u.title + (badges ? ' · ' + badges : '') + ' · Floor '+u.fl;
-  document.getElementById('m-enote').textContent = (u.n===319||u.n===322) ? 'Your inquiry goes directly to the owner.' : "We'll pass your inquiry along — you'll hear back shortly.";
+  document.getElementById('m-enote').textContent = (u.n===311||u.n===319||u.n===322) ? 'Your inquiry goes directly to the owner.' : "We'll pass your inquiry along — you'll hear back shortly.";
   document.getElementById('m-form').style.display='block';
   document.getElementById('m-success').style.display='none';
   document.getElementById('modal').classList.add('open');
@@ -770,10 +759,19 @@ function sendInq(){
   if(!curUnit) return;
   const u = curUnit;
   const turnstileToken = document.querySelector('#m-form [name="cf-turnstile-response"]')?.value || '';
-  const OWNER_EMAILS = { 319: 'beachfrontstudiorentals@gmail.com', 322: 'beachfrontstudiorentals@gmail.com' };
-  const isOwnerRouted = u.n === 319 || u.n === 322;
+
+  // ── Email routing ──
+  // 311, 319, 322: go directly to owner, no CC
+  // 215, 304: direct inquiry is disabled (VRBO preferred) — this code won't run for them
+  // All others: go to info@21webstudios.com, no CC
+  const OWNER_EMAILS = {
+    311: '311turtlelife@gmail.com',
+    319: 'beachfrontstudiorentals@gmail.com',
+    322: 'beachfrontstudiorentals@gmail.com'
+  };
+  const isOwnerRouted = u.n === 311 || u.n === 319 || u.n === 322;
   const toEmail = isOwnerRouted ? OWNER_EMAILS[u.n] : 'info@21webstudios.com';
-  const ccEmail = isOwnerRouted ? 'info@21webstudios.com' : '';
+
   const payload = {
     access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
     subject: 'Direct inquiry — Unit ' + u.n + ' · ' + u.title,
@@ -787,7 +785,7 @@ function sendInq(){
     botcheck: false,
     'cf-turnstile-response': turnstileToken
   };
-  if(isOwnerRouted){ payload.cc = 'info@21webstudios.com'; }
+
   const btn = document.querySelector('#m-form .btn-send');
   if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
   fetch('https://api.web3forms.com/submit', {
@@ -917,6 +915,7 @@ function submitListForm(){
 const ICAL_URLS = {
   215: 'http://www.vrbo.com/icalendar/f407fa5899b442148ee005c9235402e4.ics?nonTentative',
   304: 'http://www.vrbo.com/icalendar/eb3ba5720b95479c91f3dbe22d849f54.ics?nonTentative',
+  311: 'https://www.airbnb.com/calendar/ical/1661221063543432110.ics?t=9b2898169c0444eeb536328868a23171&locale=en',
   319: 'https://www.airbnb.com/calendar/ical/1489304305482963659.ics?t=3ea7ebbda60c4f2398f0bd97efa666c0&locale=en',
   322: 'https://www.airbnb.com/calendar/ical/592176990035326624.ics?t=7164eba6576e433abcfc8699d30442e3&locale=en'
 };

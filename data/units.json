@@ -77,6 +77,15 @@
       "photos": ["317-Thumb.jpg", "317-Gallery1.jpg", "317-Gallery2.jpg", "317-Gallery3.jpg", "317-Gallery4.jpg", "317-Gallery5.jpg"]
     },
     {
+      "n": 311, "fl": 3, "feat": false, "of": false, "plat": "airbnb",
+      "title": "The Curated Coastal Condo - Steps to the Sand!",
+      "desc": "Thoughtfully decorated with designer touches, the space feels curated and serene. Enjoy a view of the ocean from your window and the sound of waves at night. It's more than a stay; it's a membership to a coastal secret. Perfect for those who value style and location.",
+      "em": "311turtlelife@gmail.com", "owner": "Cindy Marcin",
+      "ab": "https://www.airbnb.com/rooms/1661221063543432110", "vb": null,
+      "bg": "#C0DD97", "icon": "🐢",
+      "photos": ["311-Thumb.jpg", "311-Gallery1.jpg", "311-Gallery2.jpg", "311-Gallery3.jpg", "311-Gallery4.jpg", "311-Gallery5.jpg", "311-Gallery6.jpg", "311-Gallery7.jpg"]
+    },
+    {
       "n": 310, "fl": 3, "feat": false, "of": true, "plat": "both",
       "title": "Ocean View Paradise Beach Front",
       "desc": "Beautiful Studio with Unobstructed Views directly on the Beach! Contemporary clean sleek look, completely equipped kitchen, travertine marble floors.",
