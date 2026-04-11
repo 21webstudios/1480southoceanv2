@@ -12,11 +12,18 @@ export async function onRequest(context) {
 
   try {
     const response = await fetch(decodeURIComponent(icalUrl), {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; 1480SouthOcean/1.0)' }
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept': 'text/calendar, text/plain, */*',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
     });
 
     if (!response.ok) {
-      return new Response('Failed to fetch calendar', { status: response.status });
+      return new Response('Failed to fetch calendar: ' + response.status, { status: response.status });
     }
 
     const text = await response.text();
