@@ -502,6 +502,9 @@ a{color:inherit;text-decoration:none}
 let UNITS = [];
 let curUnit = null;
 
+// Units that show platform badges on home grid cards
+const BADGE_UNITS = [215, 304, 311, 319, 322];
+
 function loadUnitPhotos(u){
   const thumbSrc = u.photos && u.photos[0] ? 'images/' + u.photos[0] : null;
   return new Promise(resolve => {
@@ -544,10 +547,11 @@ function platBadge(p){
 function bookLabel(p){ return ''; }
 
 function cardHTML(u, idx){
+  const showBadge = BADGE_UNITS.includes(u.n);
   return `<div class="card${u.feat?' feat':''}" onclick="showDetail(${idx})">
     <div class="card-img" style="background:${u.bg}">
       ${u.photos && u.photos[0] ? `<img src="images/${u.photos[0]}" alt="Unit ${u.n}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>` : `<span style="font-size:56px">${u.icon}</span>`}
-      ${platBadge(u.plat)}
+      ${showBadge ? platBadge(u.plat) : ''}
       ${u.feat?'<div class="fbadge">&#11088; Featured</div>':''}
       ${u.of?'<div class="ofbadge">&#127754; Oceanfront</div>':''}
       <button class="hrt" onclick="ht(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
