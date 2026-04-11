@@ -636,7 +636,8 @@ function showDetail(idx){
     u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener" onclick="trackPlatformClick('vrbo', ${u.n})"><span class="dot-vb"></span>View on VRBO</a>` : '',
     u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;" onclick="trackPlatformClick('extended_stay', ${u.n})">View extended stay listing</a>` : ''
   ].filter(Boolean).join('');
-  const showPlatBtns = (u.n===215||u.n===304||u.n===319||u.n===322) ? platBtns : '';
+  // ── CHANGE: added u.n===311 so Airbnb button appears on unit 311 detail page ──
+  const showPlatBtns = (u.n===215||u.n===304||u.n===311||u.n===319||u.n===322) ? platBtns : '';
   loadUnitPhotos(u).then(photos => {
     window._currentPhotos = photos;
     document.getElementById('detail').innerHTML = `
