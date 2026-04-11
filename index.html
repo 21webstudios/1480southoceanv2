@@ -681,11 +681,9 @@ function showDetail(idx){
             `<p>Send a direct inquiry for the best rates and availability with no platform fees.</p>`
           }</div>
           <div class="dsec"><h3>Availability</h3><div id="unit-calendar-wrap">${
-            u.n===311 ?
-            '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will be active shortly — contact the owner directly for current availability.</div>' :
-            (u.n===215 || u.n===304 || u.n===319 || u.n===322) ?
+            (u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) ?
             '<div class="cal-loading">Loading calendar...</div>' :
-            '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will sync from Airbnb &amp; VRBO once activated</div>'
+            '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will be active shortly — Send a direct inquiry for more information.</div>'
           }</div></div>
         </div>
         <div class="bsidebar">
@@ -715,7 +713,7 @@ function showDetail(idx){
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
     history.pushState({ page: 'detail', idx }, '', '');
-    if(u.n===215 || u.n===304 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
+    if(u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
   });
 }
 
