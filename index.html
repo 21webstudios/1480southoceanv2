@@ -636,7 +636,6 @@ function showDetail(idx){
     u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener" onclick="trackPlatformClick('vrbo', ${u.n})"><span class="dot-vb"></span>View on VRBO</a>` : '',
     u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;" onclick="trackPlatformClick('extended_stay', ${u.n})">View extended stay listing</a>` : ''
   ].filter(Boolean).join('');
-  // ── CHANGE: added u.n===311 so Airbnb button appears on unit 311 detail page ──
   const showPlatBtns = (u.n===215||u.n===304||u.n===311||u.n===319||u.n===322) ? platBtns : '';
   loadUnitPhotos(u).then(photos => {
     window._currentPhotos = photos;
@@ -682,7 +681,9 @@ function showDetail(idx){
             `<p>Send a direct inquiry for the best rates and availability with no platform fees.</p>`
           }</div>
           <div class="dsec"><h3>Availability</h3><div id="unit-calendar-wrap">${
-            (u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) ?
+            u.n===311 ?
+            '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will be active shortly — contact the owner directly for current availability.</div>' :
+            (u.n===215 || u.n===304 || u.n===319 || u.n===322) ?
             '<div class="cal-loading">Loading calendar...</div>' :
             '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will sync from Airbnb &amp; VRBO once activated</div>'
           }</div></div>
@@ -714,7 +715,7 @@ function showDetail(idx){
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
     history.pushState({ page: 'detail', idx }, '', '');
-    if(u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
+    if(u.n===215 || u.n===304 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
   });
 }
 
@@ -763,7 +764,7 @@ function sendInq(){
 
   // ── Email routing ──
   // 311, 319, 322: go directly to owner, no CC
-  // 215, 304: direct inquiry is disabled (VRBO preferred) — this code won't run for them
+  // 215, 304: direct inquiry disabled (VRBO preferred)
   // All others: go to info@21webstudios.com, no CC
   const OWNER_EMAILS = {
     311: '311turtlelife@gmail.com',
@@ -916,7 +917,7 @@ function submitListForm(){
 const ICAL_URLS = {
   215: 'http://www.vrbo.com/icalendar/f407fa5899b442148ee005c9235402e4.ics?nonTentative',
   304: 'http://www.vrbo.com/icalendar/eb3ba5720b95479c91f3dbe22d849f54.ics?nonTentative',
-  311: 'https://www.airbnb.com/calendar/ical/1661221063543432110.ics?t=9b2898169c0444eeb536328868a23171&locale=en',
+  311: 'https://www.airbnb.com/calendar/ical/1661221063543432110.ics?t=9b2898169c0444eeb536328868a23171',
   319: 'https://www.airbnb.com/calendar/ical/1489304305482963659.ics?t=3ea7ebbda60c4f2398f0bd97efa666c0&locale=en',
   322: 'https://www.airbnb.com/calendar/ical/592176990035326624.ics?t=7164eba6576e433abcfc8699d30442e3&locale=en'
 };
