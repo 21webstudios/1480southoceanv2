@@ -434,12 +434,12 @@ a{color:inherit;text-decoration:none}
         <div class="fg"><label>Last name</label><input type="text" placeholder="Smith"/></div>
       </div>
       <div class="fg"><label>Email</label><input type="email" id="m-email" placeholder="jane@email.com"/></div>
-      <div class="fg"><label>Phone (optional)</label><input type="tel" placeholder="(555) 000-0000"/></div>
+      <div class="fg"><label>Phone (optional)</label><input type="tel" id="m-phone" placeholder="(555) 000-0000"/></div>
       <div class="frow">
-        <div class="fg"><label>Check-in</label><input type="date"/></div>
-        <div class="fg"><label>Check-out</label><input type="date"/></div>
+        <div class="fg"><label>Check-in</label><input type="date" id="m-checkin"/></div>
+        <div class="fg"><label>Check-out</label><input type="date" id="m-checkout"/></div>
       </div>
-      <div class="fg"><label>Message</label><textarea placeholder="Tell the owner about your stay — any questions, etc."></textarea></div>
+      <div class="fg"><label>Message</label><textarea id="m-message" placeholder="Tell the owner about your stay — any questions, etc."></textarea></div>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAACznUsqAgNMkr0-m" data-size="flexible" style="margin-bottom:8px"></div>
       <button class="btn-send" onclick="sendInq()">Send inquiry</button>
       <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px" id="m-enote"></p>
@@ -765,10 +765,10 @@ function sendInq(){
     unitNum: u.n,
     firstName: document.getElementById('m-first').value.trim(),
     email: document.getElementById('m-email').value.trim(),
-    phone: document.querySelector('#m-form input[type=tel]')?.value || '',
-    checkin: document.querySelector('#m-form input[type=date]:first-of-type')?.value || '',
-    checkout: document.querySelector('#m-form input[type=date]:last-of-type')?.value || '',
-    message: document.querySelector('#m-form textarea')?.value || '',
+    phone: document.getElementById('m-phone').value.trim(),
+    checkin: document.getElementById('m-checkin').value,
+    checkout: document.getElementById('m-checkout').value,
+    message: document.getElementById('m-message').value.trim(),
     turnstileToken: turnstileToken
   };
 
