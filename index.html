@@ -411,7 +411,7 @@ a{color:inherit;text-decoration:none}
       <div class="fg"><label>Message (optional)</label><textarea id="lf-msg" placeholder="Tell us about your unit..."></textarea></div>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAACznUsqAgNMkr0-m" data-size="flexible" style="margin-bottom:8px"></div>
       <button class="btn-send" onclick="submitListForm()">Send inquiry</button>
-      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Goes directly to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3aaada5ac83f1f2b4a6a1b0b7b6a7aaacb0eda0acae">[email&#160;protected]</a></p>
+      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Goes directly to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e0898e868fa0d2d197858293949584898f93ce838f8d">[email&#160;protected]</a></p>
       <p style="font-size:11px;color:#bbb;text-align:center;margin-top:6px">By submitting this form you agree to our <button onclick="openPrivacyModal()" style="background:none;border:none;color:#1D9E75;font-size:11px;cursor:pointer;padding:0;text-decoration:underline">Privacy Policy</button>.</p>
     </div>
     <div class="form-success" id="list-success">
@@ -467,7 +467,7 @@ a{color:inherit;text-decoration:none}
       <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Google Analytics</p>
       <p>This site uses Google Analytics, which may set cookies on your device. You can opt out at any time using Google's opt-out browser add-on.</p>
       <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Your rights</p>
-      <p>If you are in the EU or California, you have the right to request access to, correction of, or deletion of your personal data. To exercise these rights, email <a href="/cdn-cgi/l/email-protection#2940474f46691b185e4c4b5a5d5c4d40465a074a4644" style="color:#1D9E75"><span class="__cf_email__" data-cfemail="355c5b535a750704425057464140515c5a461b565a58">[email&#160;protected]</span></a>.</p>
+      <p>If you are in the EU or California, you have the right to request access to, correction of, or deletion of your personal data. To exercise these rights, email <a href="/cdn-cgi/l/email-protection#046d6a626b443635736166777071606d6b772a676b69" style="color:#1D9E75"><span class="__cf_email__" data-cfemail="91f8fff7fed1a3a0e6f4f3e2e5e4f5f8fee2bff2fefc">[email&#160;protected]</span></a>.</p>
       <p style="font-weight:700;color:#222;margin-top:14px;margin-bottom:4px">Data retention</p>
       <p>We retain inquiry data for a reasonable period consistent with legitimate business purposes. Once an owner receives your inquiry, they are responsible for their own data handling practices.</p>
     </div>
@@ -500,7 +500,7 @@ let UNITS = [];
 let curUnit = null;
 
 // Units that show platform badges on home grid cards
-const BADGE_UNITS = [211, 215, 304, 311, 319, 322];
+const BADGE_UNITS = [215, 304, 311, 319, 322];
 
 function loadUnitPhotos(u){
   const thumbSrc = u.photos && u.photos[0] ? 'images/' + u.photos[0] : null;
@@ -630,70 +630,14 @@ function showDetail(idx){
   const u = curUnit;
   gtag('event', 'unit_detail_view', {
     unit_number: u.n, unit_title: u.title, unit_floor: u.fl,
-    unit_oceanfront: u.of ? 'yes' : 'no', unit_featured: u.feat ? 'yes' : 'no',
-    unit_active: u.active === false ? 'no' : 'yes'
+    unit_oceanfront: u.of ? 'yes' : 'no', unit_featured: u.feat ? 'yes' : 'no'
   });
-
-  if(u.active === false){
-    var lockSVG = '<svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:#aaa"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>';
-    var lc = function(s){ return '<div class="pc" style="background:#d8d8d8;cursor:default;' + s + '">' + lockSVG + '</div>'; };
-    var h = '';
-    h += '<div class="bcrumb"><span onclick="showHome()">All units</span> › Unit ' + u.n + ' · Floor ' + u.fl + '</div>';
-    h += '<div class="dhdr" style="max-width:1100px;margin:0 auto">';
-    h += '<div class="dtitle" style="color:#aaa;font-style:italic;font-weight:400">Listing not currently active</div>';
-    h += '<div class="dsub"><span>Unit ' + u.n + '</span><span>·</span><span>Floor ' + u.fl + '</span><span>·</span><span>1480 South Ocean Blvd, Lauderdale-by-the-Sea, FL</span></div>';
-    h += '</div>';
-    h += '<div class="pgrid">';
-    h += lc('border-radius:14px 0 0 14px;grid-row:1/3');
-    h += lc('border-radius:0 14px 0 0');
-    h += lc('');
-    h += lc('');
-    h += lc('border-radius:0 0 14px 0');
-    h += '</div>';
-    h += '<div class="dlayout">';
-    h += '<div>';
-    h += '<div style="background:#f7f7f7;border:1px solid #e0e0e0;border-left:3px solid #aaa;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#717171;line-height:1.6;margin-bottom:20px">This unit is not currently verified or active in our program. We recommend choosing from our fully listed properties for the best guest experience.</div>';
-    h += '<div class="dsec"><h3>About this unit</h3>';
-    h += '<div style="height:13px;border-radius:3px;background:#ebebeb;margin-bottom:8px;width:92%"></div>';
-    h += '<div style="height:13px;border-radius:3px;background:#ebebeb;margin-bottom:8px;width:78%"></div>';
-    h += '<div style="height:13px;border-radius:3px;background:#ebebeb;margin-bottom:8px;width:85%"></div>';
-    h += '<div style="height:13px;border-radius:3px;background:#ebebeb;width:60%"></div>';
-    h += '</div>';
-    h += '<div class="dsec"><h3>Pricing</h3>';
-    h += '<div style="height:13px;border-radius:3px;background:#ebebeb;margin-bottom:8px;width:50%"></div>';
-    h += '<div style="height:13px;border-radius:3px;background:#ebebeb;width:38%"></div>';
-    h += '</div>';
-    h += '<div class="dsec"><h3>Availability</h3><p style="font-size:13px;color:#aaa">Calendar not available for this unit.</p></div>';
-    h += '</div>';
-    h += '<div class="bsidebar">';
-    h += '<div class="bcard">';
-    h += '<div class="bc-lbl">Interested in this unit?</div>';
-    h += '<button class="btn-direct" onclick="trackDirectInquiryClick(' + u.n + '); openModal()">✉️  Send an inquiry</button>';
-    h += '<div style="text-align:center;font-size:11px;color:#717171;margin-bottom:12px">Goes directly to our team</div>';
-    h += '<hr class="bdiv"/>';
-    h += '<p class="bnote">Contact us and we will connect you with information about this unit or a similar one in the building.</p>';
-    h += '</div>';
-    h += '<div class="tip"><strong>Looking for an actively listed unit?</strong><br/>Browse all verified properties with photos, pricing, and live availability.<br/><a onclick="showHome()">See all ' + UNITS.length + ' units →</a></div>';
-    h += '</div>';
-    h += '</div>';
-    h += '<footer class="ftr">';
-    h += '<div class="ftr-logo"><a href="#" onclick="showHome();return false;" style="color:inherit;text-decoration:underline;text-underline-offset:2px">1480SouthOcean.com</a> · Lauderdale-by-the-Sea, FL 33062</div>';
-    h += '<div class="ftr-note">Each unit at 1480 South Ocean is independently owned and managed. 1480SouthOcean.com is a listing platform only — we are not a booking agent and do not collect payments. Unit owners are solely responsible for their listings, pricing, availability, and bookings. Always confirm availability directly with the owner before making travel arrangements. This site is not affiliated with Airbnb, VRBO, or the International Studio Apartment Association, Inc.</div>';
-    h += '<div class="ftr-note" style="margin-top:8px">Site designed and built by <a href="https://www.21WebStudios.com" target="_blank" rel="noopener" style="color:#1D9E75;font-weight:500">21WebStudios.com</a> · <span style="color:#1D9E75;font-size:11px;cursor:pointer;text-decoration:underline" onclick="openPrivacyModal()">Privacy Policy</span></div>';
-    h += '</footer>';
-    document.getElementById('detail').innerHTML = h;
-    document.getElementById('home').style.display='none';
-    document.getElementById('detail').style.display='block';
-    window.scrollTo(0,0);
-    history.pushState({ page: 'detail', idx }, '', '');
-    return;
-  }
   const platBtns = [
     u.ab ? `<a class="btn-plat" href="${u.ab}" target="_blank" rel="noopener" onclick="trackPlatformClick('airbnb', ${u.n})"><span class="dot-ab"></span>View on Airbnb</a>` : '',
     u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener" onclick="trackPlatformClick('vrbo', ${u.n})"><span class="dot-vb"></span>View on VRBO</a>` : '',
     u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;" onclick="trackPlatformClick('extended_stay', ${u.n})">View extended stay listing</a>` : ''
   ].filter(Boolean).join('');
-  const showPlatBtns = (u.n===211||u.n===215||u.n===304||u.n===311||u.n===319||u.n===322) ? platBtns : '';
+  const showPlatBtns = (u.n===215||u.n===304||u.n===311||u.n===319||u.n===322) ? platBtns : '';
   loadUnitPhotos(u).then(photos => {
     window._currentPhotos = photos;
     document.getElementById('detail').innerHTML = `
@@ -738,7 +682,7 @@ function showDetail(idx){
             `<p>Send a direct inquiry for the best rates and availability with no platform fees.</p>`
           }</div>
           <div class="dsec"><h3>Availability</h3><div id="unit-calendar-wrap">${
-            (u.n===211 || u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) ?
+            (u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) ?
             '<div class="cal-loading">Loading calendar...</div>' :
             '<p style="font-size:13px;color:#717171">Live calendar coming soon.</p><div class="calph">📅 Calendar will be active shortly — Send a direct inquiry for more information.</div>'
           }</div></div>
@@ -770,7 +714,7 @@ function showDetail(idx){
     document.getElementById('detail').style.display='block';
     window.scrollTo(0,0);
     history.pushState({ page: 'detail', idx }, '', '');
-    if(u.n===211 || u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
+    if(u.n===215 || u.n===304 || u.n===311 || u.n===319 || u.n===322) loadUnitCalendar(u.n);
   });
 }
 
@@ -957,10 +901,9 @@ function submitListForm(){
 const ICAL_URLS = {
   215: 'http://www.vrbo.com/icalendar/f407fa5899b442148ee005c9235402e4.ics?nonTentative',
   304: 'http://www.vrbo.com/icalendar/eb3ba5720b95479c91f3dbe22d849f54.ics?nonTentative',
-  311: 'https://www.airbnb.com/calendar/ical/1661221063543432110.ics?t=9b2898169c0444eeb536328868a23171',
+  311: 'https://www.airbnb.com/calendar/ical/1661221063543432110.ics?t=9b2898169c0444eeb536328868a23171&locale=en',
   319: 'https://www.airbnb.com/calendar/ical/1489304305482963659.ics?t=3ea7ebbda60c4f2398f0bd97efa666c0&locale=en',
-  322: 'https://www.airbnb.com/calendar/ical/592176990035326624.ics?t=7164eba6576e433abcfc8699d30442e3&locale=en',
-  211: 'https://www.lodgify.com/79381a4e-d23f-445c-ae94-fd09d6ae8cb7.ics'
+  322: 'https://www.airbnb.com/calendar/ical/592176990035326624.ics?t=7164eba6576e433abcfc8699d30442e3&locale=en'
 };
 
 const CAL_CACHE = {};
@@ -1075,7 +1018,15 @@ async function handleDateSearch(){
   const total = rVis.length;
   document.getElementById('rcount').textContent = total + ' unit' + (total!==1?'s':'') + ' available';
   nr.style.display = (fVis.length + rVis.length)===0 ? 'block' : 'none';
-  document.getElementById('no-results').textContent = 'No units Add date';
+  document.getElementById('no-results').textContent = 'No units available for those dates.';
+  document.getElementById('clear-dates-btn').classList.add('show');
+}
+
+function clearDateSearch(){
+  document.getElementById('hero-checkin').value = '';
+  document.getElementById('hero-checkout').value = '';
+  document.getElementById('hero-checkin-lbl').textContent = 'Add date';
+  document.getElementById('hero-checkout-lbl').textContent = 'Add date';
   document.getElementById('clear-dates-btn').classList.remove('show');
   document.getElementById('hero-search-pill').classList.remove('date-search-active');
   buildGrids('all');
