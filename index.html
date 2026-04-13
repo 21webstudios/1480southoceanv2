@@ -15,7 +15,6 @@
   gtag('config', 'G-1SFK51DETH');
 </script>
 
-<script src="https://web3forms.com/client/script.js" async defer></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -410,10 +409,9 @@ a{color:inherit;text-decoration:none}
       <div class="fg"><label>Phone</label><input type="tel" id="lf-phone" placeholder="(555) 000-0000"/></div>
       <div class="fg"><label>Unit number</label><input type="text" id="lf-unit" placeholder="e.g. 215"/></div>
       <div class="fg"><label>Message (optional)</label><textarea id="lf-msg" placeholder="Tell us about your unit..."></textarea></div>
-      <input type="checkbox" name="botcheck" style="display:none"/>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAACznUsqAgNMkr0-m" data-size="flexible" style="margin-bottom:8px"></div>
       <button class="btn-send" onclick="submitListForm()">Send inquiry</button>
-      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Goes directly to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddb4b3bbb29defecaab8bfaea9a8b9b4b2aef3beb2b0">[email&#160;protected]</a></p>
+      <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Goes directly to info@21webstudios.com</p>
       <p style="font-size:11px;color:#bbb;text-align:center;margin-top:6px">By submitting this form you agree to our <button onclick="openPrivacyModal()" style="background:none;border:none;color:#1D9E75;font-size:11px;cursor:pointer;padding:0;text-decoration:underline">Privacy Policy</button>.</p>
     </div>
     <div class="form-success" id="list-success">
@@ -442,7 +440,6 @@ a{color:inherit;text-decoration:none}
         <div class="fg"><label>Check-out</label><input type="date"/></div>
       </div>
       <div class="fg"><label>Message</label><textarea placeholder="Tell the owner about your stay — any questions, etc."></textarea></div>
-      <input type="checkbox" name="botcheck" style="display:none"/>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAACznUsqAgNMkr0-m" data-size="flexible" style="margin-bottom:8px"></div>
       <button class="btn-send" onclick="sendInq()">Send inquiry</button>
       <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px" id="m-enote"></p>
@@ -498,7 +495,7 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 let UNITS = [];
 let curUnit = null;
 
@@ -749,7 +746,7 @@ function openModal(){
   const badges = [u.feat ? '⭐ Featured' : '', u.of ? '🌊 Oceanfront' : ''].filter(Boolean).join(' · ');
   document.getElementById('m-title').textContent = 'Inquire about Unit '+u.n;
   document.getElementById('m-sub').textContent = u.title + (badges ? ' · ' + badges : '') + ' · Floor '+u.fl;
-  document.getElementById('m-enote').textContent = (u.n===311||u.n===319||u.n===322) ? 'Your inquiry goes directly to the owner.' : "We'll pass your inquiry along — you'll hear back shortly.";
+  document.getElementById('m-enote').textContent = (u.direct && u.em) ? 'Your inquiry goes directly to the owner.' : "We'll pass your inquiry along — you'll hear back shortly.";
   document.getElementById('m-form').style.display='block';
   document.getElementById('m-success').style.display='none';
   document.getElementById('modal').classList.add('open');
@@ -764,35 +761,20 @@ function sendInq(){
   const u = curUnit;
   const turnstileToken = document.querySelector('#m-form [name="cf-turnstile-response"]')?.value || '';
 
-  // ── Email routing ──
-  // 311, 319, 322: go directly to owner, no CC
-  // 215, 304: direct inquiry disabled (VRBO preferred)
-  // All others: go to info@21webstudios.com, no CC
-  const OWNER_EMAILS = {
-    311: '311turtlelife@gmail.com',
-    319: 'beachfrontstudiorentals@gmail.com',
-    322: 'beachfrontstudiorentals@gmail.com'
-  };
-  const isOwnerRouted = u.n === 311 || u.n === 319 || u.n === 322;
-  const toEmail = isOwnerRouted ? OWNER_EMAILS[u.n] : 'info@21webstudios.com';
-
   const payload = {
-    access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
-    subject: 'Direct inquiry — Unit ' + u.n + ' · ' + u.title,
-    from_name: document.getElementById('m-first').value.trim(),
+    unitNum: u.n,
+    firstName: document.getElementById('m-first').value.trim(),
     email: document.getElementById('m-email').value.trim(),
-    to: toEmail,
-    unit: u.n, floor: u.fl,
+    phone: document.querySelector('#m-form input[type=tel]')?.value || '',
     checkin: document.querySelector('#m-form input[type=date]:first-of-type')?.value || '',
     checkout: document.querySelector('#m-form input[type=date]:last-of-type')?.value || '',
     message: document.querySelector('#m-form textarea')?.value || '',
-    botcheck: false,
-    'cf-turnstile-response': turnstileToken
+    turnstileToken: turnstileToken
   };
 
   const btn = document.querySelector('#m-form .btn-send');
   if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
-  fetch('https://api.web3forms.com/submit', {
+  fetch('/send-inquiry', {
     method: 'POST',
     headers: {'Content-Type':'application/json','Accept':'application/json'},
     body: JSON.stringify(payload)
@@ -882,17 +864,17 @@ function submitListForm(){
   if(!first||!email||!unit){ alert('Please fill in your name, email and unit number.'); return; }
   const turnstileToken = document.querySelector('#list-form [name="cf-turnstile-response"]')?.value || '';
   const payload = {
-    access_key: '3b71c737-13df-4226-b608-aa0bf00e714c',
-    subject: 'New unit listing inquiry — Unit ' + unit,
-    from_name: first + ' ' + (document.getElementById('lf-last').value.trim()||''),
-    email: email, phone: document.getElementById('lf-phone').value.trim(),
-    unit: unit, message: document.getElementById('lf-msg').value.trim(),
-    to: 'info@21webstudios.com', botcheck: false,
-    'cf-turnstile-response': turnstileToken
+    unitNum: unit,
+    firstName: first + ' ' + (document.getElementById('lf-last').value.trim()||''),
+    email: email,
+    phone: document.getElementById('lf-phone').value.trim(),
+    message: document.getElementById('lf-msg').value.trim(),
+    turnstileToken: turnstileToken,
+    isListInquiry: true
   };
   const btn = document.querySelector('#list-form .btn-send');
   if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
-  fetch('https://api.web3forms.com/submit', {
+  fetch('/send-inquiry', {
     method: 'POST',
     headers: {'Content-Type':'application/json','Accept':'application/json'},
     body: JSON.stringify(payload)
