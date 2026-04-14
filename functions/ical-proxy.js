@@ -11,9 +11,15 @@ export async function onRequest(context) {
   }
 
   try {
-    const response = await fetch(decodeURIComponent(icalUrl), {
+    const decoded = decodeURIComponent(icalUrl);
+    const isLodgify = decoded.includes('lodgify.com');
+    const userAgent = isLodgify
+      ? 'CalendarProxy/1.0'
+      : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
+
+    const response = await fetch(decoded, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'User-Agent': userAgent,
         'Accept': 'text/calendar, text/plain, */*',
         'Accept-Language': 'en-US,en;q=0.9',
         'Accept-Encoding': 'gzip, deflate, br',
