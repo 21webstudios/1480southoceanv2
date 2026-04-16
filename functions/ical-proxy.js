@@ -29,7 +29,13 @@ export async function onRequest(context) {
     });
 
     if (!response.ok) {
-      return new Response('Failed to fetch calendar: ' + response.status, { status: response.status });
+      return new Response('Failed to fetch calendar: ' + response.status, {
+        status: response.status,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'no-store'
+        }
+      });
     }
 
     const text = await response.text();
@@ -43,6 +49,12 @@ export async function onRequest(context) {
       }
     });
   } catch (err) {
-    return new Response('Error fetching calendar: ' + err.message, { status: 500 });
+    return new Response('Error fetching calendar: ' + err.message, {
+      status: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-store'
+      }
+    });
   }
 }
