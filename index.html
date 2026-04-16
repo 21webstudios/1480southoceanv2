@@ -982,17 +982,12 @@ function parseICal(text){
   return blocked;
 }
 
-const DEV_PROXY_UNITS = [211, 311, 318];
-
 async function fetchCalendar(unitNum){
   if(CAL_CACHE[unitNum]) return CAL_CACHE[unitNum];
   const icalUrl = ICAL_URLS[unitNum];
   if(!icalUrl) return null;
   try {
-    const proxyBase = DEV_PROXY_UNITS.includes(unitNum)
-      ? 'https://ical-dev-test.pages.dev/ical-proxy?raw=1&url='
-      : '/ical-proxy?url=';
-    const res = await fetch(proxyBase + encodeURIComponent(icalUrl));
+    const res = await fetch('/ical-proxy?url=' + encodeURIComponent(icalUrl));
     if(!res.ok) throw new Error('fetch failed');
     const blocked = parseICal(await res.text());
     CAL_CACHE[unitNum] = blocked;
