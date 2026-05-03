@@ -282,13 +282,13 @@
       "feat": false,
       "of": false,
       "plat": "both",
-      "title": "Condo w/ Private Beach Access",
-      "desc": "Beachfront Escape | 1BR Condo, 575 SF. The only true 1-bedroom in the building with private beach access in Lauderdale-by-the-Sea!",
+      "title": "Coastal Comfort at the International",
+      "desc": "A relaxed retreat at one of Lauderdale-by-the-Sea's iconic beachfront addresses. The perfect place to slow down and enjoy the coast.",
       "em": "",
       "direct": false,
       "owner": "Michaela Scarla & Marc Del Zotto",
-      "ab": "https://www.airbnb.com/rooms/1349495118052728468",
-      "vb": "https://www.vrbo.com/4420598",
+      "ab": null,
+      "vb": null,
       "bg": "#F5C4B3",
       "icon": "🔑",
       "photos": [
@@ -298,7 +298,8 @@
         "302-Gallery3.jpg",
         "302-Gallery4.jpg",
         "302-Gallery5.jpg"
-      ]
+      ],
+      "active": false
     },
     {
       "n": 222,
@@ -490,7 +491,8 @@
         "204-Gallery2.jpg",
         "204-Gallery3.jpg",
         "204-Gallery4.jpg",
-        "204-Gallery5.jpg"
+        "204-Gallery5.jpg",
+        "204-Gallery6.jpg"
       ]
     },
     {

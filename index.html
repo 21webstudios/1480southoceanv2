@@ -693,7 +693,7 @@ function showDetail(idx){
     u.vb ? `<a class="btn-plat" href="${u.vb}" target="_blank" rel="noopener" onclick="trackPlatformClick('vrbo', ${u.n})"><span class="dot-vb"></span>View on VRBO</a>` : '',
     u.tn ? `<a class="btn-plat" href="${u.tn}" target="_blank" rel="noopener" style="border-color:#bbb;color:#555;font-size:12px;" onclick="trackPlatformClick('extended_stay', ${u.n})">View extended stay listing</a>` : ''
   ].filter(Boolean).join('');
-  const showPlatBtns = (u.n===211||u.n===215||u.n===304||u.n===311||u.n===318||u.n===319||u.n===322) ? platBtns : '';
+  const showPlatBtns = (u.n===204||u.n===211||u.n===215||u.n===304||u.n===311||u.n===318||u.n===319||u.n===322) ? platBtns : '';
   loadUnitPhotos(u).then(photos => {
     window._currentPhotos = photos;
     document.getElementById('detail').innerHTML = `
@@ -957,6 +957,7 @@ function submitListForm(){
 const ICAL_URLS = {
   215: 'http://www.vrbo.com/icalendar/f407fa5899b442148ee005c9235402e4.ics?nonTentative',
   304: 'http://www.vrbo.com/icalendar/eb3ba5720b95479c91f3dbe22d849f54.ics?nonTentative',
+  204: 'https://www.airbnb.com/calendar/ical/29012313.ics?t=f398140b5af7434581c9815edd42b499&locale=en',
   311: 'https://www.airbnb.com/calendar/ical/1661221063543432110.ics?t=9b2898169c0444eeb536328868a23171&locale=en',
   318: 'https://www.airbnb.com/calendar/ical/1744871.ics?t=aefae643528a493eac6158da6e4ab823&locale=en',
   319: 'https://www.airbnb.com/calendar/ical/1489304305482963659.ics?t=3ea7ebbda60c4f2398f0bd97efa666c0&locale=en',
